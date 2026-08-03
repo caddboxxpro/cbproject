@@ -3,9 +3,40 @@
 <head>
     <title>CADBOXX</title>
   
+
+    <script src="https://aframe.io/releases/1.8.0/aframe.min.js"></script>
+
     
+    <script>
+
+        <script>
+    const scrollElement = document.querySelector(".carousel");
+const scrollLeft = document.querySelector(".scroll-left");
+const scrollRight = document.querySelector(".scroll-right");
+
+function moveScroll(displacement) {
+  let currentPosition = scrollElement.scrollLeft;
+  scrollElement.scrollTo(currentPosition + displacement, 0);
+}
+
+scrollLeft.addEventListener("click", () => {
+  moveScroll(-200);
+});
+
+scrollRight.addEventListener("click", () => {
+  moveScroll(200);
+});
+
+onload = () => {
+  console.log(scrollElement.style);
+  if (scrollElement.style.display) {
+    scrollLeft.style.display = "none";
+  }
+};
+
+</script>
     
-    
+    </script>
     <styles>
          body {
   margin: 0px;
