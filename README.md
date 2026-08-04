@@ -1,5 +1,5 @@
 # cadboxx
 
 An amazing project combining Gaming Technolgy, Engineering and Crypto-Currency. Whatever level you get involved at, do it quickly. The sooner the better.
-
-plan url: https://chatgpt.com/c/68b46c7b-b7d4-832f-82f5-52b57a5d6332https://chatgpt.com/c/68b46c7b-b7d4-832f-82f5-52b57a5d6332
+CADBOXX is all about creating moving 3d assemblies. Visualisations of our designs. And then saving the animatons so that they can be used in product development.
+Everything you need to create programmed animations and physics simulations is in cadboxx. It is fully self contained and works well with all 2D and 3D formats.
