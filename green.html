@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Green Gallery</title>
+
+<script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+
+<script>
+AFRAME.registerComponent('goto-page',{
+    schema:{url:{type:'string'}},
+    init:function(){
+        this.el.addEventListener('click',()=>{
+            window.location.href=this.data.url;
+        });
+    }
+});
+</script>
+
+</head>
+
+<body>
+
+<a-scene>
+
+    <!-- Sky -->
+    <a-sky color="#bfe3ff"></a-sky>
+
+    <!-- Marble Floor -->
+    <a-plane
+        position="0 0 0"
+        rotation="-90 0 0"
+        width="20"
+        height="20"
+        color="#e8e8e8">
+    </a-plane>
+
+    <!-- Ceiling -->
+    <a-box
+        position="0 4 -4"
+        width="10"
+        height="0.15"
+        depth="12"
+        color="#ffffff">
+    </a-box>
+
+    <!-- Left Wall -->
+    <a-box
+        position="-5 2 -4"
+        width="0.15"
+        height="4"
+        depth="12"
+        color="green">
+    </a-box>
+
+    <!-- Right Wall -->
+    <a-box
+        position="5 2 -4"
+        width="0.15"
+        height="4"
+        depth="12"
+        color="green">
+    </a-box>
+
+    <!-- Back Wall -->
+    <a-box
+        position="0 2 -10"
+        width="10"
+        height="4"
+        depth="0.15"
+        color="green">
+    </a-box>
+
+    <!-- Lighting -->
+    <a-ambient-light intensity="0.8"></a-ambient-light>
+    <a-directional-light
+        intensity="0.8"
+        position="0 8 2">
+    </a-directional-light>
+
+    <!-- Title -->
+    <a-text
+        value="RED GALLERY"
+        color="white"
+        align="center"
+        width="12"
+        position="0 3.4 -9.85">
+    </a-text>
+
+    <!-- Row 1 -->
+
+    <a-plane goto-page="url:red.html"
+        position="-3.6 2.5 -9.8"
+        width="1.4"
+        height="0.8"
+        color="red"></a-plane>
+
+    <a-plane goto-page="url:orange.html"
+        position="-1.8 2.5 -9.8"
+        width="1.4"
+        height="0.8"
+        color="orange"></a-plane>
+
+    <a-plane goto-page="url:yellow.html"
+        position="0 2.5 -9.8"
+        width="1.4"
+        height="0.8"
+        color="yellow"></a-plane>
+
+    <a-plane goto-page="url:green.html"
+        position="1.8 2.5 -9.8"
+        width="1.4"
+        height="0.8"
+        color="green"></a-plane>
+
+    <a-plane goto-page="url:cyan.html"
+        position="3.6 2.5 -9.8"
+        width="1.4"
+        height="0.8"
+        color="cyan"></a-plane>
+
+    <!-- Row 2 -->
+
+    <a-plane goto-page="url:blue.html"
+        position="-3.6 1.2 -9.8"
+        width="1.4"
+        height="0.8"
+        color="blue"></a-plane>
+
+    <a-plane goto-page="url:indigo.html"
+        position="-1.8 1.2 -9.8"
+        width="1.4"
+        height="0.8"
+        color="indigo"></a-plane>
+
+    <a-plane goto-page="url:violet.html"
+        position="0 1.2 -9.8"
+        width="1.4"
+        height="0.8"
+        color="violet"></a-plane>
+
+    <a-plane goto-page="url:black.html"
+        position="1.8 1.2 -9.8"
+        width="1.4"
+        height="0.8"
+        color="black"></a-plane>
+
+    <a-plane goto-page="url:white.html"
+        position="3.6 1.2 -9.8"
+        width="1.4"
+        height="0.8"
+        color="white"></a-plane>
+
+    <!-- Labels -->
+
+    <a-text value="Red"    position="-3.6 1.95 -9.7" align="center" width="4"></a-text>
+    <a-text value="Orange" position="-1.8 1.95 -9.7" align="center" width="4"></a-text>
+    <a-text value="Yellow" position="0 1.95 -9.7" align="center" width="4"></a-text>
+    <a-text value="Green"  position="1.8 1.95 -9.7" align="center" width="4"></a-text>
+    <a-text value="Cyan"   position="3.6 1.95 -9.7" align="center" width="4"></a-text>
+
+    <a-text value="Blue"   position="-3.6 0.65 -9.7" align="center" width="4"></a-text>
+    <a-text value="Indigo" position="-1.8 0.65 -9.7" align="center" width="4"></a-text>
+    <a-text value="Violet" position="0 0.65 -9.7" align="center" width="4"></a-text>
+    <a-text value="Black"  position="1.8 0.65 -9.7" align="center" width="4"></a-text>
+    <a-text value="White"  position="3.6 0.65 -9.7" align="center" width="4"></a-text>
+
+    <!-- Camera -->
+
+    <a-entity position="0 1.6 4">
+        <a-camera
+            wasd-controls
+            look-controls
+            cursor="rayOrigin: mouse">
+        </a-camera>
+    </a-entity>
+
+</a-scene>
+
+</body>
+</html>
