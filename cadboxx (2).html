@@ -1,187 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>CADBOXX</title>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-animation-component@3.2.1/dist/aframe-animation-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-extras.ocean@%5E3.5.x/dist/aframe-extras.ocean.min.js"></script>
-    <script src="https://unpkg.com/aframe-gradient-sky@1.0.4/dist/gradientsky.min.js"></script>
-    <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
-    <script src="https://unpkg.com/super-hands/dist/super-hands.min.js"></script>
-    <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
-    <script src="https://unpkg.com/aframe-event-set-component@^4.1.1/dist/aframe-event-set-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-physics-extras/dist/aframe-physics-extras.min.js"></script>
-    <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-ground-component@0.0.4/dist/aframe-ground-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-snapto-component/dist/aframe-snapto-component.js"></script>
-    <script src="https://unpkg.com/aframe-teleport-controls@0.2.x/dist/aframe-teleport-controls.min.js"></script>
-    <script src="https://unpkg.com/aframe-controller-cursor-component@0.2.x/dist/aframe-controller-cursor-component.min.js"></script>
-    <script src="https://rawgit.com/ngokevin/kframe/csstricks/scenes/aincraft/components/random-color.js"></script>
-    <script src="https://rawgit.com/ngokevin/kframe/csstricks/scenes/aincraft/components/snap.js"></script>
-    <script src="https://rawgit.com/ngokevin/kframe/csstricks/scenes/aincraft/components/intersection-spawn.js"></script>
+ <html>
+	<head>
+		    <script src="https://aframe.io/releases/1.8.0/aframe.min.js"></script>
 
-    <script src="https://unpkg.com/aframe-touch-inspector@1.1.2/dist/aframe-inspector.min.js"></script>
-    <script src="https://unpkg.com/aframe-layout-component@4.3.1/dist/aframe-layout-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-orbit-controls@1.2.0/dist/aframe-orbit-controls.min.js"></script>
-    <script src="https://unpkg.com/super-hands/dist/super-hands.min.js"></script>
-    <script src="https://unpkg.com/aframe-datgui-component/dist/aframe-datgui-component.min.js"></script>
-    <script src="https://cdn.rawgit.com/gftruj/aframe-physics-spring/master/dist/aframe-spring.min.js"></script>
-    <script src="https://unpkg.com/aframe-spherical-controls-component/dist/aframe-spherical-controls-component.min.js"></script>
-    <script src="https://rawgit.com/chenzlabs/auto-detect-controllers/master/dist/aframe-auto-detect-controllers-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-gltf-helpers@0.0.2/dist/aframe-gltf-helpers.min.js"></script>
-    <script src="https://rawgit.com/dbradleyfl/aframe-gridhelper/master/dist/aframe-gridhelper-component.min.js"></script>
-    <script src="https://rawgit.com/dbradleyfl/aframe-selectable-light-component/master/dist/aframe-selectable-light-component.min.js"></script>
-    <!--latest scripts-->
-    <script src="https://cdn.jsdelivr.net/npm/aframe-connecting-line@0.1.0/index.min.js"></script>
 
-    <script src="js/aframe-extras.min.js"></script>
-    <script src="js/aframe-extras.controls.mih.js"></script>
-    <script src="js/aframe-extras.misc.js"></script>
-    <script src="js/aframe-extras.loaders.js"></script>
-    <script src="js/aframe-extras.pathfinding.js"></script>
-    <script src="js/aframe-extras.primitives.js"></script>
-    <script src="js/aframe-point-component.min.js"></script>
-    <script src="js/aframe-alongpath-component.min.js"></script>
-    <script src="js/aframe-layout-component.min.js"></script>
-    <script src="js/aframe-screenshot-component.min.js"></script>
-    <script src="js/aframe-gltfutils.min.js"></script>
 
-    <script src="aframe-gui.min.js"></script>
-    <script src="aframe-tooltip-componemt.min.js"></script>
-    <script src="aframe-pyhsics-system.min.js" ></script>
-    <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
 
-    <script src="js/grab.js"></script>
-    <script src="js/grab.min.js"></script>
-    <script src="js/grab-lock.js"></script>
-    <script src="js/GLTFPart.js"></script>
-    <script src="js/Vartiste.js"></script>
-
-    <script src="js/RegisteredAF.js"></script>
-    <script src="js/manipulator.js"></script>
-    <script src="js/movement-controls.js"></script>
-    <script src="js/PointCloudPLY.js"></script>
-
-    <script src="js/aframe-drag-and-drop-component.min.js"></script>
-    <script src="js/aframe-crawling-cursor.min.js"></script>
-    <script src="aframe-mouse-cursor-component.min.js"></script>
-    <script src="aframe-gltf-exporter-component.min.js"></script>
-
-    <!--reaction components-->
-    <script src="reaction_components/clickable.js"></script>
-    <script src="reaction_components/draggable.js"></script>
-    <script src="reaction_components/drag-droppable.js"></script>
-    <script src="reaction_components/hoverable.js"></script>
-    <script src="reaction_components/stretchable.js"></script>
-    <script src="reaction_components/droppable.js"></script>
-    <script src="reaction_components/grabbable.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="aframe.css">
-
-    <script>
-        AFRAME.registerComponent('click-impulse', {
-            init: function () {
-                var el = this.el;
-
-                el.addEventListener('click', function () {
-                    el.body.applyImpulse(
-                        /* impulse */
-                        new CANNON.Vec3(
-                            THREE.Math.randInt(-20, 20),
-                            THREE.Math.randInt(-20, 20),
-                            THREE.Math.randInt(-20, 20)
-                        ),
-                                                    /* world position */ new CANNON.Vec3().copy(el.getDOMAttribute('position'))
-                    );
-                });
-
-            }
-        });
-
-        // forward mouse and touch events to the super-hands entity
-        AFRAME.registerComponent('capture-mouse', {
-            init: function () {
-                this.eventRepeater = this.eventRepeater.bind(this)
-                this.el.sceneEl.addEventListener('loaded', () => {
-                    this.el.sceneEl.canvas.addEventListener('mousedown', this.eventRepeater)
-                    this.el.sceneEl.canvas.addEventListener('mouseup', this.eventRepeater)
-                    this.el.sceneEl.canvas.addEventListener('touchstart', this.eventRepeater)
-                    this.el.sceneEl.canvas.addEventListener('touchmove', this.eventRepeater)
-                    this.el.sceneEl.canvas.addEventListener('touchend', this.eventRepeater)
-                }, { once: true })
-            },
-            eventRepeater: function (evt) {
-                if (evt.type.startsWith('touch')) {
-                    evt.preventDefault()
-                    // avoid repeating touchmove because it interferes with look-controls
-                    if (evt.type === 'touchmove') { return }
-                }
-                this.el.emit(evt.type, evt.detail)
-            }
-        })
-    </script>
-    <!--DRAG-N-DROP
-
-    -->
-    <script src=" https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
-    <style>
-        .button:hover {
-            background-color: #fff;
-            color: blue;
-        }
-
-        .button {
-            background-color: blue;
-            border-radius: 2px;
-            border: none;
-            color: #fff;
-            cursor: pointer;
-            display: inline-block;
-            font-size: 12px;
-            height: 24px;
-            margin-top: 5px;
-            margin-left: 5px;
-            outline: none;
-            position: relative;
-            width: 100px;
-            z-index: 999;
-        }
-
-        #container {
-            position: absolute;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-    </style>
-    <script>
-        Function("matchanger") {
-            import { EXTTextureWebP } from '@gltf-transform/extensions';
-
-            // Create an Extension attached to the Document.
-            const webpExtension = document.createExtension(EXTTextureWebP)
-                .setRequired(true);
-            document.createTexture('MyWebPTexture')
-                .setMimeType('image/webp')
-                .setImage(fs.readFileSync('my-texture.webp'));
-        }
-    </script>
-
-</head>
-<body>
-    <div id="container">
-        <button id="export-scene" class="button"><span>Export Scene</span></button>
-        <button id="export-scene-bin" class="button"><span>Export glb</span></button>
-        <button id="export-sphere" class="button"><span>Export Sphere</span></button>
-        <button id="export-two" class="button"><span>Export</span></button>
-        <button id="playground" class="button" onclick=function(´matchanger´)><span>matchanger</span></button>
-    </div>
-
-    <a-scene gltf-exporter physics="debug: false; friction: 0.1; restitution: 0.5; gravity:-10">
-        <a-assets>
-
-            <a-mixin id="cube" geometry="primitive: box; width: 2.0; height: 2.0; depth: 2.0"
+	</head>
+	<body>
+		<a-scene>
+			<a-assets>
+				 <a-mixin id="cube" geometry="primitive: box; width: 2.0; height: 2.0; depth: 2.0"
                      hoverable grabbable stretchable draggable droppable
                      event-set__hoveron="_event: hover-start; material.opacity: 0.7; transparent: true"
                      event-set__hoveroff="_event: hover-end; material.opacity: 1; transparent: false"
@@ -463,73 +291,9 @@
             <a-gltf-model id="airplane3" src="#"></a-gltf-model>
 
 
-        </a-assets>
+	</a-assets>
 
-        <!--<a-box id="export-redbxx" class="clickable" position="0 5 -10" rotation="0 0 0" width="5" depth=".5" height="5" color="red" opacity="1" static-body></a-box>
-            <a-box id="changesphere" class="clickable" position="0 5 -10" rotation="0 0 0" width="5" depth=".5" height="5" color="blue" opacity="1" static-body onclick="changesphere()"></a-box>
-            <a-sphere id="sph1" class="clickable" position="0 5 0" rotation="0 0 0" radius="2" color="green" opacity="1" static-body></a-sphere>
-    -->
-
-
-        <a-box position="0 11 -19" rotation="0 0 0" width="5" depth="5" height="0.05" color="lightblue" opacity=".1" static-body>
-            <a-box id="cmnd1" class="clickable" position="-2 2 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd2" class="clickable" position="-1 2 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd3" class="clickable" position="-0 2 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd4" class="clickable" position="1 2 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd5" class="clickable" position="2 2 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd6" class="clickable" position="-2 1 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd7" class="clickable" position="-1 1 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd8" class="clickable" position="-0 1 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd9" class="clickable" position="1 1 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd10" class="clickable" position="2 1 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd11" class="clickable" position="-2 0 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd12" class="clickable" position="-1 0 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd13" class="clickable" position="-0 0 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd14" class="clickable" position="1 0 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd15" class="clickable" position="2 0 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd16" class="clickable" position="-2 -1 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd17" class="clickable" position="-1 -1 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd18" class="clickable" position="-0 -1 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd19" class="clickable" position="1 -1 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd20" class="clickable" position="2 -1 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd21" class="clickable" position="-2 -2 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd22" class="clickable" position="-1 -2 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd23" class="clickable" position="-0 -2 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd24" class="clickable" position="1 -2 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd25" class="clickable" position="2 -2 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
-
-        </a-box>
-
-        <a-entity id="circle" layout="type:circle">
-            <a-entity id="assplane1" gltf-model="#centerx" scale="1 1 1" visible="true"></a-entity>
-            <a-entity id="assplane2" gltf-model="#centerx" scale="1 1 1" visible="true"></a-entity>
-            <a-entity id="assplane3" gltf-model="#centerx" scale="1 1 1" visible="true"></a-entity>
-            <a-entity id="assplane4" gltf-model="#centerx" scale="1 1 1" visible="true"></a-entity>
-            <a-entity id="assplane5" gltf-model="#centerx" scale="1 1 1" visible="true"></a-entity>
-            <a-entity id="assplane6" gltf-model="#centerx" scale="1 1 1" visible="true"></a-entity>
-            <a-entity id="assplane7" gltf-model="#centerx" scale="1 1 1" visible="true"></a-entity>
-            <a-entity id="assplane8" gltf-model="#centerx" scale="1 1 1" visible="true"></a-entity>
-            <a-entity id="assplane9" gltf-model="#centerx" scale="1 1 1" visible="true"></a-entity>
-        </a-entity>
-
-        <a-light type="point" color="#94c6ff" distance="15" position="0 0 -12" intensity="2" animation="property: light.intensity; from: 0; to: 2; delay: 750; dur: 500" light="intensity: 2" visible=""></a-light>
-        <a-light type="point" color="#94c6ff" distance="17" position="0 0 -6" intensity="2" animation="property: light.intensity; from: 0; to: 1; delay: 500; dur: 500" light="intensity: 1"></a-light>
-        <a-light type="hemisphere" position="0 0 0" color="#4f6487" intensity="2"></a-light>
-
-
-
-        <a-gltf-model id="ground" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/ground-plane_with_mesh.glb?v=1678034073866" position="0 0 0" scale="1 1 1" rotation="180 0 0" static-body></a-gltf-model>
-
-        <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9" dynamic-body click-impulse></a-box>
-        <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E" dynamic-body click-impulse></a-sphere>
-        <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D" dynamic-body click-impulse></a-cylinder>
-
-        <a-light type="point" color="#94c6ff" distance="15" position="0 0 -12" intensity="2" animation="property: light.intensity; from: 0; to: 2; delay: 750; dur: 500" light="intensity: 2" visible=""></a-light>
-        <a-light type="point" color="#94c6ff" distance="17" position="0 0 -6" intensity="2" animation="property: light.intensity; from: 0; to: 1; delay: 500; dur: 500" light="intensity: 1"></a-light>
-        <a-light type="hemisphere" position="0 0 0" color="#4f6487" intensity="2"></a-light>
-
-
-        <a-entity id="planeboxxx" position="0 0 0" scale="1 1 1">
+<a-entity id="planeboxxx" position="0 0 0" scale="1 1 1">
             <a-entity id="planeboxx" position="0 0 0">
                 <a-entity id="planebox" position="0 0 0">
                     <a-plane side="double" color="green" position="0 -20 0" rotation="-90 0 0" height="40" width="40" material="" static-body></a-plane>
@@ -552,21 +316,21 @@
                 <a-box mixin="rotxx" color="red" position="18 0 0" rotation="0 0 0" height="20" width="1" depth="20" material="" static-body></a-box>
 
                 <a-box position="0 0 -20" rotation="0 0 0" width="40" depth="0.5" height="40" color="lightblue" opacity=".1" static-body>
-                    <a-entity id="cmnd1" mixin="trigger-box4" position="-10 0 0" rotation="0 0 0" onclick="cmm1()" static-body><a-sphere id="cmcdsph1" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                    <a-entity id="cmnd2" mixin="trigger-box4" position="-10 5 0" rotation="0 0 0" onclick="cmm2()" static-body><a-sphere id="cmcdsph2" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                    <a-entity id="cmnd3" mixin="trigger-box4" position="-10 -5 0" rotation="0 0 0" onclick="cmm3()" static-body><a-sphere id="cmcdsph3" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                    <a-entity id="cmnd4" mixin="trigger-box4" position="-5 0 0" rotation="0 0 0" onclick="cmm4()" static-body><a-sphere id="cmcdsph4" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                    <a-entity id="cmnd5" mixin="trigger-box4" position="-5 5 0" rotation="0 0 0" onclick="cmm5()" static-body><a-sphere id="cmcdsph5" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                    <a-entity id="cmnd6" mixin="trigger-box4" position="-5 -5 0" rotation="0 0 0" onclick="cmm6()" static-body><a-sphere id="cmcdsph6" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                    <a-entity id="cmnd7" mixin="trigger-box4" position="0 0 0" rotation="0 0 0" onclick="cmm7()" static-body><a-sphere id="cmcdsph7" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                    <a-entity id="cmnd8" mixin="trigger-box4" position="0 5 0" rotation="0 0 0" onclick="cmm8()" static-body><a-sphere id="cmcdsph8" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                    <a-entity id="cmnd9" mixin="trigger-box4" position="0 -5 0" rotation="0 0 0" onclick="cmm9()" static-body><a-sphere id="cmcdsph9" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                    <a-entity id="cmnd10" mixin="trigger-box4" position="5 0 0" rotation="0 0 0" onclick="cmm10()" static-body><a-sphere id="cmcdsph10" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                    <a-entity id="cmnd11" mixin="trigger-box4" position="5 5 0" rotation="0 0 0" onclick="cmm11()" static-body><a-sphere id="cmcdsph11" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                    <a-entity id="cmnd12" mixin="trigger-box4" position="5 -5 0" rotation="0 0 0" onclick="cmm12()" static-body><a-sphere id="cmcdsph12" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                    <a-entity id="cmnd13" mixin="trigger-box4" position="10 0 0" rotation="0 0 0" onclick="cmm13()" static-body><a-sphere id="cmcdsph13" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                    <a-entity id="cmnd14" mixin="trigger-box4" position="10 5 0" rotation="0 0 0" onclick="cmm14()" static-body><a-sphere id="cmcdsph14" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                    <a-entity id="cmnd15" mixin="trigger-box4" position="10 -5 0" rotation="0 0 0" onclick="cmm15()" static-body><a-sphere id="cmcdsph15" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
+                    <a-entity id="cmnd1" mixin="trigger-box4" position="-10 0 0" rotation="0 0 0" onclick="cmm1()" static-body><a-sphere id="cmcdsph1" radius=".1" 				material="color:black;wiremesh:true"></a-sphere></a-entity>
+                    <a-entity id="cmnd2" mixin="trigger-box4" position="-10 5 0" rotation="0 0 0" onclick="cmm2()" static-body><a-sphere id="cmcdsph2" radius=".1" 				material="color:black;wiremesh:true"></a-sphere></a-entity>
+                    <a-entity id="cmnd3" mixin="trigger-box4" position="-10 -5 0" rotation="0 0 0" onclick="cmm3()" static-body><a-sphere id="cmcdsph3" radius=".1" 				material="color:black;wiremesh:true"></a-sphere></a-entity>
+                    <a-entity id="cmnd4" mixin="trigger-box4" position="-5 0 0" rotation="0 0 0" onclick="cmm4()" static-body><a-sphere id="cmcdsph4" radius=".1" 				material="color:black;wiremesh:true"></a-sphere></a-entity>
+                    <a-entity id="cmnd5" mixin="trigger-box4" position="-5 5 0" rotation="0 0 0" onclick="cmm5()" static-body><a-sphere id="cmcdsph5" radius=".1" 				material="color:black;wiremesh:true"></a-sphere></a-entity>
+                    <a-entity id="cmnd6" mixin="trigger-box4" position="-5 -5 0" rotation="0 0 0" onclick="cmm6()" static-body><a-sphere id="cmcdsph6" radius=".1" 				material="color:black;wiremesh:true"></a-sphere></a-entity>
+                    <a-entity id="cmnd7" mixin="trigger-box4" position="0 0 0" rotation="0 0 0" onclick="cmm7()" static-body><a-sphere id="cmcdsph7" radius=".1" 				material="color:black;wiremesh:true"></a-sphere></a-entity>
+                    <a-entity id="cmnd8" mixin="trigger-box4" position="0 5 0" rotation="0 0 0" onclick="cmm8()" static-body><a-sphere id="cmcdsph8" radius=".1" 				material="color:black;wiremesh:true"></a-sphere></a-entity>
+                    <a-entity id="cmnd9" mixin="trigger-box4" position="0 -5 0" rotation="0 0 0" onclick="cmm9()" static-body><a-sphere id="cmcdsph9" radius=".1" 				material="color:black;wiremesh:true"></a-sphere></a-entity>
+                    <a-entity id="cmnd10" mixin="trigger-box4" position="5 0 0" rotation="0 0 0" onclick="cmm10()" static-body><a-sphere id="cmcdsph10" radius=".1" 				material="color:black;wiremesh:true"></a-sphere></a-entity>
+                    <a-entity id="cmnd11" mixin="trigger-box4" position="5 5 0" rotation="0 0 0" onclick="cmm11()" static-body><a-sphere id="cmcdsph11" radius=".1" 				material="color:black;wiremesh:true"></a-sphere></a-entity>
+                    <a-entity id="cmnd12" mixin="trigger-box4" position="5 -5 0" rotation="0 0 0" onclick="cmm12()" static-body><a-sphere id="cmcdsph12" radius=".1" 				material="color:black;wiremesh:true"></a-sphere></a-entity>
+                    <a-entity id="cmnd13" mixin="trigger-box4" position="10 0 0" rotation="0 0 0" onclick="cmm13()" static-body><a-sphere id="cmcdsph13" radius=".1" 				material="color:black;wiremesh:true"></a-sphere></a-entity>
+                    <a-entity id="cmnd14" mixin="trigger-box4" position="10 5 0" rotation="0 0 0" onclick="cmm14()" static-body><a-sphere id="cmcdsph14" radius=".1" 				material="color:black;wiremesh:true"></a-sphere></a-entity>
+                    <a-entity id="cmnd15" mixin="trigger-box4" position="10 -5 0" rotation="0 0 0" onclick="cmm15()" static-body><a-sphere id="cmcdsph15" radius=".1" 				material="color:black;wiremesh:true"></a-sphere></a-entity>
 
                 </a-box>
 
@@ -624,12 +388,9 @@
             </a-entity>
         </a-entity>
 
+	<a-sky id="askye" radius="60" color="blue" ></a-sky>
 
-
-
-
-
-        <!-- Camera + cursor. -->
+	<!-- Camera + cursor. -->
         <a-entity id="cameraRig" position="0 1.6 0" active="false">
             <a-camera look-controls wasd-controls position="0 0 0">
                 <a-gui-cursor id="cursor"
@@ -682,5 +443,7 @@
         });
 
     </script>
-</body>
+		
+	</body>
+     
 </html>
