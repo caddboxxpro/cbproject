@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>GLTF UI</title>
+    <meta name="description" content="Anime UI — A-Frame">
+    <title>A-Frame Super Hands Component - 6DOF With Physics</title>
+	<script src="js/aframe/aframe.min.js"></script>
+    <!--<script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>-->
+    <script src="https://unpkg.com/super-hands/dist/super-hands.min.js"></script>
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@^4.1.1/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-physics-extras/dist/aframe-physics-extras.min.js"></script>
+    <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
+	
+	<script src="reaction_components/clickable.js"></script>
+	<script src="reaction_components/draggable.js"></script>
+	<script src="reaction_components/drag-droppable.js"></script>
+	<script src="reaction_components/hoverable.js"></script>
+	<script src="reaction_components/stretchable.js"></script>
+	<script src="reaction_components/droppable.js"></script>
+	<script src="reaction_components/grabbable.js"></script>
+
+	<script src="components/ammo_constraints.js"></script>
+
+    <script>
+      // forward mouse and touch events to the super-hands entity
+      AFRAME.registerComponent('capture-mouse', {
+        init: function () {
+          this.eventRepeater = this.eventRepeater.bind(this)
+          this.el.sceneEl.addEventListener('loaded', () => {
+            this.el.sceneEl.canvas.addEventListener('mousedown', this.eventRepeater)
+            this.el.sceneEl.canvas.addEventListener('mouseup', this.eventRepeater)
+            this.el.sceneEl.canvas.addEventListener('touchstart', this.eventRepeater)
+            this.el.sceneEl.canvas.addEventListener('touchmove', this.eventRepeater)
+            this.el.sceneEl.canvas.addEventListener('touchend', this.eventRepeater)
+          }, {once: true})
+        },
+        eventRepeater: function (evt) {
+          if (evt.type.startsWith('touch')) {
+            evt.preventDefault()
+            // avoid repeating touchmove because it interferes with look-controls
+            if (evt.type === 'touchmove') { return }
+          }
+          this.el.emit(evt.type, evt.detail)
+        }
+      })
+    </script>
+    <!--<link rel="stylesheet" type="text/css" href="aframe.css">-->
+  </head>
+  <body>
+    <a-scene renderer="colorManagement: true;">
+      <a-assets>
+        <a-asset-item id="engine" src="models/engine.glb"></a-asset-item>
+		<a-asset-item id="axle" src="assets/axle/scene.gltf"></a-asset-item>
+		<a-asset-item id="axleb" src="assets/axle/scene.bin"></a-asset-item>
+		<a-asset-item id="gear" src="assets/g01.glb"></a-asset-item>
+		<a-asset-item id="pin" src="assets/g10.glb"></a-asset-item>
+		<a-asset-item id="nut" src="assets/g11.glb"></a-asset-item>
+		
+        <a-mixin id="image" geometry="height: 2; width: 2"></a-mixin>
+        <a-mixin id="toggleAnimation" animation="property: visible; from: false; to: true; dur: 1" visible="false"></a-mixin>
+        <audio id="blip1" src="audio/321103__nsstudios__blip1.wav"></audio>
+        <audio id="blip2" src="audio/321104__nsstudios__blip2.wav"></audio>
+        <img id="glow1" src="img/glow1.png">
+        <img id="ring1" src="img/ring1.png">
+        <img id="ring2" src="img/ring2.png">
+        <img id="ring3" src="img/ring3.png">
+        <img id="ring4" src="img/ring4.png">
+        <img id="ring5" src="img/ring5.png">
+        <img id="schematic1" src="img/schematic1.png">
+        <img id="schematic2" src="img/schematic2.png">
+        <img id="schematic3" src="img/schematic3.png">
+        <img id="schematic4" src="img/schematic4.png">
+        <img id="schematic5" src="img/schematic5.png">
+        <img id="text1" src="img/text1.png">
+        <img id="text2" src="img/text2.png">
+        <img id="text3" src="img/text3.png">
+        <img id="text4" src="img/text4.png">
+      </a-assets>
+
+      <a-entity position="0 2.5 10.2" rotation="0 0 0">
+        <a-camera position="0 0 0" near="0.1"></a-camera>
+      </a-entity>
+
+      <a-entity position="0 0 -3">
+        <a-gltf-model src="#engine" rotation="90 0 0" scale="18 18 18"></a-gltf-model>
+      </a-entity>
+	  
+
+
+      
+      
+
+      
+
+      <!-- Lights. -->
+      <a-light type="point" color="#94c6ff" distance="15" position="0 0 -12" intensity="0" animation="property: light.intensity; from: 0; to: 2; delay: 750; dur: 500"></a-light>
+      <a-light type="point" color="#94c6ff" distance="17" position="0 0 -6" intensity="0" animation="property: light.intensity; from: 0; to: 1; delay: 500; dur: 500"></a-light>
+      <a-light type="ambient" color="#4f6487" ></a-light>
+
+      <!-- Sounds. -->
+      <a-entity sound="autoplay: true; src: #blip1"></a-entity>
+      <a-entity sound="autoplay: true; src: #blip2"></a-entity>
+    </a-scene>
+  </body>
+</html>
