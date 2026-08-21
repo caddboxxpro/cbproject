@@ -5,731 +5,340 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Football Player NFT Creator</title>
+<title>3D Football Player</title>
 
-<!-- A-FRAME -->
-<script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+<script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
 
 <style>
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #eef3ee;
-    color: #172017;
-}
-
-/* MAIN APP */
-
-.app {
-    width: min(1400px, 100%);
-    margin: 20px auto;
-    background: white;
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: 0 12px 40px #0003;
-}
-
-/* HEADER */
-
-header {
-    padding: 18px 24px;
-    background: #172b1b;
-    color: white;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 24px;
-}
-
-header p {
-    margin: 5px 0 0;
-    opacity: .8;
-}
-
-/* BANNER */
-
-.banner {
-    position: relative;
-    width: 100%;
-    height: 220px;
-    background: #222;
-    overflow: hidden;
-}
-
-#bannerImage {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: none;
-}
-
-.banner-text {
-    position: absolute;
-    inset: 0;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    color: white;
-    text-align: center;
-}
-
-.banner-text h2 {
-    margin: 0;
-    font-size: 32px;
-}
-
-.banner-button {
-    position: absolute;
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-
-    background: #176b32;
-    color: white;
-
-    padding: 11px 20px;
-
-    border: 2px solid white;
-    border-radius: 8px;
-
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.banner-button:hover {
-    background: white;
-    color: #176b32;
-}
-
-#bannerUpload {
-    display: none;
-}
-
-/* CONTENT */
-
-.content {
-    display: grid;
-    grid-template-columns: 1fr 300px;
-}
-
-/* 3D VIEW */
-
-.scene-container {
-    height: 700px;
-    background: #87ceeb;
-}
-
-a-scene {
-    width: 100%;
-    height: 100%;
-}
-
-/* CONTROLS */
-
-.controls {
-    padding: 24px;
-}
-
-.control {
-    margin-bottom: 20px;
-}
-
-.control label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-
-.pick {
-    width: 100%;
-    height: 52px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 4px;
-    background: white;
-    cursor: pointer;
-}
-
-.swatch {
-    margin-top: 7px;
-    color: #555;
-    font-size: 13px;
-}
-
-button {
-    width: 100%;
-    border: 0;
-    border-radius: 10px;
-    padding: 13px 16px;
-
-    background: #176b32;
-    color: white;
-
-    font-weight: bold;
-    font-size: 15px;
-
-    cursor: pointer;
-}
-
-button:hover {
-    background: #125528;
-}
-
-.secondary {
-    background: #e9eee9;
-    color: #172017;
-    margin-top: 10px;
-}
-
-.secondary:hover {
-    background: #dde5dd;
-}
-
-/* MOBILE */
-
-@media(max-width:900px) {
-
-    .content {
-        grid-template-columns: 1fr;
-    }
-
-    .scene-container {
-        height: 600px;
-    }
-
-    .controls {
-        padding: 20px;
-    }
-}
-
-@media(max-width:600px) {
-
-    .app {
+    body {
         margin: 0;
-        border-radius: 0;
+        font-family: Arial, sans-serif;
+        background: #111;
     }
 
-    .banner {
-        height: 180px;
+    #controls {
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        z-index: 10;
+
+        width: 220px;
+        padding: 18px;
+
+        background: rgba(255,255,255,0.95);
+        border-radius: 12px;
+
+        box-shadow: 0 5px 20px #0005;
     }
 
-    .scene-container {
-        height: 500px;
-    }
-
-    header h1 {
+    #controls h2 {
+        margin: 0 0 15px;
         font-size: 20px;
     }
-}
 
+    .control {
+        margin-bottom: 15px;
+    }
+
+    .control label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 6px;
+    }
+
+    input[type="color"] {
+        width: 100%;
+        height: 45px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+
+        border: 0;
+        border-radius: 7px;
+
+        background: #176b32;
+        color: white;
+
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #125528;
+    }
 </style>
 </head>
 
-
 <body>
 
-<div class="app">
 
-<header>
+<div id="controls">
 
-    <h1>Football Player NFT Creator</h1>
+    <h2>Football Player</h2>
 
-    <p>
-        3D football player in a stadium
-    </p>
+    <div class="control">
 
-</header>
+        <label for="skin">
+            Skin colour
+        </label>
 
+        <input
+            id="skin"
+            type="color"
+            value="#a96643"
+        >
 
-<!-- ===================================================== -->
-<!-- BANNER -->
-<!-- ===================================================== -->
-
-<div class="banner">
-
-    <div class="banner-text" id="bannerText">
-        <h2>UPLOAD TEAM IMAGE</h2>
     </div>
 
-    <img
-        id="bannerImage"
-        alt="Uploaded banner"
-    >
 
-    <label
-        for="bannerUpload"
-        class="banner-button"
-    >
-        UPLOAD IMAGE
-    </label>
+    <div class="control">
 
-    <input
-        id="bannerUpload"
-        type="file"
-        accept="image/*"
-    >
+        <label for="kit">
+            Kit colour
+        </label>
+
+        <input
+            id="kit"
+            type="color"
+            value="#e30613"
+        >
+
+    </div>
+
+
+    <button id="reset">
+        Reset
+    </button>
 
 </div>
 
 
-<!-- ===================================================== -->
-<!-- MAIN -->
-<!-- ===================================================== -->
-
-<div class="content">
-
-
-<!-- ===================================================== -->
-<!-- 3D SCENE -->
-<!-- ===================================================== -->
-
-<div class="scene-container">
-
 <a-scene
-    embedded
     renderer="colorManagement: true; physicallyCorrectLights: true"
-    background="color: #87CEEB"
-    vr-mode-ui="enabled: false"
+    background="color: #79c9f2"
 >
 
 
-<!-- CAMERA -->
+    <!-- ================================================= -->
+    <!-- CAMERA -->
+    <!-- ================================================= -->
 
-<a-entity
-    id="cameraRig"
-    position="0 2.5 8"
->
-
-    <a-camera
-        position="0 0 0"
+    <a-entity
+        camera
+        position="0 3 8"
         look-controls
-    ></a-camera>
-
-</a-entity>
+    ></a-entity>
 
 
-<!-- LIGHTING -->
+    <!-- ================================================= -->
+    <!-- LIGHTING -->
+    <!-- ================================================= -->
 
-<a-light
-    type="ambient"
-    intensity="1.2"
-></a-light>
+    <a-light
+        type="ambient"
+        intensity="1.5"
+    ></a-light>
 
-<a-light
-    type="directional"
-    intensity="2"
-    position="-5 10 5"
-></a-light>
-
-
-<!-- ===================================================== -->
-<!-- STADIUM -->
-<!-- ===================================================== -->
-
-<!-- SKY -->
-
-<a-sky
-    color="#78c9f2"
-></a-sky>
+    <a-light
+        type="directional"
+        intensity="2"
+        position="-10 15 10"
+    ></a-light>
 
 
-<!-- PITCH -->
+    <!-- ================================================= -->
+    <!-- SKY -->
+    <!-- ================================================= -->
 
-<a-plane
-    rotation="-90 0 0"
-    width="80"
-    height="120"
-    color="#218c3a"
-></a-plane>
-
-
-<!-- PITCH STRIPES -->
-
-<a-plane
-    position="0 0.01 0"
-    rotation="-90 0 0"
-    width="80"
-    height="10"
-    color="#2b9d43"
-></a-plane>
-
-<a-plane
-    position="0 0.02 -20"
-    rotation="-90 0 0"
-    width="80"
-    height="10"
-    color="#2b9d43"
-></a-plane>
-
-<a-plane
-    position="0 0.03 20"
-    rotation="-90 0 0"
-    width="80"
-    height="10"
-    color="#2b9d43"
-></a-plane>
+    <a-sky
+        color="#79c9f2"
+    ></a-sky>
 
 
-<!-- STADIUM SEATING -->
+    <!-- ================================================= -->
+    <!-- FOOTBALL PITCH -->
+    <!-- ================================================= -->
 
-<a-box
-    position="0 8 -30"
-    width="80"
-    height="16"
-    depth="5"
-    color="#333333"
-></a-box>
-
-<a-box
-    position="-40 8 0"
-    width="5"
-    height="16"
-    depth="60"
-    color="#333333"
-></a-box>
-
-<a-box
-    position="40 8 0"
-    width="5"
-    height="16"
-    depth="60"
-    color="#333333"
-></a-box>
-
-<a-box
-    position="0 8 30"
-    width="80"
-    height="16"
-    depth="5"
-    color="#333333"
-></a-box>
+    <a-plane
+        rotation="-90 0 0"
+        width="110"
+        height="150"
+        color="#249447"
+    ></a-plane>
 
 
-<!-- SEAT ROWS -->
+    <!-- ================================================= -->
+    <!-- CENTRE CIRCLE -->
+    <!-- ================================================= -->
 
-<a-box
-    position="0 5 -33"
-    width="70"
-    height="1"
-    depth="1"
-    color="#555"
-></a-box>
-
-<a-box
-    position="0 7 -35"
-    width="70"
-    height="1"
-    depth="1"
-    color="#555"
-></a-box>
-
-<a-box
-    position="0 9 -37"
-    width="70"
-    height="1"
-    depth="1"
-    color="#555"
-></a-box>
+    <a-ring
+        position="0 0.03 0"
+        rotation="-90 0 0"
+        radius-inner="9"
+        radius-outer="9.12"
+        color="white"
+    ></a-ring>
 
 
-<!-- ===================================================== -->
-<!-- GOAL -->
-<!-- ===================================================== -->
+    <!-- CENTRE SPOT -->
 
-<a-entity position="0 0 -18">
+    <a-cylinder
+        position="0 0.04 0"
+        radius="0.25"
+        height="0.02"
+        color="white"
+    ></a-cylinder>
+
+
+    <!-- ================================================= -->
+    <!-- STADIUM -->
+    <!-- ================================================= -->
 
     <a-box
-        position="0 2.5 0"
-        width="7.32"
-        height="0.12"
-        depth="0.12"
-        color="white"
+        position="0 8 -45"
+        width="110"
+        height="16"
+        depth="8"
+        color="#444"
     ></a-box>
 
     <a-box
-        position="-3.66 1.25 0"
-        width="0.12"
-        height="2.5"
-        depth="0.12"
-        color="white"
+        position="-55 8 0"
+        width="8"
+        height="16"
+        depth="90"
+        color="#444"
     ></a-box>
 
     <a-box
-        position="3.66 1.25 0"
-        width="0.12"
-        height="2.5"
-        depth="0.12"
-        color="white"
+        position="55 8 0"
+        width="8"
+        height="16"
+        depth="90"
+        color="#444"
     ></a-box>
 
-</a-entity>
+    <a-box
+        position="0 8 45"
+        width="110"
+        height="16"
+        depth="8"
+        color="#444"
+    ></a-box>
 
 
-<!-- ===================================================== -->
-<!-- PLAYER GLB -->
-<!-- ===================================================== -->
+    <!-- ================================================= -->
+    <!-- PLAYER -->
+    <!-- ================================================= -->
 
-<a-entity
-    id="player"
-    gltf-model="url(assets/player.glb)"
-    position="0 0 -2"
-    rotation="0 180 0"
-    scale="1.8 1.8 1.8"
->
-</a-entity>
+    <a-entity
+        id="player"
+        gltf-model="url(player.glb)"
+        position="0 0 0"
+        rotation="0 180 0"
+        scale="1 1 1"
+    ></a-entity>
 
 
 </a-scene>
-
-</div>
-
-
-<!-- ===================================================== -->
-<!-- CONTROLS -->
-<!-- ===================================================== -->
-
-<aside class="controls">
-
-
-<div class="control">
-
-<label for="shirtColor">
-Shirt colour
-</label>
-
-<input
-    id="shirtColor"
-    class="pick"
-    type="color"
-    value="#e53935"
->
-
-<div class="swatch">
-    <span id="shirtHex">#E53935</span>
-</div>
-
-</div>
-
-
-<div class="control">
-
-<label for="shortsColor">
-Shorts colour
-</label>
-
-<input
-    id="shortsColor"
-    class="pick"
-    type="color"
-    value="#ffffff"
->
-
-<div class="swatch">
-    <span id="shortsHex">#FFFFFF</span>
-</div>
-
-</div>
-
-
-<div class="control">
-
-<label for="socksColor">
-Socks colour
-</label>
-
-<input
-    id="socksColor"
-    class="pick"
-    type="color"
-    value="#ffffff"
->
-
-<div class="swatch">
-    <span id="socksHex">#FFFFFF</span>
-</div>
-
-</div>
-
-
-<button id="download">
-    Download Artwork PNG
-</button>
-
-
-<button
-    id="reset"
-    class="secondary"
->
-    Reset Colours
-</button>
-
-
-</aside>
-
-</div>
-
-</div>
 
 
 <script>
 
 /* ===================================================== */
-/* BANNER UPLOAD */
+/* PLAYER */
 /* ===================================================== */
 
-document
-.getElementById("bannerUpload")
-.addEventListener("change", function() {
+const player =
+    document.getElementById("player");
 
-    const file = this.files[0];
 
-    if (!file) return;
+/* ===================================================== */
+/* CHANGE MATERIAL COLOUR */
+/* ===================================================== */
 
-    if (!file.type.startsWith("image/")) {
+function changePlayerColour(type, colour) {
 
-        alert("Please select an image.");
-
+    if (!player.object3D) {
         return;
     }
 
-    const url =
-        URL.createObjectURL(file);
+    player.object3D.traverse(function(object) {
 
-    const image =
-        document.getElementById("bannerImage");
+        if (!object.isMesh) {
+            return;
+        }
 
-    image.src = url;
+        const name =
+            (
+                object.name +
+                " " +
+                (
+                    object.material &&
+                    object.material.name
+                    ? object.material.name
+                    : ""
+                )
+            ).toLowerCase();
 
-    image.style.display = "block";
 
-    document
-        .getElementById("bannerText")
-        .style.display = "none";
+        /* SKIN */
 
-});
+        if (
+            type === "skin" &&
+            (
+                name.includes("skin") ||
+                name.includes("body") ||
+                name.includes("face")
+            )
+        ) {
+
+            if (object.material) {
+                object.material.color.set(colour);
+            }
+
+        }
 
 
-/* ===================================================== */
-/* FIND PLAYER MATERIALS */
-/* ===================================================== */
+        /* KIT */
 
-function findMaterials() {
-
-    const player =
-        document.getElementById("player");
-
-    if (!player.object3D) return;
-
-    player.object3D.traverse(
-        function(object) {
-
-            if (!object.isMesh) return;
-
-            const name =
-                object.name.toLowerCase();
-
-            /*
-             * These names allow the kit to be
-             * edited when the GLB has appropriately
-             * named materials.
-             */
-
-            if (
+        if (
+            type === "kit" &&
+            (
                 name.includes("shirt") ||
                 name.includes("jersey") ||
-                name.includes("top")
-            ) {
-
-                object.userData.kitPart =
-                    "shirt";
-
-            }
-
-            if (
+                name.includes("kit") ||
                 name.includes("short") ||
-                name.includes("shorts")
-            ) {
+                name.includes("sock")
+            )
+        ) {
 
-                object.userData.kitPart =
-                    "shorts";
-
-            }
-
-            if (
-                name.includes("sock") ||
-                name.includes("socks")
-            ) {
-
-                object.userData.kitPart =
-                    "socks";
-
+            if (object.material) {
+                object.material.color.set(colour);
             }
 
         }
-    );
+
+    });
 
 }
 
 
 /* ===================================================== */
-/* CHANGE KIT COLOUR */
-/* ===================================================== */
-
-function changeKitColour(part, colour) {
-
-    const player =
-        document.getElementById("player");
-
-    if (!player.object3D) return;
-
-    player.object3D.traverse(
-        function(object) {
-
-            if (!object.isMesh) return;
-
-            if (
-                object.userData.kitPart === part
-            ) {
-
-                if (object.material) {
-
-                    object.material.color.set(
-                        colour
-                    );
-
-                }
-
-            }
-
-        }
-    );
-
-}
-
-
-/* ===================================================== */
-/* SHIRT */
+/* SKIN COLOUR */
 /* ===================================================== */
 
 document
-.getElementById("shirtColor")
+.getElementById("skin")
 .addEventListener("input", function() {
 
-    document
-        .getElementById("shirtHex")
-        .textContent =
-        this.value.toUpperCase();
-
-    changeKitColour(
-        "shirt",
+    changePlayerColour(
+        "skin",
         this.value
     );
 
@@ -737,61 +346,19 @@ document
 
 
 /* ===================================================== */
-/* SHORTS */
+/* KIT COLOUR */
 /* ===================================================== */
 
 document
-.getElementById("shortsColor")
+.getElementById("kit")
 .addEventListener("input", function() {
 
-    document
-        .getElementById("shortsHex")
-        .textContent =
-        this.value.toUpperCase();
-
-    changeKitColour(
-        "shorts",
+    changePlayerColour(
+        "kit",
         this.value
     );
 
 });
-
-
-/* ===================================================== */
-/* SOCKS */
-/* ===================================================== */
-
-document
-.getElementById("socksColor")
-.addEventListener("input", function() {
-
-    document
-        .getElementById("socksHex")
-        .textContent =
-        this.value.toUpperCase();
-
-    changeKitColour(
-        "socks",
-        this.value
-    );
-
-});
-
-
-/* ===================================================== */
-/* PLAYER LOADED */
-/* ===================================================== */
-
-document
-.getElementById("player")
-.addEventListener(
-    "model-loaded",
-    function() {
-
-        findMaterials();
-
-    }
-);
 
 
 /* ===================================================== */
@@ -803,101 +370,52 @@ document
 .addEventListener("click", function() {
 
     document
-        .getElementById("shirtColor")
-        .value = "#e53935";
+    .getElementById("skin")
+    .value = "#a96643";
 
     document
-        .getElementById("shortsColor")
-        .value = "#ffffff";
+    .getElementById("kit")
+    .value = "#e30613";
 
-    document
-        .getElementById("socksColor")
-        .value = "#ffffff";
-
-
-    document
-        .getElementById("shirtHex")
-        .textContent = "#E53935";
-
-    document
-        .getElementById("shortsHex")
-        .textContent = "#FFFFFF";
-
-    document
-        .getElementById("socksHex")
-        .textContent = "#FFFFFF";
-
-
-    changeKitColour(
-        "shirt",
-        "#e53935"
+    changePlayerColour(
+        "skin",
+        "#a96643"
     );
 
-    changeKitColour(
-        "shorts",
-        "#ffffff"
-    );
-
-    changeKitColour(
-        "socks",
-        "#ffffff"
+    changePlayerColour(
+        "kit",
+        "#e30613"
     );
 
 });
 
 
 /* ===================================================== */
-/* DOWNLOAD */
+/* PLAYER LOADED */
 /* ===================================================== */
 
-document
-.getElementById("download")
-.addEventListener("click", function() {
+player.addEventListener(
+    "model-loaded",
+    function() {
 
-    const scene =
-        document.querySelector("a-scene");
-
-    try {
-
-        const canvas =
-            scene.components
-                .screenshot
-                ? scene.components
-                    .screenshot
-                    .getCanvas("perspective")
-                : null;
-
-        if (!canvas) {
-
-            alert(
-                "Use the browser screenshot function for now."
-            );
-
-            return;
-        }
-
-        const link =
-            document.createElement("a");
-
-        link.download =
-            "football-player-nft.png";
-
-        link.href =
-            canvas.toDataURL("image/png");
-
-        link.click();
-
-    } catch(error) {
-
-        console.error(error);
-
-        alert(
-            "The image could not be downloaded."
+        console.log(
+            "Football player GLB loaded"
         );
 
     }
+);
 
-});
+
+player.addEventListener(
+    "model-error",
+    function() {
+
+        console.error(
+            "Could not load player.glb"
+        );
+
+    }
+);
 
 </script>
 
