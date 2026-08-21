@@ -4,21 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>GLB Texture Tester</title>
+<title>GLB Texture Test</title>
 
 <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
 
 <style>
 
-* {
-    box-sizing: border-box;
-}
-
 body {
     margin: 0;
+    overflow: hidden;
     font-family: Arial, sans-serif;
-    background: #222;
-    color: white;
 }
 
 #controls {
@@ -27,54 +22,15 @@ body {
     top: 20px;
     left: 20px;
 
-    width: 260px;
-    padding: 20px;
+    background: white;
+    padding: 15px;
 
-    background: rgba(0,0,0,0.8);
-    border-radius: 12px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px #0004;
 }
 
-h2 {
-    margin-top: 0;
-}
-
-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-}
-
-input[type="file"] {
-    width: 100%;
-    margin-bottom: 15px;
-}
-
-button {
-    width: 100%;
-    padding: 12px;
-    border: 0;
-    border-radius: 8px;
-
-    background: #176b32;
-    color: white;
-
-    font-weight: bold;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #218c43;
-}
-
-#status {
-    margin-top: 12px;
-    font-size: 13px;
-    color: #ccc;
-}
-
-a-scene {
-    width: 100vw;
-    height: 100vh;
+#controls input {
+    margin-top: 8px;
 }
 
 </style>
@@ -82,85 +38,48 @@ a-scene {
 
 <body>
 
-
 <div id="controls">
 
-    <h2>GLB Texture Tester</h2>
-
-    <label>
-        Upload texture
-    </label>
+    <strong>Upload Texture</strong><br>
 
     <input
-        id="textureUpload"
+        id="texture"
         type="file"
         accept="image/*"
     >
 
-    <button id="reset">
-        Reset Model
-    </button>
-
-    <div id="status">
-        Loading model...
-    </div>
-
 </div>
 
 
-<a-scene
-    embedded
-    renderer="
-        colorManagement: true;
-        physicallyCorrectLights: true
-    "
->
-
-    <!-- CAMERA -->
+<a-scene>
 
     <a-entity
-        id="camera"
         camera
-        position="0 1.5 5"
+        position="0 1.5 4"
         look-controls
     ></a-entity>
 
 
-    <!-- LIGHTING -->
-
     <a-light
         type="ambient"
-        intensity="1.5"
+        intensity="2"
     ></a-light>
 
     <a-light
         type="directional"
         intensity="2"
-        position="-3 8 5"
+        position="-3 5 5"
     ></a-light>
 
 
-    <!-- FLOOR -->
-
-    <a-plane
-        position="0 0 0"
-        rotation="-90 0 0"
-        width="20"
-        height="20"
-        color="#555"
-    ></a-plane>
-
-
-    <!-- MODEL -->
+    <!-- YOUR GLB -->
 
     <a-entity
         id="model"
         gltf-model="url(model.glb)"
         position="0 0 0"
-        rotation="0 0 0"
         scale="1 1 1"
     ></a-entity>
-
 
 </a-scene>
 
@@ -170,236 +89,94 @@ a-scene {
 const model =
     document.getElementById("model");
 
-const upload =
-    document.getElementById("textureUpload");
-
-const status =
-    document.getElementById("status");
-
-
-/*
-========================================================
-MODEL LOADED
-========================================================
-*/
-
-model.addEventListener(
-    "model-loaded",
-    function () {
-
-        status.textContent =
-            "Model loaded. Upload an image.";
-
-        console.log(
-            "GLB model loaded"
-        );
-
-    }
-);
-
-
-/*
-========================================================
-MODEL ERROR
-========================================================
-*/
-
-model.addEventListener(
-    "model-error",
-    function () {
-
-        status.textContent =
-            "ERROR: model.glb could not be loaded.";
-
-    }
-);
-
-
-/*
-========================================================
-UPLOAD TEXTURE
-========================================================
-*/
-
-upload.addEventListener(
-    "change",
-    function () {
-
-        const file =
-            this.files[0];
-
-        if (!file) {
-            return;
-        }
-
-        if (!file.type.startsWith("image/")) {
-
-            alert(
-                "Please select an image file."
-            );
-
-            return;
-        }
-
-
-        const imageURL =
-            URL.createObjectURL(file);
-
-
-        const image =
-            new Image();
-
-
-        image.onload =
-            function () {
-
-                /*
-                Apply the uploaded image
-                to every mesh in the GLB.
-                */
-
-                model.object3D.traverse(
-                    function (object) {
-
-                        if (!object.isMesh) {
-                            return;
-                        }
-
-
-                        /*
-                        Some GLBs have multiple
-                        materials on a mesh.
-                        */
-
-                        const materials =
-                            Array.isArray(
-                                object.material
-                            )
-                            ? object.material
-                            : [object.material];
-
-
-                        materials.forEach(
-                            function (material) {
-
-                                if (!material) {
-                                    return;
-                                }
-
-
-                                /*
-                                Create texture
-                                */
-
-                                const texture =
-                                    new THREE.Texture(
-                                        image
-                                    );
-
-
-                                texture.needsUpdate =
-                                    true;
-
-
-                                /*
-                                Use the model's
-                                existing UV coordinates.
-                                */
-
-                                texture.flipY = false;
-
-
-                                material.map =
-                                    texture;
-
-                                material.color.set(
-                                    0xffffff
-                                );
-
-                                material.needsUpdate =
-                                    true;
-
-                            }
-                        );
-
-                    }
-                );
-
-
-                status.textContent =
-                    "Texture applied.";
-
-                URL.revokeObjectURL(
-                    imageURL
-                );
-
-            };
-
-
-        image.onerror =
-            function () {
-
-                status.textContent =
-                    "Could not load image.";
-
-                URL.revokeObjectURL(
-                    imageURL
-                );
-
-            };
-
-
-        image.src =
-            imageURL;
-
-    }
-);
-
-
-/*
-========================================================
-RESET
-========================================================
-*/
-
 document
-.getElementById("reset")
-.addEventListener(
-    "click",
-    function () {
+.getElementById("texture")
+.addEventListener("change", function () {
+
+    const file = this.files[0];
+
+    if (!file) return;
+
+
+    const imageURL =
+        URL.createObjectURL(file);
+
+    const image =
+        new Image();
+
+
+    image.onload = function () {
 
         /*
-        Reload the GLB.
-        This restores its original
-        materials and textures.
+        Walk through the GLB.
         */
 
-        const current =
-            model.getAttribute(
-                "gltf-model"
-            );
+        model.object3D.traverse(
+            function (object) {
 
-        model.removeAttribute(
-            "gltf-model"
-        );
+                if (!object.isMesh)
+                    return;
 
-        setTimeout(
-            function () {
 
-                model.setAttribute(
-                    "gltf-model",
-                    current
+                /*
+                Apply the texture to
+                the block's material.
+                */
+
+                const material =
+                    object.material;
+
+
+                if (!material)
+                    return;
+
+
+                const texture =
+                    new THREE.Texture(image);
+
+
+                /*
+                GLB textures normally
+                use this orientation.
+                */
+
+                texture.flipY = false;
+
+                texture.needsUpdate = true;
+
+
+                /*
+                Replace the existing
+                surface texture.
+                */
+
+                material.map = texture;
+
+
+                /*
+                Don't tint the image.
+                */
+
+                material.color.set(
+                    0xffffff
                 );
 
-                status.textContent =
-                    "Model reset.";
 
-            },
-            100
+                material.needsUpdate =
+                    true;
+
+            }
         );
 
-    }
-);
+
+        URL.revokeObjectURL(imageURL);
+
+    };
+
+
+    image.src = imageURL;
+
+});
 
 </script>
 
