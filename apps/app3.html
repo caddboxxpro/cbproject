@@ -1,424 +1,648 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>3D Football Player</title>
-
-<script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+<title>10 Image Collection Creator</title>
 
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #111;
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #111;
+    color: white;
+}
+
+header {
+    padding: 20px;
+    text-align: center;
+    background: #1c1c1c;
+}
+
+header h1 {
+    margin: 0 0 8px;
+}
+
+header p {
+    margin: 0;
+    color: #aaa;
+}
+
+.controls {
+    padding: 20px;
+    text-align: center;
+    background: #222;
+}
+
+input[type="file"] {
+    padding: 10px;
+    background: white;
+    color: black;
+    border-radius: 6px;
+}
+
+button {
+    margin-left: 10px;
+    padding: 11px 20px;
+    border: 0;
+    border-radius: 7px;
+    background: #176b32;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #218c43;
+}
+
+#collection {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+    padding: 25px;
+    max-width: 1400px;
+    margin: auto;
+}
+
+.card {
+    background: #222;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.card canvas {
+    width: 100%;
+    display: block;
+    border-radius: 6px;
+}
+
+.card h3 {
+    margin: 10px 0 0;
+    font-size: 15px;
+}
+
+@media(max-width:1000px) {
+    #collection {
+        grid-template-columns: repeat(3, 1fr);
     }
+}
 
-    #controls {
-        position: fixed;
-        top: 15px;
-        right: 15px;
-        z-index: 10;
-
-        width: 220px;
-        padding: 18px;
-
-        background: rgba(255,255,255,0.95);
-        border-radius: 12px;
-
-        box-shadow: 0 5px 20px #0005;
-    }
-
-    #controls h2 {
-        margin: 0 0 15px;
-        font-size: 20px;
-    }
-
-    .control {
-        margin-bottom: 15px;
-    }
-
-    .control label {
-        display: block;
-        font-weight: bold;
-        margin-bottom: 6px;
-    }
-
-    input[type="color"] {
-        width: 100%;
-        height: 45px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        cursor: pointer;
+@media(max-width:600px) {
+    #collection {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 10px;
+        gap: 10px;
     }
 
     button {
-        width: 100%;
-        padding: 10px;
-
-        border: 0;
-        border-radius: 7px;
-
-        background: #176b32;
-        color: white;
-
-        font-weight: bold;
-        cursor: pointer;
+        margin: 10px 0 0;
     }
+}
 
-    button:hover {
-        background: #125528;
-    }
 </style>
 </head>
 
 <body>
 
+<header>
 
-<div id="controls">
+    <h1>10 Image Collection Creator</h1>
 
-    <h2>Football Player</h2>
+    <p>
+        Upload one image and create ten colour variations
+    </p>
 
-    <div class="control">
-
-        <label for="skin">
-            Skin colour
-        </label>
-
-        <input
-            id="skin"
-            type="color"
-            value="#a96643"
-        >
-
-    </div>
+</header>
 
 
-    <div class="control">
+<div class="controls">
 
-        <label for="kit">
-            Kit colour
-        </label>
+    <input
+        id="imageUpload"
+        type="file"
+        accept="image/*"
+    >
 
-        <input
-            id="kit"
-            type="color"
-            value="#e30613"
-        >
-
-    </div>
-
-
-    <button id="reset">
-        Reset
+    <button id="createButton">
+        CREATE COLLECTION
     </button>
 
 </div>
 
 
-<a-scene
-    renderer="colorManagement: true; physicallyCorrectLights: true"
-    background="color: #79c9f2"
->
-
-
-    <!-- ================================================= -->
-    <!-- CAMERA -->
-    <!-- ================================================= -->
-
-    <a-entity
-        camera
-        position="0 3 8"
-        look-controls
-    ></a-entity>
-
-
-    <!-- ================================================= -->
-    <!-- LIGHTING -->
-    <!-- ================================================= -->
-
-    <a-light
-        type="ambient"
-        intensity="1.5"
-    ></a-light>
-
-    <a-light
-        type="directional"
-        intensity="2"
-        position="-10 15 10"
-    ></a-light>
-
-
-    <!-- ================================================= -->
-    <!-- SKY -->
-    <!-- ================================================= -->
-
-    <a-sky
-        color="#79c9f2"
-    ></a-sky>
-
-
-    <!-- ================================================= -->
-    <!-- FOOTBALL PITCH -->
-    <!-- ================================================= -->
-
-    <a-plane
-        rotation="-90 0 0"
-        width="110"
-        height="150"
-        color="#249447"
-    ></a-plane>
-
-
-    <!-- ================================================= -->
-    <!-- CENTRE CIRCLE -->
-    <!-- ================================================= -->
-
-    <a-ring
-        position="0 0.03 0"
-        rotation="-90 0 0"
-        radius-inner="9"
-        radius-outer="9.12"
-        color="white"
-    ></a-ring>
-
-
-    <!-- CENTRE SPOT -->
-
-    <a-cylinder
-        position="0 0.04 0"
-        radius="0.25"
-        height="0.02"
-        color="white"
-    ></a-cylinder>
-
-
-    <!-- ================================================= -->
-    <!-- STADIUM -->
-    <!-- ================================================= -->
-
-    <a-box
-        position="0 8 -45"
-        width="110"
-        height="16"
-        depth="8"
-        color="#444"
-    ></a-box>
-
-    <a-box
-        position="-55 8 0"
-        width="8"
-        height="16"
-        depth="90"
-        color="#444"
-    ></a-box>
-
-    <a-box
-        position="55 8 0"
-        width="8"
-        height="16"
-        depth="90"
-        color="#444"
-    ></a-box>
-
-    <a-box
-        position="0 8 45"
-        width="110"
-        height="16"
-        depth="8"
-        color="#444"
-    ></a-box>
-
-
-    <!-- ================================================= -->
-    <!-- PLAYER -->
-    <!-- ================================================= -->
-
-    <a-entity
-        id="player"
-        gltf-model="url(player.glb)"
-        position="0 0 0"
-        rotation="0 180 0"
-        scale="1 1 1"
-    ></a-entity>
-
-
-</a-scene>
+<div id="collection"></div>
 
 
 <script>
 
-/* ===================================================== */
-/* PLAYER */
-/* ===================================================== */
+const upload =
+    document.getElementById("imageUpload");
 
-const player =
-    document.getElementById("player");
+const createButton =
+    document.getElementById("createButton");
+
+const collection =
+    document.getElementById("collection");
 
 
-/* ===================================================== */
-/* CHANGE MATERIAL COLOUR */
-/* ===================================================== */
+let sourceImage = null;
 
-function changePlayerColour(type, colour) {
 
-    if (!player.object3D) {
-        return;
+/*
+========================================================
+COLOUR COLLECTION
+========================================================
+
+Each entry contains colours for different areas
+of the image.
+
+*/
+
+const collections = [
+
+    {
+        name: "Red",
+        colors: [
+            "#e53935",
+            "#ff7043",
+            "#8e0000"
+        ]
+    },
+
+    {
+        name: "Blue",
+        colors: [
+            "#1976d2",
+            "#42a5f5",
+            "#0d47a1"
+        ]
+    },
+
+    {
+        name: "Green",
+        colors: [
+            "#2e7d32",
+            "#66bb6a",
+            "#1b5e20"
+        ]
+    },
+
+    {
+        name: "Purple",
+        colors: [
+            "#7b1fa2",
+            "#ba68c8",
+            "#4a148c"
+        ]
+    },
+
+    {
+        name: "Orange",
+        colors: [
+            "#ef6c00",
+            "#ffb300",
+            "#e65100"
+        ]
+    },
+
+    {
+        name: "Pink",
+        colors: [
+            "#d81b60",
+            "#f06292",
+            "#880e4f"
+        ]
+    },
+
+    {
+        name: "Turquoise",
+        colors: [
+            "#00897b",
+            "#4db6ac",
+            "#004d40"
+        ]
+    },
+
+    {
+        name: "Gold",
+        colors: [
+            "#f9a825",
+            "#ffe082",
+            "#6d4c00"
+        ]
+    },
+
+    {
+        name: "Black",
+        colors: [
+            "#222222",
+            "#666666",
+            "#000000"
+        ]
+    },
+
+    {
+        name: "Rainbow",
+        colors: [
+            "#e53935",
+            "#1976d2",
+            "#f9a825"
+        ]
     }
 
-    player.object3D.traverse(function(object) {
+];
 
-        if (!object.isMesh) {
+
+/*
+========================================================
+LOAD IMAGE
+========================================================
+*/
+
+upload.addEventListener(
+    "change",
+    function() {
+
+        const file =
+            this.files[0];
+
+        if (!file) return;
+
+        const reader =
+            new FileReader();
+
+        reader.onload =
+            function(event) {
+
+                sourceImage =
+                    new Image();
+
+                sourceImage.onload =
+                    function() {
+
+                        createCollection();
+
+                    };
+
+                sourceImage.src =
+                    event.target.result;
+
+            };
+
+        reader.readAsDataURL(file);
+
+    }
+);
+
+
+/*
+========================================================
+CREATE COLLECTION
+========================================================
+*/
+
+createButton.addEventListener(
+    "click",
+    function() {
+
+        if (!sourceImage) {
+
+            alert(
+                "Please upload an image first."
+            );
+
             return;
+
         }
 
-        const name =
-            (
-                object.name +
-                " " +
-                (
-                    object.material &&
-                    object.material.name
-                    ? object.material.name
-                    : ""
-                )
-            ).toLowerCase();
+        createCollection();
+
+    }
+);
 
 
-        /* SKIN */
+/*
+========================================================
+CREATE COLLECTION
+========================================================
+*/
 
-        if (
-            type === "skin" &&
-            (
-                name.includes("skin") ||
-                name.includes("body") ||
-                name.includes("face")
-            )
-        ) {
+function createCollection() {
 
-            if (object.material) {
-                object.material.color.set(colour);
+    collection.innerHTML = "";
+
+
+    collections.forEach(
+        function(collectionData, index) {
+
+            const card =
+                document.createElement("div");
+
+            card.className =
+                "card";
+
+
+            const canvas =
+                document.createElement("canvas");
+
+
+            canvas.width =
+                sourceImage.width;
+
+            canvas.height =
+                sourceImage.height;
+
+
+            const ctx =
+                canvas.getContext("2d");
+
+
+            /*
+            Draw original image.
+            */
+
+            ctx.drawImage(
+                sourceImage,
+                0,
+                0
+            );
+
+
+            /*
+            Get pixels.
+            */
+
+            const imageData =
+                ctx.getImageData(
+                    0,
+                    0,
+                    canvas.width,
+                    canvas.height
+                );
+
+
+            const pixels =
+                imageData.data;
+
+
+            /*
+            Apply colour to different
+            areas based on position.
+            */
+
+            for (
+                let y = 0;
+                y < canvas.height;
+                y++
+            ) {
+
+                for (
+                    let x = 0;
+                    x < canvas.width;
+                    x++
+                ) {
+
+                    const i =
+                        (y * canvas.width + x) * 4;
+
+
+                    const r =
+                        pixels[i];
+
+                    const g =
+                        pixels[i + 1];
+
+                    const b =
+                        pixels[i + 2];
+
+
+                    /*
+                    Preserve transparency.
+                    */
+
+                    if (pixels[i + 3] === 0) {
+                        continue;
+                    }
+
+
+                    /*
+                    Calculate brightness.
+                    */
+
+                    const brightness =
+                        (
+                            r * 0.299 +
+                            g * 0.587 +
+                            b * 0.114
+                        ) / 255;
+
+
+                    /*
+                    Divide image into three
+                    horizontal colour areas.
+                    */
+
+                    let colour;
+
+                    if (
+                        y <
+                        canvas.height * 0.33
+                    ) {
+
+                        colour =
+                            collectionData.colors[0];
+
+                    }
+                    else if (
+                        y <
+                        canvas.height * 0.66
+                    ) {
+
+                        colour =
+                            collectionData.colors[1];
+
+                    }
+                    else {
+
+                        colour =
+                            collectionData.colors[2];
+
+                    }
+
+
+                    /*
+                    Convert hex colour.
+                    */
+
+                    const rgb =
+                        hexToRGB(colour);
+
+
+                    /*
+                    Mix the selected colour
+                    with the original image.
+
+                    This preserves the light
+                    and dark areas of the
+                    original photograph.
+                    */
+
+                    const strength =
+                        0.75;
+
+
+                    pixels[i] =
+                        (
+                            r * (1 - strength) +
+                            rgb.r * strength
+                        ) * (
+                            0.45 +
+                            brightness * 0.55
+                        );
+
+
+                    pixels[i + 1] =
+                        (
+                            g * (1 - strength) +
+                            rgb.g * strength
+                        ) * (
+                            0.45 +
+                            brightness * 0.55
+                        );
+
+
+                    pixels[i + 2] =
+                        (
+                            b * (1 - strength) +
+                            rgb.b * strength
+                        ) * (
+                            0.45 +
+                            brightness * 0.55
+                        );
+
+                }
+
             }
 
+
+            ctx.putImageData(
+                imageData,
+                0,
+                0
+            );
+
+
+            /*
+            Title.
+            */
+
+            const title =
+                document.createElement("h3");
+
+            title.textContent =
+                String(index + 1).padStart(2, "0")
+                + " — "
+                + collectionData.name;
+
+
+            /*
+            Download button.
+            */
+
+            const download =
+                document.createElement("button");
+
+            download.textContent =
+                "DOWNLOAD";
+
+
+            download.onclick =
+                function() {
+
+                    const link =
+                        document.createElement("a");
+
+                    link.download =
+                        "collection-"
+                        + String(index + 1)
+                            .padStart(2, "0")
+                        + ".png";
+
+                    link.href =
+                        canvas.toDataURL(
+                            "image/png"
+                        );
+
+                    link.click();
+
+                };
+
+
+            card.appendChild(
+                canvas
+            );
+
+            card.appendChild(
+                title
+            );
+
+            card.appendChild(
+                download
+            );
+
+
+            collection.appendChild(
+                card
+            );
+
         }
-
-
-        /* KIT */
-
-        if (
-            type === "kit" &&
-            (
-                name.includes("shirt") ||
-                name.includes("jersey") ||
-                name.includes("kit") ||
-                name.includes("short") ||
-                name.includes("sock")
-            )
-        ) {
-
-            if (object.material) {
-                object.material.color.set(colour);
-            }
-
-        }
-
-    });
+    );
 
 }
 
 
-/* ===================================================== */
-/* SKIN COLOUR */
-/* ===================================================== */
+/*
+========================================================
+HEX TO RGB
+========================================================
+*/
 
-document
-.getElementById("skin")
-.addEventListener("input", function() {
+function hexToRGB(hex) {
 
-    changePlayerColour(
-        "skin",
-        this.value
-    );
-
-});
+    hex =
+        hex.replace("#", "");
 
 
-/* ===================================================== */
-/* KIT COLOUR */
-/* ===================================================== */
+    return {
 
-document
-.getElementById("kit")
-.addEventListener("input", function() {
+        r: parseInt(
+            hex.substring(0, 2),
+            16
+        ),
 
-    changePlayerColour(
-        "kit",
-        this.value
-    );
+        g: parseInt(
+            hex.substring(2, 4),
+            16
+        ),
 
-});
+        b: parseInt(
+            hex.substring(4, 6),
+            16
+        )
 
+    };
 
-/* ===================================================== */
-/* RESET */
-/* ===================================================== */
-
-document
-.getElementById("reset")
-.addEventListener("click", function() {
-
-    document
-    .getElementById("skin")
-    .value = "#a96643";
-
-    document
-    .getElementById("kit")
-    .value = "#e30613";
-
-    changePlayerColour(
-        "skin",
-        "#a96643"
-    );
-
-    changePlayerColour(
-        "kit",
-        "#e30613"
-    );
-
-});
-
-
-/* ===================================================== */
-/* PLAYER LOADED */
-/* ===================================================== */
-
-player.addEventListener(
-    "model-loaded",
-    function() {
-
-        console.log(
-            "Football player GLB loaded"
-        );
-
-    }
-);
-
-
-player.addEventListener(
-    "model-error",
-    function() {
-
-        console.error(
-            "Could not load player.glb"
-        );
-
-    }
-);
+}
 
 </script>
 
 </body>
 </html>
-```
