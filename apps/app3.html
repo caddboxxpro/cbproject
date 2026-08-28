@@ -3,11 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Colour Area Collection Creator</title>
+<title>Area Colour Collection Creator</title>
 
 <style>
-
 * {
     box-sizing: border-box;
 }
@@ -16,12 +14,12 @@ body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
     background: #111;
-    color: white;
+    color: #fff;
 }
 
 header {
+    padding: 20px 24px;
     background: #181818;
-    padding: 18px 24px;
 }
 
 header h1 {
@@ -40,39 +38,33 @@ header p {
     min-height: calc(100vh - 90px);
 }
 
-/* IMAGE */
-
-.image-panel {
-    background: #303030;
+.viewer {
     padding: 25px;
+    background: #303030;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: flex-start;
 }
 
-.image-wrapper {
-    position: relative;
-    max-width: 800px;
+.viewer-inner {
     width: 100%;
+    max-width: 900px;
 }
 
-#imageCanvas {
-    display: block;
+canvas {
     width: 100%;
     height: auto;
-    cursor: crosshair;
+    display: block;
     background: #222;
 }
 
-/* CONTROLS */
-
 .controls {
-    background: #f4f4f4;
+    background: #f3f3f3;
     color: #222;
     padding: 22px;
 }
 
-.control {
+.section {
     margin-bottom: 22px;
 }
 
@@ -86,49 +78,22 @@ input[type="file"] {
     width: 100%;
 }
 
-input[type="color"] {
+input[type="number"] {
     width: 100%;
-    height: 55px;
-    padding: 3px;
+    padding: 10px;
     border: 1px solid #bbb;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.selected {
-    padding: 12px;
-    background: #e5e5e5;
-    border-radius: 8px;
-    margin-bottom: 15px;
-}
-
-.selected strong {
-    display: block;
-    margin-bottom: 5px;
-}
-
-#selectedColour {
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-    vertical-align: middle;
-    border-radius: 4px;
-    border: 1px solid #999;
+    border-radius: 6px;
 }
 
 button {
     width: 100%;
     border: 0;
-    border-radius: 8px;
+    border-radius: 7px;
     padding: 13px;
     margin-top: 8px;
-
     background: #176b32;
     color: white;
-
-    font-size: 14px;
     font-weight: bold;
-
     cursor: pointer;
 }
 
@@ -136,89 +101,61 @@ button:hover {
     background: #125528;
 }
 
-.secondary {
+button.secondary {
     background: #ddd;
     color: #222;
 }
 
-.secondary:hover {
+button.secondary:hover {
     background: #ccc;
 }
 
-#areas {
-    margin-top: 20px;
+button:disabled {
+    opacity: .45;
+    cursor: default;
 }
 
-.area {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    padding: 8px;
-    margin-bottom: 6px;
-
+.info {
+    padding: 12px;
     background: #e5e5e5;
-    border-radius: 6px;
-
+    border-radius: 7px;
     font-size: 13px;
-}
-
-.area-colour {
-    width: 25px;
-    height: 25px;
-    border-radius: 4px;
-    border: 1px solid #999;
-}
-
-.area-name {
-    flex: 1;
+    line-height: 1.45;
 }
 
 #status {
-    margin-top: 15px;
+    margin-top: 12px;
     font-size: 13px;
+    line-height: 1.4;
     color: #555;
 }
 
-/* COLLECTION */
-
 #collection {
-    grid-column: 1 / -1;
-
+    background: #111;
+    padding: 25px;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 18px;
-
-    padding: 25px;
-
-    background: #111;
 }
 
 .card {
     background: #222;
+    border-radius: 8px;
     padding: 10px;
-    border-radius: 10px;
     text-align: center;
 }
 
 .card canvas {
     width: 100%;
-    display: block;
-    border-radius: 6px;
+    border-radius: 5px;
 }
 
 .card h3 {
-    margin: 10px 0;
+    margin: 9px 0;
+    font-size: 15px;
 }
-
-.card button {
-    width: 100%;
-}
-
-/* RESPONSIVE */
 
 @media(max-width: 850px) {
-
     .app {
         grid-template-columns: 1fr;
     }
@@ -226,61 +163,45 @@ button:hover {
     #collection {
         grid-template-columns: repeat(3, 1fr);
     }
-
 }
 
-@media(max-width: 600px) {
-
+@media(max-width: 550px) {
     #collection {
         grid-template-columns: repeat(2, 1fr);
-        padding: 10px;
+        padding: 12px;
+        gap: 10px;
     }
-
 }
-
 </style>
 </head>
 
 <body>
 
 <header>
-
-    <h1>Colour Area Collection Creator</h1>
-
-    <p>
-        Upload an image, click an area, then give that area a new colour.
-    </p>
-
+    <h1>Area Colour Collection Creator</h1>
+    <p>Upload an image, detect its areas, then create ten colour variations.</p>
 </header>
 
 
 <div class="app">
 
-    <!-- IMAGE -->
-
-    <div class="image-panel">
-
-        <div class="image-wrapper">
-
-            <canvas id="imageCanvas"></canvas>
-
+    <div class="viewer">
+        <div class="viewer-inner">
+            <canvas id="canvas"></canvas>
         </div>
-
     </div>
 
 
-    <!-- CONTROLS -->
-
     <aside class="controls">
 
-        <div class="control">
+        <div class="section">
 
             <label>
                 1. Upload image
             </label>
 
             <input
-                id="upload"
+                id="fileInput"
                 type="file"
                 accept="image/*"
             >
@@ -288,65 +209,69 @@ button:hover {
         </div>
 
 
-        <div class="selected">
-
-            <strong>
-                Selected area
-            </strong>
-
-            <span id="areaName">
-                None
-            </span>
-
-            <br><br>
-
-            Original colour:
-
-            <span id="selectedColour"></span>
-
-        </div>
-
-
-        <div class="control">
+        <div class="section">
 
             <label>
-                2. Choose new colour
+                2. Area sensitivity
             </label>
 
             <input
-                id="colourPicker"
-                type="color"
-                value="#ff0000"
+                id="tolerance"
+                type="number"
+                min="1"
+                max="100"
+                value="25"
             >
 
-        </div>
+            <div class="info">
+                Lower values keep colours more separate.
+                Higher values combine similar shades into
+                the same area.
+            </div>
 
-
-        <button id="applyColour">
-            APPLY COLOUR TO AREA
-        </button>
-
-
-        <button
-            id="reset"
-            class="secondary"
-        >
-            RESET IMAGE
-        </button>
-
-
-        <div id="areas">
-
-            <strong>
-                Defined Areas
-            </strong>
+            <button
+                id="detectButton"
+                disabled
+            >
+                DETECT ALL AREAS
+            </button>
 
         </div>
 
 
-        <button id="create">
-            CREATE 10 VARIATIONS
-        </button>
+        <div class="section">
+
+            <div class="info">
+
+                <strong>Detected areas:</strong>
+
+                <div id="areaCount">
+                    None
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <button
+                id="randomButton"
+                class="secondary"
+                disabled
+            >
+                APPLY RANDOM COLOURS
+            </button>
+
+            <button
+                id="createButton"
+                disabled
+            >
+                CREATE 10 VARIATIONS
+            </button>
+
+        </div>
 
 
         <div id="status">
@@ -358,76 +283,73 @@ button:hover {
 </div>
 
 
-<!-- COLLECTION -->
-
 <div id="collection"></div>
 
 
 <script>
 
 /*
-========================================================
-VARIABLES
-========================================================
+==========================================================
+GLOBAL DATA
+==========================================================
 */
 
 const canvas =
-    document.getElementById("imageCanvas");
+    document.getElementById("canvas");
 
 const ctx =
-    canvas.getContext("2d", {
-        willReadFrequently: true
-    });
+    canvas.getContext(
+        "2d",
+        {
+            willReadFrequently: true
+        }
+    );
 
-const upload =
-    document.getElementById("upload");
+const fileInput =
+    document.getElementById("fileInput");
 
-const colourPicker =
-    document.getElementById("colourPicker");
+const toleranceInput =
+    document.getElementById("tolerance");
 
-const applyColour =
-    document.getElementById("applyColour");
+const detectButton =
+    document.getElementById("detectButton");
 
-const reset =
-    document.getElementById("reset");
+const randomButton =
+    document.getElementById("randomButton");
 
-const create =
-    document.getElementById("create");
-
-const areaName =
-    document.getElementById("areaName");
-
-const selectedColour =
-    document.getElementById("selectedColour");
-
-const areasContainer =
-    document.getElementById("areas");
+const createButton =
+    document.getElementById("createButton");
 
 const status =
     document.getElementById("status");
+
+const areaCount =
+    document.getElementById("areaCount");
 
 const collection =
     document.getElementById("collection");
 
 
-let image = null;
-
 let originalPixels = null;
 
-let selectedArea = null;
+let regionMap = null;
 
-let areas = [];
+let regions = [];
+
+let imageWidth = 0;
+
+let imageHeight = 0;
 
 
 /*
-========================================================
+==========================================================
 UPLOAD
-========================================================
+==========================================================
 */
 
-upload.addEventListener(
+fileInput.addEventListener(
     "change",
-    function () {
+    function() {
 
         const file =
             this.files[0];
@@ -442,20 +364,27 @@ upload.addEventListener(
 
 
         reader.onload =
-            function (event) {
+            function(e) {
 
-                image =
+                const image =
                     new Image();
 
 
                 image.onload =
-                    function () {
+                    function() {
 
-                        canvas.width =
+                        imageWidth =
                             image.width;
 
-                        canvas.height =
+                        imageHeight =
                             image.height;
+
+
+                        canvas.width =
+                            imageWidth;
+
+                        canvas.height =
+                            imageHeight;
 
 
                         ctx.drawImage(
@@ -465,48 +394,52 @@ upload.addEventListener(
                         );
 
 
-                        const imageData =
+                        const pixels =
                             ctx.getImageData(
                                 0,
                                 0,
-                                canvas.width,
-                                canvas.height
+                                imageWidth,
+                                imageHeight
                             );
 
 
                         originalPixels =
                             new Uint8ClampedArray(
-                                imageData.data
+                                pixels.data
                             );
 
 
-                        areas = [];
+                        regionMap = null;
 
-                        selectedArea =
-                            null;
-
-
-                        updateAreaDisplay();
+                        regions = [];
 
 
-                        status.textContent =
-                            "Click an area of the image.";
+                        detectButton.disabled =
+                            false;
 
-                        areaName.textContent =
-                            "None";
+                        randomButton.disabled =
+                            true;
 
-                        selectedColour.style.background =
-                            "transparent";
+                        createButton.disabled =
+                            true;
 
 
                         collection.innerHTML =
                             "";
 
+
+                        areaCount.textContent =
+                            "Not detected";
+
+
+                        status.textContent =
+                            "Image loaded. Click DETECT ALL AREAS.";
+
                     };
 
 
                 image.src =
-                    event.target.result;
+                    e.target.result;
 
             };
 
@@ -518,259 +451,359 @@ upload.addEventListener(
 
 
 /*
-========================================================
-CLICK IMAGE
-========================================================
-
-The colour underneath the mouse becomes
-the selected AREA.
-
-========================================================
+==========================================================
+DETECT ALL AREAS
+==========================================================
 */
 
-canvas.addEventListener(
+detectButton.addEventListener(
     "click",
-    function (event) {
+    function() {
 
-        if (!image) {
+        if (!originalPixels) {
             return;
         }
 
 
-        /*
-        Convert screen coordinates to
-        actual image coordinates.
-        */
-
-        const rect =
-            canvas.getBoundingClientRect();
-
-
-        const scaleX =
-            canvas.width / rect.width;
-
-        const scaleY =
-            canvas.height / rect.height;
-
-
-        const x =
-            Math.floor(
-                (event.clientX - rect.left)
-                * scaleX
-            );
-
-
-        const y =
-            Math.floor(
-                (event.clientY - rect.top)
-                * scaleY
-            );
-
-
-        const pixel =
-            ctx.getImageData(
-                x,
-                y,
-                1,
-                1
-            ).data;
-
-
-        const r =
-            pixel[0];
-
-        const g =
-            pixel[1];
-
-        const b =
-            pixel[2];
-
-
-        /*
-        Look for an existing area
-        with approximately the same
-        original colour.
-        */
-
-        let existing =
-            findArea(r, g, b);
-
-
-        if (!existing) {
-
-            existing = {
-
-                name:
-                    "Area " +
-                    String.fromCharCode(
-                        65 + areas.length
-                    ),
-
-                r: r,
-                g: g,
-                b: b,
-
-                newColour:
-                    rgbToHex(
-                        r,
-                        g,
-                        b
-                    )
-
-            };
-
-
-            areas.push(existing);
-
-        }
-
-
-        selectedArea =
-            existing;
-
-
-        areaName.textContent =
-            existing.name;
-
-
-        selectedColour.style.background =
-            rgbToHex(
-                existing.r,
-                existing.g,
-                existing.b
-            );
-
-
-        colourPicker.value =
-            existing.newColour;
-
-
         status.textContent =
-            existing.name +
-            " selected.";
+            "Detecting areas...";
 
 
-        updateAreaDisplay();
+        /*
+        Give the browser a moment to
+        update the status before doing
+        the calculation.
+        */
+
+        setTimeout(
+            detectRegions,
+            30
+        );
 
     }
 );
 
 
 /*
-========================================================
-FIND AREA
-========================================================
+==========================================================
+REGION DETECTION
+==========================================================
+
+Every connected area gets a unique
+region number.
+
+IMPORTANT:
+
+Two areas can have exactly the
+same colour and still become two
+different regions if they are not
+physically connected.
+
+==========================================================
 */
 
-function findArea(r, g, b) {
+function detectRegions() {
+
+    const width =
+        imageWidth;
+
+    const height =
+        imageHeight;
+
+
+    const total =
+        width * height;
+
 
     const tolerance =
-        15;
+        Math.max(
+            1,
+            Math.min(
+                100,
+                Number(
+                    toleranceInput.value
+                ) || 25
+            )
+        );
 
+
+    /*
+    Region ID for every pixel.
+
+    -1 = not processed
+    */
+
+    regionMap =
+        new Int32Array(total);
+
+    regionMap.fill(-1);
+
+
+    regions = [];
+
+
+    /*
+    We compare each pixel with the
+    neighbouring pixels.
+
+    The tolerance determines whether
+    two neighbouring pixels belong
+    to the same region.
+    */
 
     for (
-        const area of areas
+        let y = 0;
+        y < height;
+        y++
     ) {
 
-        const distance =
-            Math.sqrt(
-
-                Math.pow(
-                    r - area.r,
-                    2
-                )
-
-                +
-
-                Math.pow(
-                    g - area.g,
-                    2
-                )
-
-                +
-
-                Math.pow(
-                    b - area.b,
-                    2
-                )
-
-            );
-
-
-        if (
-            distance <= tolerance
+        for (
+            let x = 0;
+            x < width;
+            x++
         ) {
 
-            return area;
+            const start =
+                y * width + x;
+
+
+            if (
+                regionMap[start] !== -1
+            ) {
+                continue;
+            }
+
+
+            const regionId =
+                regions.length;
+
+
+            const pixels = [];
+
+            const queue = [];
+
+
+            queue.push(start);
+
+            regionMap[start] =
+                regionId;
+
+
+            let queuePosition = 0;
+
+
+            while (
+                queuePosition <
+                queue.length
+            ) {
+
+                const index =
+                    queue[
+                        queuePosition++
+                    ];
+
+
+                pixels.push(index);
+
+
+                const px =
+                    index % width;
+
+                const py =
+                    Math.floor(
+                        index / width
+                    );
+
+
+                /*
+                Check four neighbours.
+                */
+
+                checkNeighbour(
+                    px - 1,
+                    py
+                );
+
+                checkNeighbour(
+                    px + 1,
+                    py
+                );
+
+                checkNeighbour(
+                    px,
+                    py - 1
+                );
+
+                checkNeighbour(
+                    px,
+                    py + 1
+                );
+
+            }
+
+
+            /*
+            Store region.
+            */
+
+            regions.push({
+
+                id:
+                    regionId,
+
+                pixels:
+                    pixels,
+
+                colour:
+                    randomColour()
+
+            });
+
+
+            function checkNeighbour(
+                nx,
+                ny
+            ) {
+
+                if (
+                    nx < 0 ||
+                    nx >= width ||
+                    ny < 0 ||
+                    ny >= height
+                ) {
+                    return;
+                }
+
+
+                const neighbour =
+                    ny * width + nx;
+
+
+                if (
+                    regionMap[neighbour] !== -1
+                ) {
+                    return;
+                }
+
+
+                const a =
+                    index * 4;
+
+                const b =
+                    neighbour * 4;
+
+
+                const dr =
+                    originalPixels[a] -
+                    originalPixels[b];
+
+                const dg =
+                    originalPixels[a + 1] -
+                    originalPixels[b + 1];
+
+                const db =
+                    originalPixels[a + 2] -
+                    originalPixels[b + 2];
+
+
+                const distance =
+                    Math.sqrt(
+                        dr * dr +
+                        dg * dg +
+                        db * db
+                    );
+
+
+                if (
+                    distance <= tolerance
+                ) {
+
+                    regionMap[neighbour] =
+                        regionId;
+
+                    queue.push(
+                        neighbour
+                    );
+
+                }
+
+            }
 
         }
 
     }
 
 
-    return null;
+    /*
+    Very tiny regions are merged
+    with their original appearance.
+
+    We don't want millions of tiny
+    one-pixel regions.
+    */
+
+    const minimumSize =
+        Math.max(
+            10,
+            Math.floor(
+                total * 0.00005
+            )
+        );
+
+
+    regions =
+        regions.filter(
+            region =>
+                region.pixels.length >=
+                minimumSize
+        );
+
+
+    /*
+    Re-number regions after filtering.
+    */
+
+    regions.forEach(
+        function(region, index) {
+
+            region.id = index;
+
+        }
+    );
+
+
+    /*
+    Show boundary map.
+    */
+
+    drawBoundaryMap();
+
+
+    areaCount.textContent =
+        regions.length +
+        " areas detected";
+
+
+    randomButton.disabled =
+        regions.length === 0;
+
+    createButton.disabled =
+        regions.length === 0;
+
+
+    status.textContent =
+        "All areas detected. The coloured boundaries show the regions that will be changed.";
 
 }
 
 
 /*
-========================================================
-APPLY COLOUR
-========================================================
+==========================================================
+DRAW BOUNDARIES
+==========================================================
 */
 
-applyColour.addEventListener(
-    "click",
-    function () {
-
-        if (!selectedArea) {
-
-            alert(
-                "Click an area of the image first."
-            );
-
-            return;
-
-        }
-
-
-        selectedArea.newColour =
-            colourPicker.value;
-
-
-        /*
-        Rebuild the image from the
-        original pixels so that colours
-        don't become mixed together.
-        */
-
-        redrawImage();
-
-
-        status.textContent =
-            selectedArea.name +
-            " changed to " +
-            colourPicker.value.toUpperCase();
-
-
-        updateAreaDisplay();
-
-    }
-);
-
-
-/*
-========================================================
-REDRAW IMAGE
-========================================================
-*/
-
-function redrawImage() {
-
-    if (!originalPixels) {
-        return;
-    }
-
+function drawBoundaryMap() {
 
     const data =
         new Uint8ClampedArray(
@@ -778,106 +811,118 @@ function redrawImage() {
         );
 
 
+    const width =
+        imageWidth;
+
+    const height =
+        imageHeight;
+
+
     /*
-    Every pixel is compared against
-    the ORIGINAL area colours.
+    Make each region slightly tinted
+    so the boundaries are easy to see.
     */
 
     for (
-        let i = 0;
-        i < data.length;
-        i += 4
+        let y = 0;
+        y < height;
+        y++
     ) {
 
-        const r =
-            data[i];
-
-        const g =
-            data[i + 1];
-
-        const b =
-            data[i + 2];
-
-
-        let matchedArea =
-            null;
-
-
         for (
-            const area of areas
+            let x = 0;
+            x < width;
+            x++
         ) {
 
-            const distance =
-                Math.sqrt(
+            const index =
+                y * width + x;
 
-                    Math.pow(
-                        r - area.r,
-                        2
-                    )
 
-                    +
+            /*
+            Ignore pixels that weren't
+            retained as a region.
+            */
 
-                    Math.pow(
-                        g - area.g,
-                        2
-                    )
-
-                    +
-
-                    Math.pow(
-                        b - area.b,
-                        2
-                    )
-
+            const region =
+                getRegionAt(
+                    index
                 );
 
 
             if (
-                distance <= 15
+                region === -1
             ) {
-
-                matchedArea =
-                    area;
-
-                break;
-
+                continue;
             }
 
-        }
+
+            let boundary = false;
 
 
-        if (matchedArea) {
+            if (
+                x === 0 ||
+                getRegionAt(
+                    index - 1
+                ) !== region
+            ) {
+                boundary = true;
+            }
 
-            const rgb =
-                hexToRGB(
-                    matchedArea.newColour
-                );
+
+            if (
+                x === width - 1 ||
+                getRegionAt(
+                    index + 1
+                ) !== region
+            ) {
+                boundary = true;
+            }
 
 
-            data[i] =
-                rgb.r;
+            if (
+                y === 0 ||
+                getRegionAt(
+                    index - width
+                ) !== region
+            ) {
+                boundary = true;
+            }
 
-            data[i + 1] =
-                rgb.g;
 
-            data[i + 2] =
-                rgb.b;
+            if (
+                y === height - 1 ||
+                getRegionAt(
+                    index + width
+                ) !== region
+            ) {
+                boundary = true;
+            }
+
+
+            if (boundary) {
+
+                const p =
+                    index * 4;
+
+
+                data[p] = 255;
+                data[p + 1] = 255;
+                data[p + 2] = 0;
+
+            }
 
         }
 
     }
 
 
-    const imageData =
+    ctx.putImageData(
         new ImageData(
             data,
-            canvas.width,
-            canvas.height
-        );
-
-
-    ctx.putImageData(
-        imageData,
+            width,
+            height
+        ),
         0,
         0
     );
@@ -886,637 +931,447 @@ function redrawImage() {
 
 
 /*
-========================================================
-RESET
-========================================================
+==========================================================
+GET REGION
+==========================================================
 */
 
-reset.addEventListener(
-    "click",
-    function () {
+function getRegionAt(index) {
 
-        if (!originalPixels) {
+    if (
+        index < 0 ||
+        index >= regionMap.length
+    ) {
+        return -1;
+    }
+
+
+    const id =
+        regionMap[index];
+
+
+    if (
+        id < 0 ||
+        id >= regions.length
+    ) {
+        return -1;
+    }
+
+
+    return id;
+
+}
+
+
+/*
+==========================================================
+RANDOM COLOURS
+==========================================================
+*/
+
+randomButton.addEventListener(
+    "click",
+    function() {
+
+        if (
+            regions.length === 0
+        ) {
             return;
         }
 
 
-        areas.forEach(
-            function(area) {
+        regions.forEach(
+            function(region) {
 
-                area.newColour =
-                    rgbToHex(
-                        area.r,
-                        area.g,
-                        area.b
-                    );
+                region.colour =
+                    randomColour();
 
             }
         );
 
 
-        const imageData =
-            new ImageData(
-                new Uint8ClampedArray(
-                    originalPixels
-                ),
-                canvas.width,
-                canvas.height
-            );
-
-
-        ctx.putImageData(
-            imageData,
-            0,
-            0
-        );
-
-
-        selectedArea =
-            null;
-
-
-        areaName.textContent =
-            "None";
-
-
-        selectedColour.style.background =
-            "transparent";
-
-
-        updateAreaDisplay();
+        drawColouredImage();
 
 
         status.textContent =
-            "Image reset.";
+            "A new colour has been applied to every detected area.";
 
     }
 );
 
 
 /*
-========================================================
-DISPLAY AREAS
-========================================================
+==========================================================
+DRAW COLOURED IMAGE
+==========================================================
 */
 
-function updateAreaDisplay() {
+function drawColouredImage() {
 
-    /*
-    Remove everything except heading.
-    */
-
-    areasContainer.innerHTML =
-        "<strong>Defined Areas</strong>";
+    const data =
+        new Uint8ClampedArray(
+            originalPixels
+        );
 
 
-    areas.forEach(
-        function(area) {
+    regions.forEach(
+        function(region) {
 
-            const div =
-                document.createElement("div");
-
-            div.className =
-                "area";
-
-
-            const colour =
-                document.createElement("span");
-
-            colour.className =
-                "area-colour";
+            const rgb =
+                hexToRGB(
+                    region.colour
+                );
 
 
-            colour.style.background =
-                area.newColour;
+            region.pixels.forEach(
+                function(index) {
+
+                    const p =
+                        index * 4;
 
 
-            const name =
-                document.createElement("span");
+                    data[p] =
+                        rgb.r;
 
-            name.className =
-                "area-name";
+                    data[p + 1] =
+                        rgb.g;
 
-            name.textContent =
-                area.name;
+                    data[p + 2] =
+                        rgb.b;
 
-
-            div.appendChild(
-                colour
-            );
-
-            div.appendChild(
-                name
-            );
-
-
-            areasContainer.appendChild(
-                div
+                }
             );
 
         }
+    );
+
+
+    ctx.putImageData(
+        new ImageData(
+            data,
+            imageWidth,
+            imageHeight
+        ),
+        0,
+        0
     );
 
 }
 
 
 /*
-========================================================
+==========================================================
 CREATE 10 VARIATIONS
-========================================================
+==========================================================
+
+Every variation starts from the
+same original image and the SAME
+region map.
+
+Each region receives ONE flat colour.
+
+Therefore:
+
+Area A cannot accidentally
+change Area B.
+
+==========================================================
 */
 
-create.addEventListener(
+createButton.addEventListener(
     "click",
-    function () {
+    function() {
 
-        if (!originalPixels) {
+        if (
+            regions.length === 0
+        ) {
+            return;
+        }
 
-            alert(
-                "Upload an image first."
+
+        collection.innerHTML = "";
+
+
+        for (
+            let variation = 1;
+            variation <= 10;
+            variation++
+        ) {
+
+            const output =
+                document.createElement(
+                    "canvas"
+                );
+
+
+            output.width =
+                imageWidth;
+
+            output.height =
+                imageHeight;
+
+
+            const outputCtx =
+                output.getContext(
+                    "2d"
+                );
+
+
+            const data =
+                new Uint8ClampedArray(
+                    originalPixels
+                );
+
+
+            /*
+            Generate ONE colour for
+            each region.
+
+            That colour is then used
+            for every pixel belonging
+            to that region.
+            */
+
+            regions.forEach(
+                function(region) {
+
+                    const colour =
+                        randomColourRGB();
+
+
+                    region.pixels.forEach(
+                        function(index) {
+
+                            const p =
+                                index * 4;
+
+
+                            data[p] =
+                                colour.r;
+
+                            data[p + 1] =
+                                colour.g;
+
+                            data[p + 2] =
+                                colour.b;
+
+                        }
+                    );
+
+                }
             );
 
-            return;
+
+            outputCtx.putImageData(
+                new ImageData(
+                    data,
+                    imageWidth,
+                    imageHeight
+                ),
+                0,
+                0
+            );
+
+
+            /*
+            Collection card.
+            */
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "card";
+
+
+            const title =
+                document.createElement(
+                    "h3"
+                );
+
+
+            title.textContent =
+                "Variation " +
+                String(
+                    variation
+                ).padStart(
+                    2,
+                    "0"
+                );
+
+
+            const download =
+                document.createElement(
+                    "button"
+                );
+
+
+            download.textContent =
+                "DOWNLOAD PNG";
+
+
+            download.addEventListener(
+                "click",
+                function() {
+
+                    output.toBlob(
+                        function(blob) {
+
+                            if (!blob) {
+                                return;
+                            }
+
+
+                            const url =
+                                URL.createObjectURL(
+                                    blob
+                                );
+
+
+                            const link =
+                                document.createElement(
+                                    "a"
+                                );
+
+
+                            link.href =
+                                url;
+
+
+                            link.download =
+                                "variation-" +
+                                String(
+                                    variation
+                                ).padStart(
+                                    2,
+                                    "0"
+                                ) +
+                                ".png";
+
+
+                            link.click();
+
+
+                            setTimeout(
+                                function() {
+
+                                    URL.revokeObjectURL(
+                                        url
+                                    );
+
+                                },
+                                1000
+                            );
+
+                        },
+                        "image/png"
+                    );
+
+                }
+            );
+
+
+            card.appendChild(
+                output
+            );
+
+            card.appendChild(
+                title
+            );
+
+            card.appendChild(
+                download
+            );
+
+
+            collection.appendChild(
+                card
+            );
 
         }
 
 
-        if (areas.length === 0) {
-
-            alert(
-                "Click at least one area of the image first."
-            );
-
-            return;
-
-        }
-
-
-        createVariations();
+        status.textContent =
+            "10 complete variations created.";
 
     }
 );
 
 
 /*
-========================================================
-10 VARIATIONS
-========================================================
+==========================================================
+RANDOM HEX
+==========================================================
 */
 
-function createVariations() {
+function randomColour() {
 
-    collection.innerHTML =
-        "";
+    const letters =
+        "0123456789ABCDEF";
 
 
-    /*
-    These are simply ten colour
-    palettes.
-
-    Area A always represents
-    the same original area.
-
-    Area B always represents
-    the same original area.
-
-    etc.
-    */
-
-    const palettes = [
-
-        [
-            "#E53935",
-            "#FFFFFF",
-            "#111111",
-            "#1976D2",
-            "#FDD835",
-            "#43A047",
-            "#8E24AA",
-            "#FB8C00"
-        ],
-
-        [
-            "#1976D2",
-            "#E53935",
-            "#FFFFFF",
-            "#111111",
-            "#43A047",
-            "#FDD835",
-            "#FB8C00",
-            "#8E24AA"
-        ],
-
-        [
-            "#43A047",
-            "#FDD835",
-            "#1976D2",
-            "#E53935",
-            "#FFFFFF",
-            "#8E24AA",
-            "#111111",
-            "#FB8C00"
-        ],
-
-        [
-            "#8E24AA",
-            "#FB8C00",
-            "#E53935",
-            "#43A047",
-            "#1976D2",
-            "#FFFFFF",
-            "#FDD835",
-            "#111111"
-        ],
-
-        [
-            "#FB8C00",
-            "#1976D2",
-            "#FDD835",
-            "#8E24AA",
-            "#E53935",
-            "#43A047",
-            "#FFFFFF",
-            "#111111"
-        ],
-
-        [
-            "#111111",
-            "#E53935",
-            "#1976D2",
-            "#FFFFFF",
-            "#FDD835",
-            "#8E24AA",
-            "#43A047",
-            "#FB8C00"
-        ],
-
-        [
-            "#D81B60",
-            "#00897B",
-            "#FDD835",
-            "#5E35B1",
-            "#E53935",
-            "#1E88E5",
-            "#43A047",
-            "#111111"
-        ],
-
-        [
-            "#00ACC1",
-            "#8E24AA",
-            "#E53935",
-            "#FDD835",
-            "#43A047",
-            "#1976D2",
-            "#FB8C00",
-            "#111111"
-        ],
-
-        [
-            "#6D4C41",
-            "#E53935",
-            "#43A047",
-            "#1976D2",
-            "#FDD835",
-            "#8E24AA",
-            "#FFFFFF",
-            "#FB8C00"
-        ],
-
-        [
-            "#263238",
-            "#FFFFFF",
-            "#E53935",
-            "#1976D2",
-            "#43A047",
-            "#FDD835",
-            "#8E24AA",
-            "#FB8C00"
-        ]
-
-    ];
+    let result = "#";
 
 
     for (
-        let variation = 0;
-        variation < 10;
-        variation++
+        let i = 0;
+        i < 6;
+        i++
     ) {
 
-        const newCanvas =
-            document.createElement(
-                "canvas"
-            );
-
-
-        newCanvas.width =
-            canvas.width;
-
-        newCanvas.height =
-            canvas.height;
-
-
-        const newCtx =
-            newCanvas.getContext("2d");
-
-
-        const data =
-            new Uint8ClampedArray(
-                originalPixels
-            );
-
-
-        /*
-        Recolour the original areas.
-        */
-
-        for (
-            let i = 0;
-            i < data.length;
-            i += 4
-        ) {
-
-            const r =
-                data[i];
-
-            const g =
-                data[i + 1];
-
-            const b =
-                data[i + 2];
-
-
-            let matchedArea =
-                null;
-
-            let closestDistance =
-                Infinity;
-
-
-            areas.forEach(
-                function(area) {
-
-                    const distance =
-                        Math.sqrt(
-
-                            Math.pow(
-                                r - area.r,
-                                2
-                            )
-
-                            +
-
-                            Math.pow(
-                                g - area.g,
-                                2
-                            )
-
-                            +
-
-                            Math.pow(
-                                b - area.b,
-                                2
-                            )
-
-                        );
-
-
-                    if (
-                        distance < closestDistance
-                    ) {
-
-                        closestDistance =
-                            distance;
-
-                        matchedArea =
-                            area;
-
-                    }
-
-                }
-            );
-
-
-            if (
-                matchedArea &&
-                closestDistance <= 15
-            ) {
-
-                const areaIndex =
-                    areas.indexOf(
-                        matchedArea
-                    );
-
-
-                const colour =
-                    palettes[variation]
-                    [
-                        areaIndex %
-                        palettes[variation].length
-                    ];
-
-
-                const rgb =
-                    hexToRGB(
-                        colour
-                    );
-
-
-                data[i] =
-                    rgb.r;
-
-                data[i + 1] =
-                    rgb.g;
-
-                data[i + 2] =
-                    rgb.b;
-
-            }
-
-        }
-
-
-        newCtx.putImageData(
-            new ImageData(
-                data,
-                canvas.width,
-                canvas.height
-            ),
-            0,
-            0
-        );
-
-
-        /*
-        CARD
-        */
-
-        const card =
-            document.createElement(
-                "div"
-            );
-
-        card.className =
-            "card";
-
-
-        const title =
-            document.createElement(
-                "h3"
-            );
-
-        title.textContent =
-            "Collection " +
-            String(
-                variation + 1
-            ).padStart(
-                2,
-                "0"
-            );
-
-
-        const download =
-            document.createElement(
-                "button"
-            );
-
-        download.textContent =
-            "DOWNLOAD PNG";
-
-
-        download.onclick =
-            function() {
-
-                newCanvas.toBlob(
-                    function(blob) {
-
-                        if (!blob) {
-
-                            alert(
-                                "Could not create PNG."
-                            );
-
-                            return;
-
-                        }
-
-
-                        const url =
-                            URL.createObjectURL(
-                                blob
-                            );
-
-
-                        const link =
-                            document.createElement(
-                                "a"
-                            );
-
-
-                        link.href =
-                            url;
-
-
-                        link.download =
-                            "collection-" +
-                            String(
-                                variation + 1
-                            ).padStart(
-                                2,
-                                "0"
-                            ) +
-                            ".png";
-
-
-                        document.body.appendChild(
-                            link
-                        );
-
-
-                        link.click();
-
-
-                        document.body.removeChild(
-                            link
-                        );
-
-
-                        setTimeout(
-                            function() {
-
-                                URL.revokeObjectURL(
-                                    url
-                                );
-
-                            },
-                            1000
-                        );
-
-                    },
-                    "image/png"
-                );
-
-            };
-
-
-        card.appendChild(
-            newCanvas
-        );
-
-        card.appendChild(
-            title
-        );
-
-        card.appendChild(
-            download
-        );
-
-
-        collection.appendChild(
-            card
-        );
+        result +=
+            letters[
+                Math.floor(
+                    Math.random() *
+                    16
+                )
+            ];
 
     }
 
 
-    status.textContent =
-        "10 variations created.";
+    return result;
 
 }
 
 
 /*
-========================================================
-RGB TO HEX
-========================================================
+==========================================================
+RANDOM RGB
+==========================================================
 */
 
-function rgbToHex(r, g, b) {
+function randomColourRGB() {
 
-    return "#" +
+    return {
 
-        [r, g, b]
-        .map(
-            function(value) {
+        r:
+            Math.floor(
+                Math.random() * 256
+            ),
 
-                return value
-                    .toString(16)
-                    .padStart(
-                        2,
-                        "0"
-                    );
+        g:
+            Math.floor(
+                Math.random() * 256
+            ),
 
-            }
-        )
-        .join("");
+        b:
+            Math.floor(
+                Math.random() * 256
+            )
+
+    };
 
 }
 
 
 /*
-========================================================
-HEX TO RGB
-========================================================
+==========================================================
+HEX → RGB
+==========================================================
 */
 
 function hexToRGB(hex) {
@@ -1565,4 +1420,3 @@ function hexToRGB(hex) {
 
 </body>
 </html>
-```
