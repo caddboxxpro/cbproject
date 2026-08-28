@@ -1,20 +1,1752 @@
-<html>
-  <head>
-    
-  </head>
-  
-  <body>
-    <a-scene>
-      <a-assets>
-        
-      </a-assets>
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Image Area Colour Creator</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #111;
+    color: white;
+}
+
+header {
+    background: #181818;
+    padding: 18px 24px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+header p {
+    margin: 6px 0 0;
+    color: #aaa;
+}
+
+.app {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    min-height: calc(100vh - 90px);
+}
+
+.image-panel {
+    background: #333;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.canvas-wrap {
+    width: 100%;
+    max-width: 850px;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+#imageCanvas {
+    cursor: crosshair;
+    background: #222;
+}
+
+.controls {
+    background: #f4f4f4;
+    color: #222;
+    padding: 22px;
+}
+
+.section {
+    margin-bottom: 22px;
+}
+
+.section-title {
+    font-weight: bold;
+    margin-bottom: 9px;
+    font-size: 15px;
+}
+
+input[type="file"] {
+    width: 100%;
+}
+
+input[type="color"] {
+    width: 100%;
+    height: 50px;
+    padding: 3px;
+    border: 1px solid #aaa;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 7px;
+    border: 0;
+    border-radius: 7px;
+    background: #176b32;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #125528;
+}
+
+button.secondary {
+    background: #ddd;
+    color: #222;
+}
+
+button.secondary:hover {
+    background: #ccc;
+}
+
+button.danger {
+    background: #b52b2b;
+}
+
+button.danger:hover {
+    background: #922222;
+}
+
+.area {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    margin-top: 6px;
+    background: #e5e5e5;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.area.selected {
+    outline: 2px solid #176b32;
+}
+
+.area-name {
+    flex: 1;
+    font-weight: bold;
+}
+
+.area-colour {
+    width: 27px;
+    height: 27px;
+    border-radius: 4px;
+    border: 1px solid #888;
+}
+
+#boundaryControls,
+#colourControls {
+    display: none;
+}
+
+#status {
+    margin-top: 12px;
+    font-size: 13px;
+    color: #555;
+    line-height: 1.4;
+}
+
+#collection {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+    padding: 25px;
+    background: #111;
+}
+
+.card {
+    background: #222;
+    border-radius: 9px;
+    padding: 10px;
+    text-align: center;
+}
+
+.card canvas {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.card h3 {
+    margin: 8px 0;
+}
+
+.card button {
+    margin-top: 0;
+}
+
+@media(max-width:850px) {
+    .app {
+        grid-template-columns: 1fr;
+    }
+
+    #collection {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media(max-width:600px) {
+    #collection {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Image Area Colour Creator</h1>
+    <p>Define the areas first, flatten them, then colour them.</p>
+</header>
 
 
+<div class="app">
 
-      
-    </a-scene>
-    <script>
-      
-    </script>
-  </body>
+    <div class="image-panel">
+
+        <div class="canvas-wrap">
+
+            <canvas id="imageCanvas"></canvas>
+
+        </div>
+
+    </div>
+
+
+    <aside class="controls">
+
+        <!-- UPLOAD -->
+
+        <div class="section">
+
+            <div class="section-title">
+                1. Upload Image
+            </div>
+
+            <input
+                id="upload"
+                type="file"
+                accept="image/*"
+            >
+
+        </div>
+
+
+        <!-- BOUNDARY -->
+
+        <div
+            class="section"
+            id="boundaryControls"
+        >
+
+            <div class="section-title">
+                Define Area
+            </div>
+
+            <button id="acceptBoundary">
+                ACCEPT BOUNDARY
+            </button>
+
+            <button
+                id="cancelBoundary"
+                class="danger"
+            >
+                CANCEL
+            </button>
+
+        </div>
+
+
+        <!-- AREAS -->
+
+        <div class="section">
+
+            <div class="section-title">
+                Defined Areas
+            </div>
+
+            <div id="areas"></div>
+
+        </div>
+
+
+        <!-- COLOUR -->
+
+        <div
+            class="section"
+            id="colourControls"
+        >
+
+            <div class="section-title">
+                Selected Area
+            </div>
+
+            <input
+                id="colourPicker"
+                type="color"
+                value="#ff0000"
+            >
+
+            <button id="flatten">
+                FLATTEN SELECTED AREA
+            </button>
+
+            <button id="applyColour">
+                APPLY COLOUR
+            </button>
+
+            <button
+                id="randomColours"
+                class="secondary"
+            >
+                RANDOMISE COLOURS
+            </button>
+
+        </div>
+
+
+        <!-- COLLECTION -->
+
+        <div class="section">
+
+            <button id="create">
+                CREATE 10 VARIATIONS
+            </button>
+
+        </div>
+
+
+        <div id="status">
+            Upload an image to begin.
+        </div>
+
+    </aside>
+
+</div>
+
+
+<div id="collection"></div>
+
+
+<script>
+
+/*
+========================================================
+MAIN VARIABLES
+========================================================
+*/
+
+const canvas =
+    document.getElementById("imageCanvas");
+
+const ctx =
+    canvas.getContext("2d", {
+        willReadFrequently: true
+    });
+
+const upload =
+    document.getElementById("upload");
+
+const areasDiv =
+    document.getElementById("areas");
+
+const boundaryControls =
+    document.getElementById("boundaryControls");
+
+const colourControls =
+    document.getElementById("colourControls");
+
+const colourPicker =
+    document.getElementById("colourPicker");
+
+const status =
+    document.getElementById("status");
+
+const collection =
+    document.getElementById("collection");
+
+
+let originalPixels = null;
+
+let areas = [];
+
+let selectedArea = null;
+
+let proposedMask = null;
+
+
+/*
+========================================================
+UPLOAD
+========================================================
+*/
+
+upload.addEventListener("change", function() {
+
+    const file = this.files[0];
+
+    if (!file) return;
+
+
+    const reader = new FileReader();
+
+
+    reader.onload = function(event) {
+
+        const img = new Image();
+
+
+        img.onload = function() {
+
+            canvas.width = img.width;
+            canvas.height = img.height;
+
+
+            ctx.drawImage(
+                img,
+                0,
+                0
+            );
+
+
+            const data =
+                ctx.getImageData(
+                    0,
+                    0,
+                    canvas.width,
+                    canvas.height
+                );
+
+
+            originalPixels =
+                new Uint8ClampedArray(
+                    data.data
+                );
+
+
+            areas = [];
+
+            selectedArea = null;
+
+            proposedMask = null;
+
+
+            boundaryControls.style.display =
+                "none";
+
+            colourControls.style.display =
+                "none";
+
+
+            areasDiv.innerHTML = "";
+
+            collection.innerHTML = "";
+
+
+            status.textContent =
+                "Click inside an area to detect its boundary.";
+
+        };
+
+
+        img.src = event.target.result;
+
+    };
+
+
+    reader.readAsDataURL(file);
+
+});
+
+
+/*
+========================================================
+CLICK IMAGE
+========================================================
+*/
+
+canvas.addEventListener("click", function(event) {
+
+    if (!originalPixels) return;
+
+
+    const rect =
+        canvas.getBoundingClientRect();
+
+
+    const x =
+        Math.floor(
+            (event.clientX - rect.left)
+            *
+            canvas.width /
+            rect.width
+        );
+
+
+    const y =
+        Math.floor(
+            (event.clientY - rect.top)
+            *
+            canvas.height /
+            rect.height
+        );
+
+
+    proposedMask =
+        findRegion(
+            x,
+            y
+        );
+
+
+    if (!proposedMask) {
+
+        status.textContent =
+            "No area detected.";
+
+        return;
+
+    }
+
+
+    drawPreview();
+
+
+    boundaryControls.style.display =
+        "block";
+
+
+    status.textContent =
+        "Boundary detected. Accept it or cancel it.";
+
+});
+
+
+/*
+========================================================
+FIND REGION
+========================================================
+
+Flood-fill from the selected point.
+
+The important part is that this creates
+a MASK for this particular connected
+region.
+
+========================================================
+*/
+
+function findRegion(startX, startY) {
+
+    const width =
+        canvas.width;
+
+    const height =
+        canvas.height;
+
+
+    const start =
+        (
+            startY * width +
+            startX
+        ) * 4;
+
+
+    const sr =
+        originalPixels[start];
+
+    const sg =
+        originalPixels[start + 1];
+
+    const sb =
+        originalPixels[start + 2];
+
+
+    /*
+    Colour tolerance.
+
+    This controls how far the region
+    can vary in shade.
+    */
+
+    const tolerance = 35;
+
+    const toleranceSquared =
+        tolerance * tolerance;
+
+
+    const visited =
+        new Uint8Array(
+            width * height
+        );
+
+
+    const mask =
+        new Uint8Array(
+            width * height
+        );
+
+
+    const queue = [];
+
+    queue.push({
+        x: startX,
+        y: startY
+    });
+
+
+    visited[
+        startY * width +
+        startX
+    ] = 1;
+
+
+    let position = 0;
+
+
+    while (
+        position < queue.length
+    ) {
+
+        const point =
+            queue[position++];
+
+        const x = point.x;
+        const y = point.y;
+
+
+        const pixel =
+            (
+                y * width +
+                x
+            ) * 4;
+
+
+        const r =
+            originalPixels[pixel];
+
+        const g =
+            originalPixels[pixel + 1];
+
+        const b =
+            originalPixels[pixel + 2];
+
+
+        const dr = r - sr;
+        const dg = g - sg;
+        const db = b - sb;
+
+
+        const distance =
+            dr * dr +
+            dg * dg +
+            db * db;
+
+
+        if (
+            distance >
+            toleranceSquared
+        ) {
+
+            continue;
+
+        }
+
+
+        const index =
+            y * width + x;
+
+
+        mask[index] = 1;
+
+
+        addNeighbour(
+            x - 1,
+            y
+        );
+
+        addNeighbour(
+            x + 1,
+            y
+        );
+
+        addNeighbour(
+            x,
+            y - 1
+        );
+
+        addNeighbour(
+            x,
+            y + 1
+        );
+
+    }
+
+
+    function addNeighbour(x, y) {
+
+        if (
+            x < 0 ||
+            x >= width ||
+            y < 0 ||
+            y >= height
+        ) {
+            return;
+        }
+
+
+        const index =
+            y * width + x;
+
+
+        if (
+            visited[index]
+        ) {
+            return;
+        }
+
+
+        visited[index] = 1;
+
+
+        queue.push({
+            x: x,
+            y: y
+        });
+
+    }
+
+
+    let count = 0;
+
+
+    for (
+        let i = 0;
+        i < mask.length;
+        i++
+    ) {
+
+        if (mask[i]) {
+            count++;
+        }
+
+    }
+
+
+    if (count < 10) {
+        return null;
+    }
+
+
+    return mask;
+
+}
+
+
+/*
+========================================================
+DRAW PREVIEW
+========================================================
+*/
+
+function drawPreview() {
+
+    const data =
+        new Uint8ClampedArray(
+            originalPixels
+        );
+
+
+    const width =
+        canvas.width;
+
+    const height =
+        canvas.height;
+
+
+    for (
+        let y = 0;
+        y < height;
+        y++
+    ) {
+
+        for (
+            let x = 0;
+            x < width;
+            x++
+        ) {
+
+            const index =
+                y * width + x;
+
+
+            if (
+                !proposedMask[index]
+            ) {
+                continue;
+            }
+
+
+            let boundary = false;
+
+
+            if (
+                x === 0 ||
+                !proposedMask[index - 1]
+            ) {
+                boundary = true;
+            }
+
+
+            if (
+                x === width - 1 ||
+                !proposedMask[index + 1]
+            ) {
+                boundary = true;
+            }
+
+
+            if (
+                y === 0 ||
+                !proposedMask[index - width]
+            ) {
+                boundary = true;
+            }
+
+
+            if (
+                y === height - 1 ||
+                !proposedMask[index + width]
+            ) {
+                boundary = true;
+            }
+
+
+            if (boundary) {
+
+                const p =
+                    index * 4;
+
+
+                data[p] = 255;
+                data[p + 1] = 220;
+                data[p + 2] = 0;
+
+            }
+
+        }
+
+    }
+
+
+    ctx.putImageData(
+        new ImageData(
+            data,
+            width,
+            height
+        ),
+        0,
+        0
+    );
+
+}
+
+
+/*
+========================================================
+ACCEPT BOUNDARY
+========================================================
+*/
+
+document
+.getElementById("acceptBoundary")
+.addEventListener("click", function() {
+
+    if (!proposedMask) return;
+
+
+    const area = {
+
+        name:
+            "Area " +
+            String.fromCharCode(
+                65 + areas.length
+            ),
+
+        mask:
+            proposedMask,
+
+        colour:
+            randomColour(),
+
+        flat:
+            false
+
+    };
+
+
+    areas.push(area);
+
+
+    selectedArea =
+        area;
+
+
+    proposedMask = null;
+
+
+    redraw();
+
+    updateAreas();
+
+
+    boundaryControls.style.display =
+        "none";
+
+    colourControls.style.display =
+        "block";
+
+
+    colourPicker.value =
+        area.colour;
+
+
+    status.textContent =
+        area.name +
+        " accepted. Click another area or select an area below.";
+
+});
+
+
+/*
+========================================================
+CANCEL
+========================================================
+*/
+
+document
+.getElementById("cancelBoundary")
+.addEventListener("click", function() {
+
+    proposedMask = null;
+
+    redraw();
+
+
+    boundaryControls.style.display =
+        "none";
+
+
+    status.textContent =
+        "Boundary cancelled.";
+
+});
+
+
+/*
+========================================================
+SELECT AREA
+========================================================
+*/
+
+function updateAreas() {
+
+    areasDiv.innerHTML = "";
+
+
+    areas.forEach(function(area) {
+
+        const div =
+            document.createElement("div");
+
+
+        div.className = "area";
+
+
+        if (
+            area === selectedArea
+        ) {
+
+            div.classList.add(
+                "selected"
+            );
+
+        }
+
+
+        const name =
+            document.createElement("span");
+
+
+        name.className =
+            "area-name";
+
+
+        name.textContent =
+            area.name;
+
+
+        const colour =
+            document.createElement("span");
+
+
+        colour.className =
+            "area-colour";
+
+
+        colour.style.background =
+            area.colour;
+
+
+        div.appendChild(name);
+
+        div.appendChild(colour);
+
+
+        div.onclick =
+            function() {
+
+                selectedArea =
+                    area;
+
+
+                colourPicker.value =
+                    area.colour;
+
+
+                colourControls.style.display =
+                    "block";
+
+
+                updateAreas();
+
+
+                status.textContent =
+                    area.name +
+                    " selected.";
+
+            };
+
+
+        areasDiv.appendChild(div);
+
+    });
+
+}
+
+
+/*
+========================================================
+FLATTEN SELECTED AREA
+========================================================
+
+This is the new function.
+
+Every pixel inside the selected
+area receives EXACTLY the same
+colour.
+
+There is no shading.
+
+========================================================
+*/
+
+document
+.getElementById("flatten")
+.addEventListener("click", function() {
+
+    if (!selectedArea) {
+
+        alert(
+            "Select an area first."
+        );
+
+        return;
+
+    }
+
+
+    /*
+    Calculate the average colour
+    of the original area.
+
+    This gives us a sensible flat
+    representation of the existing
+    area.
+    */
+
+    let red = 0;
+    let green = 0;
+    let blue = 0;
+    let count = 0;
+
+
+    for (
+        let i = 0;
+        i < selectedArea.mask.length;
+        i++
+    ) {
+
+        if (
+            !selectedArea.mask[i]
+        ) {
+            continue;
+        }
+
+
+        const p =
+            i * 4;
+
+
+        red +=
+            originalPixels[p];
+
+        green +=
+            originalPixels[p + 1];
+
+        blue +=
+            originalPixels[p + 2];
+
+
+        count++;
+
+    }
+
+
+    if (count === 0) {
+        return;
+    }
+
+
+    red =
+        Math.round(
+            red / count
+        );
+
+    green =
+        Math.round(
+            green / count
+        );
+
+    blue =
+        Math.round(
+            blue / count
+        );
+
+
+    /*
+    Store the flat colour.
+    */
+
+    selectedArea.colour =
+        rgbToHex(
+            red,
+            green,
+            blue
+        );
+
+
+    selectedArea.flat =
+        true;
+
+
+    /*
+    Put that colour into the
+    colour picker.
+    */
+
+    colourPicker.value =
+        selectedArea.colour;
+
+
+    redraw();
+
+    updateAreas();
+
+
+    status.textContent =
+        selectedArea.name +
+        " has been flattened.";
+
+});
+
+
+/*
+========================================================
+APPLY COLOUR
+========================================================
+*/
+
+document
+.getElementById("applyColour")
+.addEventListener("click", function() {
+
+    if (!selectedArea) {
+
+        alert(
+            "Select an area first."
+        );
+
+        return;
+
+    }
+
+
+    selectedArea.colour =
+        colourPicker.value;
+
+
+    selectedArea.flat =
+        true;
+
+
+    redraw();
+
+    updateAreas();
+
+
+    status.textContent =
+        selectedArea.name +
+        " changed to " +
+        selectedArea.colour.toUpperCase();
+
+});
+
+
+/*
+========================================================
+RANDOMISE COLOURS
+========================================================
+*/
+
+document
+.getElementById("randomColours")
+.addEventListener("click", function() {
+
+    if (areas.length === 0) {
+
+        alert(
+            "Define some areas first."
+        );
+
+        return;
+
+    }
+
+
+    areas.forEach(function(area) {
+
+        area.colour =
+            randomColour();
+
+        area.flat =
+            true;
+
+    });
+
+
+    redraw();
+
+    updateAreas();
+
+
+    status.textContent =
+        "All defined areas have been given new colours.";
+
+});
+
+
+/*
+========================================================
+REDRAW
+========================================================
+*/
+
+function redraw() {
+
+    if (!originalPixels) {
+        return;
+    }
+
+
+    const data =
+        new Uint8ClampedArray(
+            originalPixels
+        );
+
+
+    /*
+    Apply each area independently.
+
+    Because each area has its own
+    MASK, identical original colours
+    do not cause problems.
+    */
+
+    areas.forEach(function(area) {
+
+        const rgb =
+            hexToRGB(
+                area.colour
+            );
+
+
+        for (
+            let i = 0;
+            i < area.mask.length;
+            i++
+        ) {
+
+            if (
+                !area.mask[i]
+            ) {
+                continue;
+            }
+
+
+            const p =
+                i * 4;
+
+
+            data[p] =
+                rgb.r;
+
+            data[p + 1] =
+                rgb.g;
+
+            data[p + 2] =
+                rgb.b;
+
+        }
+
+    });
+
+
+    ctx.putImageData(
+        new ImageData(
+            data,
+            canvas.width,
+            canvas.height
+        ),
+        0,
+        0
+    );
+
+}
+
+
+/*
+========================================================
+CREATE 10 VARIATIONS
+========================================================
+*/
+
+document
+.getElementById("create")
+.addEventListener("click", function() {
+
+    if (!originalPixels) {
+
+        alert(
+            "Upload an image first."
+        );
+
+        return;
+
+    }
+
+
+    if (areas.length === 0) {
+
+        alert(
+            "Define at least one area first."
+        );
+
+        return;
+
+    }
+
+
+    collection.innerHTML = "";
+
+
+    for (
+        let variation = 1;
+        variation <= 10;
+        variation++
+    ) {
+
+        const newCanvas =
+            document.createElement(
+                "canvas"
+            );
+
+
+        newCanvas.width =
+            canvas.width;
+
+        newCanvas.height =
+            canvas.height;
+
+
+        const newCtx =
+            newCanvas.getContext("2d");
+
+
+        const data =
+            new Uint8ClampedArray(
+                originalPixels
+            );
+
+
+        /*
+        Give every area a completely
+        flat colour for this variation.
+        */
+
+        areas.forEach(function(area) {
+
+            const colour =
+                randomColourRGB();
+
+
+            for (
+                let i = 0;
+                i < area.mask.length;
+                i++
+            ) {
+
+                if (
+                    !area.mask[i]
+                ) {
+                    continue;
+                }
+
+
+                const p =
+                    i * 4;
+
+
+                data[p] =
+                    colour.r;
+
+                data[p + 1] =
+                    colour.g;
+
+                data[p + 2] =
+                    colour.b;
+
+            }
+
+        });
+
+
+        newCtx.putImageData(
+            new ImageData(
+                data,
+                canvas.width,
+                canvas.height
+            ),
+            0,
+            0
+        );
+
+
+        /*
+        CARD
+        */
+
+        const card =
+            document.createElement(
+                "div"
+            );
+
+
+        card.className =
+            "card";
+
+
+        const title =
+            document.createElement(
+                "h3"
+            );
+
+
+        title.textContent =
+            "Variation " +
+            String(
+                variation
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        const button =
+            document.createElement(
+                "button"
+            );
+
+
+        button.textContent =
+            "DOWNLOAD PNG";
+
+
+        button.onclick =
+            function() {
+
+                newCanvas.toBlob(
+                    function(blob) {
+
+                        if (!blob) {
+
+                            alert(
+                                "Could not create PNG."
+                            );
+
+                            return;
+
+                        }
+
+
+                        const url =
+                            URL.createObjectURL(
+                                blob
+                            );
+
+
+                        const link =
+                            document.createElement(
+                                "a"
+                            );
+
+
+                        link.href =
+                            url;
+
+
+                        link.download =
+                            "variation-" +
+                            String(
+                                variation
+                            ).padStart(
+                                2,
+                                "0"
+                            ) +
+                            ".png";
+
+
+                        document.body.appendChild(
+                            link
+                        );
+
+
+                        link.click();
+
+
+                        document.body.removeChild(
+                            link
+                        );
+
+
+                        setTimeout(
+                            function() {
+
+                                URL.revokeObjectURL(
+                                    url
+                                );
+
+                            },
+                            1000
+                        );
+
+                    },
+                    "image/png"
+                );
+
+            };
+
+
+        card.appendChild(
+            newCanvas
+        );
+
+        card.appendChild(
+            title
+        );
+
+        card.appendChild(
+            button
+        );
+
+
+        collection.appendChild(
+            card
+        );
+
+    }
+
+
+    status.textContent =
+        "10 complete variations created.";
+
+});
+
+
+/*
+========================================================
+RANDOM COLOUR
+========================================================
+*/
+
+function randomColour() {
+
+    const letters =
+        "0123456789ABCDEF";
+
+
+    let result = "#";
+
+
+    for (
+        let i = 0;
+        i < 6;
+        i++
+    ) {
+
+        result +=
+            letters[
+                Math.floor(
+                    Math.random() * 16
+                )
+            ];
+
+    }
+
+
+    return result;
+
+}
+
+
+/*
+========================================================
+RANDOM RGB
+========================================================
+*/
+
+function randomColourRGB() {
+
+    return {
+
+        r:
+            Math.floor(
+                Math.random() * 256
+            ),
+
+        g:
+            Math.floor(
+                Math.random() * 256
+            ),
+
+        b:
+            Math.floor(
+                Math.random() * 256
+            )
+
+    };
+
+}
+
+
+/*
+========================================================
+RGB TO HEX
+========================================================
+*/
+
+function rgbToHex(r, g, b) {
+
+    return "#" +
+
+        [r, g, b]
+        .map(function(value) {
+
+            return value
+                .toString(16)
+                .padStart(
+                    2,
+                    "0"
+                );
+
+        })
+        .join("");
+
+}
+
+
+/*
+========================================================
+HEX TO RGB
+========================================================
+*/
+
+function hexToRGB(hex) {
+
+    hex =
+        hex.replace(
+            "#",
+            ""
+        );
+
+
+    return {
+
+        r:
+            parseInt(
+                hex.substring(0, 2),
+                16
+            ),
+
+        g:
+            parseInt(
+                hex.substring(2, 4),
+                16
+            ),
+
+        b:
+            parseInt(
+                hex.substring(4, 6),
+                16
+            )
+
+    };
+
+}
+
+</script>
+
+</body>
 </html>
+```
