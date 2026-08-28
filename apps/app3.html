@@ -1,9 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Area Colour Collection Creator</title>
+
+<title>Flatten Image Areas</title>
 
 <style>
 * {
@@ -14,12 +16,12 @@ body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
     background: #111;
-    color: #fff;
+    color: white;
 }
 
 header {
-    padding: 20px 24px;
-    background: #181818;
+    padding: 20px 25px;
+    background: #1b1b1b;
 }
 
 header h1 {
@@ -32,9 +34,9 @@ header p {
     color: #aaa;
 }
 
-.app {
+.main {
     display: grid;
-    grid-template-columns: 1fr 300px;
+    grid-template-columns: 1fr 280px;
     min-height: calc(100vh - 90px);
 }
 
@@ -52,19 +54,18 @@ header p {
 }
 
 canvas {
+    display: block;
     width: 100%;
     height: auto;
-    display: block;
-    background: #222;
 }
 
 .controls {
-    background: #f3f3f3;
+    background: #f2f2f2;
     color: #222;
     padding: 22px;
 }
 
-.section {
+.control {
     margin-bottom: 22px;
 }
 
@@ -78,18 +79,21 @@ input[type="file"] {
     width: 100%;
 }
 
-input[type="number"] {
+input[type="range"] {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #bbb;
-    border-radius: 6px;
+}
+
+.value {
+    font-size: 13px;
+    color: #555;
+    margin-top: 5px;
 }
 
 button {
     width: 100%;
+    padding: 13px;
     border: 0;
     border-radius: 7px;
-    padding: 13px;
     margin-top: 8px;
     background: #176b32;
     color: white;
@@ -101,75 +105,29 @@ button:hover {
     background: #125528;
 }
 
-button.secondary {
-    background: #ddd;
-    color: #222;
-}
-
-button.secondary:hover {
-    background: #ccc;
-}
-
 button:disabled {
     opacity: .45;
     cursor: default;
 }
 
 .info {
+    background: #e3e3e3;
     padding: 12px;
-    background: #e5e5e5;
     border-radius: 7px;
     font-size: 13px;
     line-height: 1.45;
 }
 
 #status {
-    margin-top: 12px;
+    margin-top: 15px;
     font-size: 13px;
     line-height: 1.4;
     color: #555;
 }
 
-#collection {
-    background: #111;
-    padding: 25px;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 18px;
-}
-
-.card {
-    background: #222;
-    border-radius: 8px;
-    padding: 10px;
-    text-align: center;
-}
-
-.card canvas {
-    width: 100%;
-    border-radius: 5px;
-}
-
-.card h3 {
-    margin: 9px 0;
-    font-size: 15px;
-}
-
-@media(max-width: 850px) {
-    .app {
+@media(max-width:800px) {
+    .main {
         grid-template-columns: 1fr;
-    }
-
-    #collection {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media(max-width: 550px) {
-    #collection {
-        grid-template-columns: repeat(2, 1fr);
-        padding: 12px;
-        gap: 10px;
     }
 }
 </style>
@@ -178,30 +136,34 @@ button:disabled {
 <body>
 
 <header>
-    <h1>Area Colour Collection Creator</h1>
-    <p>Upload an image, detect its areas, then create ten colour variations.</p>
+    <h1>Flatten Image Areas</h1>
+    <p>Detect the areas of an image and remove their shading.</p>
 </header>
 
 
-<div class="app">
+<div class="main">
 
     <div class="viewer">
+
         <div class="viewer-inner">
+
             <canvas id="canvas"></canvas>
+
         </div>
+
     </div>
 
 
     <aside class="controls">
 
-        <div class="section">
+        <div class="control">
 
             <label>
-                1. Upload image
+                Upload image
             </label>
 
             <input
-                id="fileInput"
+                id="file"
                 type="file"
                 accept="image/*"
             >
@@ -209,67 +171,48 @@ button:disabled {
         </div>
 
 
-        <div class="section">
+        <div class="control">
 
             <label>
-                2. Area sensitivity
+                Colour tolerance
             </label>
 
             <input
                 id="tolerance"
-                type="number"
-                min="1"
-                max="100"
+                type="range"
+                min="5"
+                max="80"
                 value="25"
             >
 
-            <div class="info">
-                Lower values keep colours more separate.
-                Higher values combine similar shades into
-                the same area.
-            </div>
-
-            <button
-                id="detectButton"
-                disabled
-            >
-                DETECT ALL AREAS
-            </button>
-
-        </div>
-
-
-        <div class="section">
-
-            <div class="info">
-
-                <strong>Detected areas:</strong>
-
-                <div id="areaCount">
-                    None
-                </div>
-
+            <div class="value">
+                Tolerance:
+                <span id="toleranceValue">
+                    25
+                </span>
             </div>
 
         </div>
 
 
-        <div class="section">
+        <div class="control">
 
             <button
-                id="randomButton"
-                class="secondary"
+                id="detect"
                 disabled
             >
-                APPLY RANDOM COLOURS
+                DETECT & FLATTEN AREAS
             </button>
 
-            <button
-                id="createButton"
-                disabled
-            >
-                CREATE 10 VARIATIONS
-            </button>
+        </div>
+
+
+        <div class="info">
+
+            The image is divided into connected
+            colour areas. Each area is then given
+            one flat colour and a boundary is drawn
+            around it.
 
         </div>
 
@@ -283,16 +226,11 @@ button:disabled {
 </div>
 
 
-<div id="collection"></div>
-
-
 <script>
 
-/*
-==========================================================
-GLOBAL DATA
-==========================================================
-*/
+/* =====================================================
+   VARIABLES
+===================================================== */
 
 const canvas =
     document.getElementById("canvas");
@@ -306,46 +244,46 @@ const ctx =
     );
 
 const fileInput =
-    document.getElementById("fileInput");
+    document.getElementById("file");
 
 const toleranceInput =
     document.getElementById("tolerance");
 
+const toleranceValue =
+    document.getElementById("toleranceValue");
+
 const detectButton =
-    document.getElementById("detectButton");
-
-const randomButton =
-    document.getElementById("randomButton");
-
-const createButton =
-    document.getElementById("createButton");
+    document.getElementById("detect");
 
 const status =
     document.getElementById("status");
 
-const areaCount =
-    document.getElementById("areaCount");
-
-const collection =
-    document.getElementById("collection");
-
 
 let originalPixels = null;
 
-let regionMap = null;
+let width = 0;
 
-let regions = [];
-
-let imageWidth = 0;
-
-let imageHeight = 0;
+let height = 0;
 
 
-/*
-==========================================================
-UPLOAD
-==========================================================
-*/
+/* =====================================================
+   TOLERANCE DISPLAY
+===================================================== */
+
+toleranceInput.addEventListener(
+    "input",
+    function() {
+
+        toleranceValue.textContent =
+            this.value;
+
+    }
+);
+
+
+/* =====================================================
+   LOAD IMAGE
+===================================================== */
 
 fileInput.addEventListener(
     "change",
@@ -364,7 +302,7 @@ fileInput.addEventListener(
 
 
         reader.onload =
-            function(e) {
+            function(event) {
 
                 const image =
                     new Image();
@@ -373,73 +311,56 @@ fileInput.addEventListener(
                 image.onload =
                     function() {
 
-                        imageWidth =
-                            image.width;
+                        width =
+                            image.naturalWidth;
 
-                        imageHeight =
-                            image.height;
+                        height =
+                            image.naturalHeight;
 
 
                         canvas.width =
-                            imageWidth;
+                            width;
 
                         canvas.height =
-                            imageHeight;
+                            height;
 
 
                         ctx.drawImage(
                             image,
                             0,
-                            0
+                            0,
+                            width,
+                            height
                         );
 
 
-                        const pixels =
+                        const data =
                             ctx.getImageData(
                                 0,
                                 0,
-                                imageWidth,
-                                imageHeight
+                                width,
+                                height
                             );
 
 
                         originalPixels =
                             new Uint8ClampedArray(
-                                pixels.data
+                                data.data
                             );
-
-
-                        regionMap = null;
-
-                        regions = [];
 
 
                         detectButton.disabled =
                             false;
 
-                        randomButton.disabled =
-                            true;
-
-                        createButton.disabled =
-                            true;
-
-
-                        collection.innerHTML =
-                            "";
-
-
-                        areaCount.textContent =
-                            "Not detected";
-
 
                         status.textContent =
-                            "Image loaded. Click DETECT ALL AREAS.";
+                            "Image loaded. Press DETECT & FLATTEN AREAS.";
 
                     };
 
 
                 image.src =
-                    e.target.result;
+                    event.target.result;
 
             };
 
@@ -450,11 +371,9 @@ fileInput.addEventListener(
 );
 
 
-/*
-==========================================================
-DETECT ALL AREAS
-==========================================================
-*/
+/* =====================================================
+   DETECT
+===================================================== */
 
 detectButton.addEventListener(
     "click",
@@ -470,262 +389,215 @@ detectButton.addEventListener(
 
 
         /*
-        Give the browser a moment to
-        update the status before doing
-        the calculation.
+        Allow the browser to update the
+        status before processing.
         */
 
         setTimeout(
-            detectRegions,
-            30
+            processImage,
+            50
         );
 
     }
 );
 
 
-/*
-==========================================================
-REGION DETECTION
-==========================================================
+/* =====================================================
+   PROCESS IMAGE
+===================================================== */
 
-Every connected area gets a unique
-region number.
-
-IMPORTANT:
-
-Two areas can have exactly the
-same colour and still become two
-different regions if they are not
-physically connected.
-
-==========================================================
-*/
-
-function detectRegions() {
-
-    const width =
-        imageWidth;
-
-    const height =
-        imageHeight;
-
+function processImage() {
 
     const total =
         width * height;
 
 
     const tolerance =
-        Math.max(
-            1,
-            Math.min(
-                100,
-                Number(
-                    toleranceInput.value
-                ) || 25
-            )
+        Number(
+            toleranceInput.value
         );
 
 
     /*
-    Region ID for every pixel.
+    Each pixel stores its region ID.
 
-    -1 = not processed
+    -1 means not processed.
     */
 
-    regionMap =
+    const regionMap =
         new Int32Array(total);
 
     regionMap.fill(-1);
 
 
-    regions = [];
+    const regions = [];
 
 
     /*
-    We compare each pixel with the
-    neighbouring pixels.
-
-    The tolerance determines whether
-    two neighbouring pixels belong
-    to the same region.
+    Examine every pixel.
     */
 
     for (
-        let y = 0;
-        y < height;
-        y++
+        let start = 0;
+        start < total;
+        start++
     ) {
 
-        for (
-            let x = 0;
-            x < width;
-            x++
+        if (
+            regionMap[start] !== -1
+        ) {
+            continue;
+        }
+
+
+        const regionId =
+            regions.length;
+
+
+        const pixels = [];
+
+        const queue = [start];
+
+        let queuePosition = 0;
+
+
+        regionMap[start] =
+            regionId;
+
+
+        /*
+        Flood-fill this connected
+        colour region.
+        */
+
+        while (
+            queuePosition <
+            queue.length
         ) {
 
-            const start =
-                y * width + x;
+            const index =
+                queue[
+                    queuePosition++
+                ];
+
+
+            pixels.push(index);
+
+
+            const x =
+                index % width;
+
+            const y =
+                Math.floor(
+                    index / width
+                );
+
+
+            check(
+                x - 1,
+                y,
+                index
+            );
+
+            check(
+                x + 1,
+                y,
+                index
+            );
+
+            check(
+                x,
+                y - 1,
+                index
+            );
+
+            check(
+                x,
+                y + 1,
+                index
+            );
+
+        }
+
+
+        /*
+        Store region.
+        */
+
+        regions.push({
+            pixels: pixels
+        });
+
+
+        /*
+        Check neighbouring pixel.
+        */
+
+        function check(
+            nx,
+            ny,
+            currentIndex
+        ) {
+
+            if (
+                nx < 0 ||
+                nx >= width ||
+                ny < 0 ||
+                ny >= height
+            ) {
+                return;
+            }
+
+
+            const neighbour =
+                ny * width + nx;
 
 
             if (
-                regionMap[start] !== -1
+                regionMap[neighbour] !== -1
             ) {
-                continue;
+                return;
             }
 
 
-            const regionId =
-                regions.length;
+            const a =
+                currentIndex * 4;
+
+            const b =
+                neighbour * 4;
 
 
-            const pixels = [];
+            const dr =
+                originalPixels[a] -
+                originalPixels[b];
 
-            const queue = [];
+            const dg =
+                originalPixels[a + 1] -
+                originalPixels[b + 1];
+
+            const db =
+                originalPixels[a + 2] -
+                originalPixels[b + 2];
 
 
-            queue.push(start);
+            const distance =
+                Math.sqrt(
+                    dr * dr +
+                    dg * dg +
+                    db * db
+                );
 
-            regionMap[start] =
-                regionId;
 
-
-            let queuePosition = 0;
-
-
-            while (
-                queuePosition <
-                queue.length
+            if (
+                distance <= tolerance
             ) {
 
-                const index =
-                    queue[
-                        queuePosition++
-                    ];
+                regionMap[neighbour] =
+                    regionId;
 
-
-                pixels.push(index);
-
-
-                const px =
-                    index % width;
-
-                const py =
-                    Math.floor(
-                        index / width
-                    );
-
-
-                /*
-                Check four neighbours.
-                */
-
-                checkNeighbour(
-                    px - 1,
-                    py
+                queue.push(
+                    neighbour
                 );
-
-                checkNeighbour(
-                    px + 1,
-                    py
-                );
-
-                checkNeighbour(
-                    px,
-                    py - 1
-                );
-
-                checkNeighbour(
-                    px,
-                    py + 1
-                );
-
-            }
-
-
-            /*
-            Store region.
-            */
-
-            regions.push({
-
-                id:
-                    regionId,
-
-                pixels:
-                    pixels,
-
-                colour:
-                    randomColour()
-
-            });
-
-
-            function checkNeighbour(
-                nx,
-                ny
-            ) {
-
-                if (
-                    nx < 0 ||
-                    nx >= width ||
-                    ny < 0 ||
-                    ny >= height
-                ) {
-                    return;
-                }
-
-
-                const neighbour =
-                    ny * width + nx;
-
-
-                if (
-                    regionMap[neighbour] !== -1
-                ) {
-                    return;
-                }
-
-
-                const a =
-                    index * 4;
-
-                const b =
-                    neighbour * 4;
-
-
-                const dr =
-                    originalPixels[a] -
-                    originalPixels[b];
-
-                const dg =
-                    originalPixels[a + 1] -
-                    originalPixels[b + 1];
-
-                const db =
-                    originalPixels[a + 2] -
-                    originalPixels[b + 2];
-
-
-                const distance =
-                    Math.sqrt(
-                        dr * dr +
-                        dg * dg +
-                        db * db
-                    );
-
-
-                if (
-                    distance <= tolerance
-                ) {
-
-                    regionMap[neighbour] =
-                        regionId;
-
-                    queue.push(
-                        neighbour
-                    );
-
-                }
 
             }
 
@@ -735,292 +607,61 @@ function detectRegions() {
 
 
     /*
-    Very tiny regions are merged
-    with their original appearance.
+    Remove tiny regions.
 
-    We don't want millions of tiny
-    one-pixel regions.
+    These are normally noise,
+    isolated pixels, or tiny details.
     */
 
-    const minimumSize =
+    const minimumPixels =
         Math.max(
-            10,
+            20,
             Math.floor(
-                total * 0.00005
+                total * 0.0001
             )
         );
 
 
-    regions =
+    const usableRegions =
         regions.filter(
             region =>
                 region.pixels.length >=
-                minimumSize
+                minimumPixels
         );
 
 
     /*
-    Re-number regions after filtering.
+    Create output starting with
+    the original image.
+
+    Only detected regions are
+    flattened.
     */
 
-    regions.forEach(
-        function(region, index) {
-
-            region.id = index;
-
-        }
-    );
-
-
-    /*
-    Show boundary map.
-    */
-
-    drawBoundaryMap();
-
-
-    areaCount.textContent =
-        regions.length +
-        " areas detected";
-
-
-    randomButton.disabled =
-        regions.length === 0;
-
-    createButton.disabled =
-        regions.length === 0;
-
-
-    status.textContent =
-        "All areas detected. The coloured boundaries show the regions that will be changed.";
-
-}
-
-
-/*
-==========================================================
-DRAW BOUNDARIES
-==========================================================
-*/
-
-function drawBoundaryMap() {
-
-    const data =
+    const output =
         new Uint8ClampedArray(
             originalPixels
         );
 
 
-    const width =
-        imageWidth;
-
-    const height =
-        imageHeight;
-
-
     /*
-    Make each region slightly tinted
-    so the boundaries are easy to see.
+    Flatten every region.
+
+    The average colour of the
+    region is calculated.
+
+    Every pixel in that region
+    receives EXACTLY that colour.
     */
 
-    for (
-        let y = 0;
-        y < height;
-        y++
-    ) {
-
-        for (
-            let x = 0;
-            x < width;
-            x++
-        ) {
-
-            const index =
-                y * width + x;
-
-
-            /*
-            Ignore pixels that weren't
-            retained as a region.
-            */
-
-            const region =
-                getRegionAt(
-                    index
-                );
-
-
-            if (
-                region === -1
-            ) {
-                continue;
-            }
-
-
-            let boundary = false;
-
-
-            if (
-                x === 0 ||
-                getRegionAt(
-                    index - 1
-                ) !== region
-            ) {
-                boundary = true;
-            }
-
-
-            if (
-                x === width - 1 ||
-                getRegionAt(
-                    index + 1
-                ) !== region
-            ) {
-                boundary = true;
-            }
-
-
-            if (
-                y === 0 ||
-                getRegionAt(
-                    index - width
-                ) !== region
-            ) {
-                boundary = true;
-            }
-
-
-            if (
-                y === height - 1 ||
-                getRegionAt(
-                    index + width
-                ) !== region
-            ) {
-                boundary = true;
-            }
-
-
-            if (boundary) {
-
-                const p =
-                    index * 4;
-
-
-                data[p] = 255;
-                data[p + 1] = 255;
-                data[p + 2] = 0;
-
-            }
-
-        }
-
-    }
-
-
-    ctx.putImageData(
-        new ImageData(
-            data,
-            width,
-            height
-        ),
-        0,
-        0
-    );
-
-}
-
-
-/*
-==========================================================
-GET REGION
-==========================================================
-*/
-
-function getRegionAt(index) {
-
-    if (
-        index < 0 ||
-        index >= regionMap.length
-    ) {
-        return -1;
-    }
-
-
-    const id =
-        regionMap[index];
-
-
-    if (
-        id < 0 ||
-        id >= regions.length
-    ) {
-        return -1;
-    }
-
-
-    return id;
-
-}
-
-
-/*
-==========================================================
-RANDOM COLOURS
-==========================================================
-*/
-
-randomButton.addEventListener(
-    "click",
-    function() {
-
-        if (
-            regions.length === 0
-        ) {
-            return;
-        }
-
-
-        regions.forEach(
-            function(region) {
-
-                region.colour =
-                    randomColour();
-
-            }
-        );
-
-
-        drawColouredImage();
-
-
-        status.textContent =
-            "A new colour has been applied to every detected area.";
-
-    }
-);
-
-
-/*
-==========================================================
-DRAW COLOURED IMAGE
-==========================================================
-*/
-
-function drawColouredImage() {
-
-    const data =
-        new Uint8ClampedArray(
-            originalPixels
-        );
-
-
-    regions.forEach(
+    usableRegions.forEach(
         function(region) {
 
-            const rgb =
-                hexToRGB(
-                    region.colour
-                );
+            let red = 0;
+
+            let green = 0;
+
+            let blue = 0;
 
 
             region.pixels.forEach(
@@ -1030,14 +671,58 @@ function drawColouredImage() {
                         index * 4;
 
 
-                    data[p] =
-                        rgb.r;
+                    red +=
+                        originalPixels[p];
 
-                    data[p + 1] =
-                        rgb.g;
+                    green +=
+                        originalPixels[p + 1];
 
-                    data[p + 2] =
-                        rgb.b;
+                    blue +=
+                        originalPixels[p + 2];
+
+                }
+            );
+
+
+            const count =
+                region.pixels.length;
+
+
+            red =
+                Math.round(
+                    red / count
+                );
+
+            green =
+                Math.round(
+                    green / count
+                );
+
+            blue =
+                Math.round(
+                    blue / count
+                );
+
+
+            /*
+            Apply flat colour.
+            */
+
+            region.pixels.forEach(
+                function(index) {
+
+                    const p =
+                        index * 4;
+
+
+                    output[p] =
+                        red;
+
+                    output[p + 1] =
+                        green;
+
+                    output[p + 2] =
+                        blue;
 
                 }
             );
@@ -1046,373 +731,120 @@ function drawColouredImage() {
     );
 
 
+    /*
+    Draw boundaries.
+
+    A pixel is a boundary pixel if
+    one of its neighbours belongs
+    to a different region.
+    */
+
+    usableRegions.forEach(
+        function(region) {
+
+            region.pixels.forEach(
+                function(index) {
+
+                    const x =
+                        index % width;
+
+                    const y =
+                        Math.floor(
+                            index / width
+                        );
+
+
+                    let boundary =
+                        false;
+
+
+                    if (
+                        x === 0 ||
+                        regionMap[index - 1] !==
+                        regionMap[index]
+                    ) {
+
+                        boundary = true;
+
+                    }
+
+
+                    if (
+                        x === width - 1 ||
+                        regionMap[index + 1] !==
+                        regionMap[index]
+                    ) {
+
+                        boundary = true;
+
+                    }
+
+
+                    if (
+                        y === 0 ||
+                        regionMap[index - width] !==
+                        regionMap[index]
+                    ) {
+
+                        boundary = true;
+
+                    }
+
+
+                    if (
+                        y === height - 1 ||
+                        regionMap[index + width] !==
+                        regionMap[index]
+                    ) {
+
+                        boundary = true;
+
+                    }
+
+
+                    if (boundary) {
+
+                        const p =
+                            index * 4;
+
+
+                        /*
+                        Black boundary.
+                        */
+
+                        output[p] = 0;
+
+                        output[p + 1] = 0;
+
+                        output[p + 2] = 0;
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+    /*
+    Display result.
+    */
+
     ctx.putImageData(
         new ImageData(
-            data,
-            imageWidth,
-            imageHeight
+            output,
+            width,
+            height
         ),
         0,
         0
     );
 
-}
 
-
-/*
-==========================================================
-CREATE 10 VARIATIONS
-==========================================================
-
-Every variation starts from the
-same original image and the SAME
-region map.
-
-Each region receives ONE flat colour.
-
-Therefore:
-
-Area A cannot accidentally
-change Area B.
-
-==========================================================
-*/
-
-createButton.addEventListener(
-    "click",
-    function() {
-
-        if (
-            regions.length === 0
-        ) {
-            return;
-        }
-
-
-        collection.innerHTML = "";
-
-
-        for (
-            let variation = 1;
-            variation <= 10;
-            variation++
-        ) {
-
-            const output =
-                document.createElement(
-                    "canvas"
-                );
-
-
-            output.width =
-                imageWidth;
-
-            output.height =
-                imageHeight;
-
-
-            const outputCtx =
-                output.getContext(
-                    "2d"
-                );
-
-
-            const data =
-                new Uint8ClampedArray(
-                    originalPixels
-                );
-
-
-            /*
-            Generate ONE colour for
-            each region.
-
-            That colour is then used
-            for every pixel belonging
-            to that region.
-            */
-
-            regions.forEach(
-                function(region) {
-
-                    const colour =
-                        randomColourRGB();
-
-
-                    region.pixels.forEach(
-                        function(index) {
-
-                            const p =
-                                index * 4;
-
-
-                            data[p] =
-                                colour.r;
-
-                            data[p + 1] =
-                                colour.g;
-
-                            data[p + 2] =
-                                colour.b;
-
-                        }
-                    );
-
-                }
-            );
-
-
-            outputCtx.putImageData(
-                new ImageData(
-                    data,
-                    imageWidth,
-                    imageHeight
-                ),
-                0,
-                0
-            );
-
-
-            /*
-            Collection card.
-            */
-
-            const card =
-                document.createElement(
-                    "div"
-                );
-
-
-            card.className =
-                "card";
-
-
-            const title =
-                document.createElement(
-                    "h3"
-                );
-
-
-            title.textContent =
-                "Variation " +
-                String(
-                    variation
-                ).padStart(
-                    2,
-                    "0"
-                );
-
-
-            const download =
-                document.createElement(
-                    "button"
-                );
-
-
-            download.textContent =
-                "DOWNLOAD PNG";
-
-
-            download.addEventListener(
-                "click",
-                function() {
-
-                    output.toBlob(
-                        function(blob) {
-
-                            if (!blob) {
-                                return;
-                            }
-
-
-                            const url =
-                                URL.createObjectURL(
-                                    blob
-                                );
-
-
-                            const link =
-                                document.createElement(
-                                    "a"
-                                );
-
-
-                            link.href =
-                                url;
-
-
-                            link.download =
-                                "variation-" +
-                                String(
-                                    variation
-                                ).padStart(
-                                    2,
-                                    "0"
-                                ) +
-                                ".png";
-
-
-                            link.click();
-
-
-                            setTimeout(
-                                function() {
-
-                                    URL.revokeObjectURL(
-                                        url
-                                    );
-
-                                },
-                                1000
-                            );
-
-                        },
-                        "image/png"
-                    );
-
-                }
-            );
-
-
-            card.appendChild(
-                output
-            );
-
-            card.appendChild(
-                title
-            );
-
-            card.appendChild(
-                download
-            );
-
-
-            collection.appendChild(
-                card
-            );
-
-        }
-
-
-        status.textContent =
-            "10 complete variations created.";
-
-    }
-);
-
-
-/*
-==========================================================
-RANDOM HEX
-==========================================================
-*/
-
-function randomColour() {
-
-    const letters =
-        "0123456789ABCDEF";
-
-
-    let result = "#";
-
-
-    for (
-        let i = 0;
-        i < 6;
-        i++
-    ) {
-
-        result +=
-            letters[
-                Math.floor(
-                    Math.random() *
-                    16
-                )
-            ];
-
-    }
-
-
-    return result;
-
-}
-
-
-/*
-==========================================================
-RANDOM RGB
-==========================================================
-*/
-
-function randomColourRGB() {
-
-    return {
-
-        r:
-            Math.floor(
-                Math.random() * 256
-            ),
-
-        g:
-            Math.floor(
-                Math.random() * 256
-            ),
-
-        b:
-            Math.floor(
-                Math.random() * 256
-            )
-
-    };
-
-}
-
-
-/*
-==========================================================
-HEX → RGB
-==========================================================
-*/
-
-function hexToRGB(hex) {
-
-    hex =
-        hex.replace(
-            "#",
-            ""
-        );
-
-
-    return {
-
-        r:
-            parseInt(
-                hex.substring(
-                    0,
-                    2
-                ),
-                16
-            ),
-
-        g:
-            parseInt(
-                hex.substring(
-                    2,
-                    4
-                ),
-                16
-            ),
-
-        b:
-            parseInt(
-                hex.substring(
-                    4,
-                    6
-                ),
-                16
-            )
-
-    };
+    status.textContent =
+        usableRegions.length +
+        " areas detected, flattened and outlined.";
 
 }
 
@@ -1420,3 +852,4 @@ function hexToRGB(hex) {
 
 </body>
 </html>
+```
