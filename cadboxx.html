@@ -1,7 +1,10 @@
+<!--
+
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CADBOXX</title>
+<title>CADBOXX</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-animation-component@3.2.1/dist/aframe-animation-component.min.js"></script>
     <script src="https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js"></script>
@@ -15,11 +18,6 @@
     <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
     <script src="https://unpkg.com/aframe-ground-component@0.0.4/dist/aframe-ground-component.min.js"></script>
     <script src="https://unpkg.com/aframe-snapto-component/dist/aframe-snapto-component.js"></script>
-    <script src="https://unpkg.com/aframe-teleport-controls@0.2.x/dist/aframe-teleport-controls.min.js"></script>
-    <script src="https://unpkg.com/aframe-controller-cursor-component@0.2.x/dist/aframe-controller-cursor-component.min.js"></script>
-    <script src="https://rawgit.com/ngokevin/kframe/csstricks/scenes/aincraft/components/random-color.js"></script>
-    <script src="https://rawgit.com/ngokevin/kframe/csstricks/scenes/aincraft/components/snap.js"></script>
-    <script src="https://rawgit.com/ngokevin/kframe/csstricks/scenes/aincraft/components/intersection-spawn.js"></script>
 
     <script src="https://unpkg.com/aframe-touch-inspector@1.1.2/dist/aframe-inspector.min.js"></script>
     <script src="https://unpkg.com/aframe-layout-component@4.3.1/dist/aframe-layout-component.min.js"></script>
@@ -32,7 +30,7 @@
     <script src="https://unpkg.com/aframe-gltf-helpers@0.0.2/dist/aframe-gltf-helpers.min.js"></script>
     <script src="https://rawgit.com/dbradleyfl/aframe-gridhelper/master/dist/aframe-gridhelper-component.min.js"></script>
     <script src="https://rawgit.com/dbradleyfl/aframe-selectable-light-component/master/dist/aframe-selectable-light-component.min.js"></script>
-    <!--latest scripts-->
+
     <script src="https://cdn.jsdelivr.net/npm/aframe-connecting-line@0.1.0/index.min.js"></script>
 
     <script src="js/aframe-extras.min.js"></script>
@@ -49,8 +47,7 @@
 
     <script src="aframe-gui.min.js"></script>
     <script src="aframe-tooltip-componemt.min.js"></script>
-    <script src="aframe-pyhsics-system.min.js" ></script>
-    <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
+    <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js" ></script>
 
     <script src="js/grab.js"></script>
     <script src="js/grab.min.js"></script>
@@ -92,7 +89,7 @@
                             THREE.Math.randInt(-20, 20),
                             THREE.Math.randInt(-20, 20)
                         ),
-                                                    /* world position */ new CANNON.Vec3().copy(el.getDOMAttribute('position'))
+                                                /* world position */ new CANNON.Vec3().copy(el.getDOMAttribute('position'))
                     );
                 });
 
@@ -121,9 +118,9 @@
             }
         })
     </script>
-    <!--DRAG-N-DROP
-
-    -->
+	<!--DRAG-N-DROP
+	
+	-->
     <script src=" https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
     <style>
         .button:hover {
@@ -155,30 +152,23 @@
             justify-content: center;
         }
     </style>
-    <script>
-        Function("matchanger") {
-            import { EXTTextureWebP } from '@gltf-transform/extensions';
-
-            // Create an Extension attached to the Document.
-            const webpExtension = document.createExtension(EXTTextureWebP)
-                .setRequired(true);
-            document.createTexture('MyWebPTexture')
-                .setMimeType('image/webp')
-                .setImage(fs.readFileSync('my-texture.webp'));
-        }
-    </script>
+<script>	
+	Function() {
+	import { EXTTextureWebP } from '@gltf-transform/extensions';
+	
+	// Create an Extension attached to the Document.
+	const webpExtension = document.createExtension(EXTTextureWebP)
+	    .setRequired(true);
+	document.createTexture('MyWebPTexture')
+	    .setMimeType('image/webp')
+	    .setImage(fs.readFileSync('my-texture.webp'));
+	}
+</script>
 
 </head>
 <body>
-    <div id="container">
-        <button id="export-scene" class="button"><span>Export Scene</span></button>
-        <button id="export-scene-bin" class="button"><span>Export glb</span></button>
-        <button id="export-sphere" class="button"><span>Export Sphere</span></button>
-        <button id="export-two" class="button"><span>Export</span></button>
-        <button id="playground" class="button" onclick=function(´matchanger´)><span>matchanger</span></button>
-    </div>
-
-    <a-scene gltf-exporter physics="debug: false; friction: 0.1; restitution: 0.5; gravity:-10">
+	  <a-scene gltf-exporter
+             physics="debug: false; friction: 0.1; restitution: 0.5; gravity:-10" >
         <a-assets>
 
             <a-mixin id="cube" geometry="primitive: box; width: 2.0; height: 2.0; depth: 2.0"
@@ -186,7 +176,7 @@
                      event-set__hoveron="_event: hover-start; material.opacity: 0.7; transparent: true"
                      event-set__hoveroff="_event: hover-end; material.opacity: 1; transparent: false"
                      body="shape: none" shape="shape: box; halfExtents: 1 1 1" shadow></a-mixin>
-            <a-mixin id="gltfmodel" gltf-model="#cb1"
+            <a-mixin id="gltfmodel" gltf-model="#cbb1"
                      hoverable grabbable stretchable draggable droppable clickable
                      event-set__hoveron="_event: hover-start; material.opacity: 0.7; transparent: true"
                      event-set__hoveroff="_event: hover-end; material.opacity: 1; transparent: false"
@@ -211,11 +201,23 @@
 
             <a-asset-item id="waddler" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/waddler.glb?v=1668021723166"></a-asset-item>
 
+            <img id="galaxy" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/780593/galaxy.jpg">
+            <img id="moon" src="https://raw.githubusercontent.com/aframevr/sample-assets/master/assets/images/space/moon_1024.jpg">
+            <img id="clouds" src="https://raw.githubusercontent.com/aframevr/sample-assets/master/assets/images/space/earth_clouds_2048.png">
+            <img id="venus" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/780593/5710820393_a36f3c730b_m.jpg">
+            <img id="pic1" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/border-pic.jpg?v=1654934865728">
+            <img id="pic2" src="https://cdn.glitch.com/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538%2Fsclight.png?v=1618928375551">
+            <img id="pic3" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/skateboard1200x400bg-white.png?v=1659609701460">
+            <img id="pic4" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/cadboxx-border.png?v=1659362950670">
+            <img id="pic5" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/roboxx.png?v=1659362885712">
+            <img id="pic6" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/cadboxx.png?v=1659434696690">
+
             <!--sphorb-->
             <a-asset-item id="bb02" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/sphorb1.glb?v=1655710163279"></a-asset-item>
             <a-asset-item id="bb03" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/sphorb2.glb?v=1655710178528"></a-asset-item>
             <a-asset-item id="bb04" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/sphorb3.glb?v=1655710192379"></a-asset-item>
             <a-asset-item id="bb05" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/sphorb4.glb?v=1655710213868"></a-asset-item>
+
 
             <a-asset-item id="chlink1" src="https://cdn.glitch.com/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538%2Fchink1.glb?v=1606822463366"></a-asset-item>
             <a-asset-item id="chlink2" src="https://cdn.glitch.com/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538%2Fchink2.glb?v=1606822434718"></a-asset-item>
@@ -228,6 +230,8 @@
             <a-asset-item id="bb011" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/box-axis-y-y.glb?v=1655717561218"></a-asset-item>
             <a-asset-item id="bb012" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/box-axis-zz.glb?v=1655717583030"></a-asset-item>
             <a-asset-item id="bb013" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/box-axis-z-z.glb?v=1655717667672"></a-asset-item>
+
+
 
             <a-asset-item id="bb019" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/generic-wheel.glb?v=1655896082243"></a-asset-item>
             <!--stub gears-->
@@ -252,6 +256,10 @@
             <a-asset-item id="bb038" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/dddxxx.glb?v=1656646954681"></a-asset-item>
 
             <a-asset-item id="optimerBoldFont" src="https://rawgit.com/mrdoob/three.js/dev/examples/fonts/optimer_bold.typeface.json"></a-asset-item>
+            <!--lead screw-->
+            <a-asset-item id="bb039" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/linear-screw-2000-1.glb?v=1659723632101"></a-asset-item>
+            <a-asset-item id="bb040" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/linear-nut-1.glb?v=1659723551067"></a-asset-item>
+            <a-asset-item id="bb041" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/linear-screw-1000.glb?v=1659858281452"></a-asset-item>
             <!--hex n ball-->
             <a-asset-item id="bb042" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/full-hex-50-hole.glb?v=1659723446134"></a-asset-item>
             <a-asset-item id="bb043" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/bottom-sq-100x100x10.glb?v=1659723230346"></a-asset-item>
@@ -334,9 +342,17 @@
             <a-mixin id="constraint_hinge_x" constraint="type: hinge;target:bodyx;axis:1 0 0;targetAxis:1 0 0;pivot:0 0 0;targetPivot:0 0 0"></a-mixin>
             <a-mixin id="constraint_hinge_y" constraint="type: hinge;target:bodyy;axis:0 1 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 0 0"></a-mixin>
             <a-mixin id="constraint_hinge_z" constraint="type: hinge;target:bodyz;axis:0 0 1;targetAxis:0 0 1;pivot:0 0 0;targetPivot:0 0 0"></a-mixin>
+
+
+
             <a-mixin id="constraint_distance" constraint="type: distance;pivot:0 0 0;targetPivot:0 0 0"></a-mixin>
+
+
             <a-mixin id="constraint_slider" constraint="type: slider;axis:0 1 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 0 0"></a-mixin>
+
+
             <a-mixin id="constraint_lock" constraint="type: lock;pivot:0 0 0;targetPivot:0 0 0"></a-mixin>
+
             <a-mixin id="constraint_pointTopoint_x" constraint="type: pointTopoint;axis:1 0 0;targetAxis:1 0 0;pivot:1 0 0;targetPivot:0 0 0"></a-mixin>
             <a-mixin id="constraint_pointTopoint_y" constraint="type: pointTopoint;axis:0 1 0;targetAxis:0 1 0;pivot:0 1 0;targetPivot:0 0 0"></a-mixin>
             <a-mixin id="constraint_pointTopoint_z" constraint="type: pointTopoint;axis:0 0 1;targetAxis:0 0 1;pivot:0 0 1;targetPivot:0 0 0"></a-mixin>
@@ -376,12 +392,12 @@
             <a-mixin id="yellow" material="color: yellow"></a-mixin>
 
             <!--
-        <a-mixin id="" geometry="gltf-model: model;" src="#prt1"></a-mixin>
+            <a-mixin id="" geometry="gltf-model: model;" src="#prt1"></a-mixin>
 
-        <a-mixin id="" geometry="gltf-model: model;src:#prt0"></a-mixin>
+            <a-mixin id="" geometry="gltf-model: model;src:#prt0"></a-mixin>
 
-        <a-mixin id="" constraint="type: hinge;axis:0 1 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 0 0"></a-mixin>
-            -->
+            <a-mixin id="" constraint="type: hinge;axis:0 1 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 0 0"></a-mixin>
+                -->
 
             <a-mixin id="trigger-box" geometry="primitive:box;width:4; depth:4; height:4; color:green; opacity:1"
                      class="clickable" event-set__enter="_event: mouseenter; color: #026fc9" event-set__leave="_event: mouseleave; color: #4CC3D9"
@@ -464,72 +480,142 @@
 
 
         </a-assets>
+        <!--
+                <a-box id="export-redbxx" class="clickable" position="0 5 -10" rotation="0 0 0" width="5" depth=".5" height="5" color="red" opacity="1" static-body></a-box>
+                <a-box id="changesphere" class="clickable" position="0 5 -10" rotation="0 0 0" width="5" depth=".5" height="5" color="blue" opacity="1" static-body onclick="changesphere()"></a-box>
+                <a-sphere id="sph1" class="clickable" position="0 5 0" rotation="0 0 0" radius="2" color="green" opacity="1" static-body></a-sphere>
 
-        <!--<a-box id="export-redbxx" class="clickable" position="0 5 -10" rotation="0 0 0" width="5" depth=".5" height="5" color="red" opacity="1" static-body></a-box>
-            <a-box id="changesphere" class="clickable" position="0 5 -10" rotation="0 0 0" width="5" depth=".5" height="5" color="blue" opacity="1" static-body onclick="changesphere()"></a-box>
-            <a-sphere id="sph1" class="clickable" position="0 5 0" rotation="0 0 0" radius="2" color="green" opacity="1" static-body></a-sphere>
-    -->
+                <!--control box-->
+        <a-box position="32.5 0 0" rotation="0 0 0" width="5" depth="5" height="5" scale="5 5 5" color="black" opacity="1" static-body>
+				<a-gui-flex-container 
+				    flex-direction="column" justify-content="center" align-items="normal" component-padding="0.1" opacity="0.7" width="3.5" height="4.5" 
+				    panel-color="#072B73" 
+				    panel-rounded="0.2"
+					position="0 1.25 4" rotation="0 0 0"
+				>
+				... gui items here...
+				
+				</a-gui-flex-container>
+            <a-box position="0 0 0" rotation="0 0 0" width="5" depth="5" height="0.025" color="lightblue" opacity=".1" static-body>
+                <a-box id="cmnd1" class="clickable" position="-2 2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="" static-body></a-box>
+                <a-box id="cmnd2" class="clickable" position="-1 2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd3" class="clickable" position="-0 2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd4" class="clickable" position="1 2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd5" class="clickable" position="2 2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd6" class="clickable" position="-2 1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd7" class="clickable" position="-1 1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd8" class="clickable" position="-0 1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd9" class="clickable" position="1 1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd10" class="clickable" position="2 1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd11" class="clickable" position="-2 0 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd12" class="clickable" position="-1 0 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd13" class="clickable" position="-0 0 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd14" class="clickable" position="1 0 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd15" class="clickable" position="2 0 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd16" class="clickable" position="-2 -1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd17" class="clickable" position="-1 -1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd18" class="clickable" position="-0 -1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd19" class="clickable" position="1 -1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd20" class="clickable" position="2 -1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd21" class="clickable" position="-2 -2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd22" class="clickable" position="-1 -2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd23" class="clickable" position="-0 -2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd24" class="clickable" position="1 -2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd25" class="clickable" position="2 -2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
 
+            </a-box>
+            <a-box position="0 0 0" rotation="0 180 0" width="5" depth="5" height="0.05" color="lightblue" opacity=".1" static-body>
+                <a-box id="cmnd1" class="clickable" position="-2 2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd2" class="clickable" position="-1 2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd3" class="clickable" position="-0 2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd4" class="clickable" position="1 2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd5" class="clickable" position="2 2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd6" class="clickable" position="-2 1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd7" class="clickable" position="-1 1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd8" class="clickable" position="-0 1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd9" class="clickable" position="1 1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd10" class="clickable" position="2 1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd11" class="clickable" position="-2 0 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd12" class="clickable" position="-1 0 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd13" class="clickable" position="-0 0 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd14" class="clickable" position="1 0 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd15" class="clickable" position="2 0 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd16" class="clickable" position="-2 -1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd17" class="clickable" position="-1 -1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd18" class="clickable" position="-0 -1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd19" class="clickable" position="1 -1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd20" class="clickable" position="2 -1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd21" class="clickable" position="-2 -2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd22" class="clickable" position="-1 -2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd23" class="clickable" position="-0 -2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd24" class="clickable" position="1 -2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd25" class="clickable" position="2 -2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
 
-        <a-box position="0 11 -19" rotation="0 0 0" width="5" depth="5" height="0.05" color="lightblue" opacity=".1" static-body>
-            <a-box id="cmnd1" class="clickable" position="-2 2 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd2" class="clickable" position="-1 2 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd3" class="clickable" position="-0 2 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd4" class="clickable" position="1 2 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd5" class="clickable" position="2 2 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd6" class="clickable" position="-2 1 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd7" class="clickable" position="-1 1 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd8" class="clickable" position="-0 1 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd9" class="clickable" position="1 1 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd10" class="clickable" position="2 1 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd11" class="clickable" position="-2 0 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd12" class="clickable" position="-1 0 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd13" class="clickable" position="-0 0 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd14" class="clickable" position="1 0 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd15" class="clickable" position="2 0 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd16" class="clickable" position="-2 -1 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd17" class="clickable" position="-1 -1 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd18" class="clickable" position="-0 -1 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd19" class="clickable" position="1 -1 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd20" class="clickable" position="2 -1 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd21" class="clickable" position="-2 -2 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd22" class="clickable" position="-1 -2 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd23" class="clickable" position="-0 -2 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd24" class="clickable" position="1 -2 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
-            <a-box id="cmnd25" class="clickable" position="2 -2 2.5" rotation="0 0 0" width=".7" depth=".2" height=".7" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+            </a-box>
+            <a-box position="0 0 0" rotation="0 90 0" width="5" depth="5" height="0.05" color="lightblue" opacity=".1" static-body>
+                <a-box id="cmnd1" class="clickable" position="-2 2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd2" class="clickable" position="-1 2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd3" class="clickable" position="-0 2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd4" class="clickable" position="1 2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd5" class="clickable" position="2 2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd6" class="clickable" position="-2 1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd7" class="clickable" position="-1 1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd8" class="clickable" position="-0 1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd9" class="clickable" position="1 1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd10" class="clickable" position="2 1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd11" class="clickable" position="-2 0 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd12" class="clickable" position="-1 0 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd13" class="clickable" position="-0 0 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd14" class="clickable" position="1 0 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd15" class="clickable" position="2 0 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd16" class="clickable" position="-2 -1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd17" class="clickable" position="-1 -1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd18" class="clickable" position="-0 -1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd19" class="clickable" position="1 -1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd20" class="clickable" position="2 -1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd21" class="clickable" position="-2 -2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd22" class="clickable" position="-1 -2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd23" class="clickable" position="-0 -2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd24" class="clickable" position="1 -2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd25" class="clickable" position="2 -2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
 
+            </a-box>
+            <a-box position="0 0 0" rotation="0 -90 0" width="5" depth="5" height="0.05" color="lightblue" opacity=".1" static-body>
+                <a-box id="cmnd1" class="clickable" position="-2 2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd2" class="clickable" position="-1 2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd3" class="clickable" position="-0 2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd4" class="clickable" position="1 2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd5" class="clickable" position="2 2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd6" class="clickable" position="-2 1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd7" class="clickable" position="-1 1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd8" class="clickable" position="-0 1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd9" class="clickable" position="1 1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd10" class="clickable" position="2 1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd11" class="clickable" position="-2 0 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd12" class="clickable" position="-1 0 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd13" class="clickable" position="-0 0 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd14" class="clickable" position="1 0 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd15" class="clickable" position="2 0 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="green" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd16" class="clickable" position="-2 -1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd17" class="clickable" position="-1 -1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd18" class="clickable" position="-0 -1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd19" class="clickable" position="1 -1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd20" class="clickable" position="2 -1 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="blue" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd21" class="clickable" position="-2 -2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd22" class="clickable" position="-1 -2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd23" class="clickable" position="-0 -2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd24" class="clickable" position="1 -2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+                <a-box id="cmnd25" class="clickable" position="2 -2 2.5" rotation="0 0 0" width=".9" depth=".2" height=".9" color="red" opacity="1" onclick="myFunction()" static-body></a-box>
+
+            </a-box>
         </a-box>
-
-        <a-entity id="circle" layout="type:circle">
-            <a-entity id="assplane1" gltf-model="#centerx" scale="1 1 1" visible="true"></a-entity>
-            <a-entity id="assplane2" gltf-model="#centerx" scale="1 1 1" visible="true"></a-entity>
-            <a-entity id="assplane3" gltf-model="#centerx" scale="1 1 1" visible="true"></a-entity>
-            <a-entity id="assplane4" gltf-model="#centerx" scale="1 1 1" visible="true"></a-entity>
-            <a-entity id="assplane5" gltf-model="#centerx" scale="1 1 1" visible="true"></a-entity>
-            <a-entity id="assplane6" gltf-model="#centerx" scale="1 1 1" visible="true"></a-entity>
-            <a-entity id="assplane7" gltf-model="#centerx" scale="1 1 1" visible="true"></a-entity>
-            <a-entity id="assplane8" gltf-model="#centerx" scale="1 1 1" visible="true"></a-entity>
-            <a-entity id="assplane9" gltf-model="#centerx" scale="1 1 1" visible="true"></a-entity>
-        </a-entity>
-
-        <a-light type="point" color="#94c6ff" distance="15" position="0 0 -12" intensity="2" animation="property: light.intensity; from: 0; to: 2; delay: 750; dur: 500" light="intensity: 2" visible=""></a-light>
-        <a-light type="point" color="#94c6ff" distance="17" position="0 0 -6" intensity="2" animation="property: light.intensity; from: 0; to: 1; delay: 500; dur: 500" light="intensity: 1"></a-light>
-        <a-light type="hemisphere" position="0 0 0" color="#4f6487" intensity="2"></a-light>
-
-
+        <!--end control box-->
 
         <a-gltf-model id="ground" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/ground-plane_with_mesh.glb?v=1678034073866" position="0 0 0" scale="1 1 1" rotation="180 0 0" static-body></a-gltf-model>
 
-        <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9" dynamic-body click-impulse></a-box>
-        <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E" dynamic-body click-impulse></a-sphere>
-        <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D" dynamic-body click-impulse></a-cylinder>
-
-        <a-light type="point" color="#94c6ff" distance="15" position="0 0 -12" intensity="2" animation="property: light.intensity; from: 0; to: 2; delay: 750; dur: 500" light="intensity: 2" visible=""></a-light>
-        <a-light type="point" color="#94c6ff" distance="17" position="0 0 -6" intensity="2" animation="property: light.intensity; from: 0; to: 1; delay: 500; dur: 500" light="intensity: 1"></a-light>
-        <a-light type="hemisphere" position="0 0 0" color="#4f6487" intensity="2"></a-light>
-
-
-        <a-entity id="planeboxxx" position="0 0 0" scale="1 1 1">
+	
+		
+		<a-entity id="planeboxxx" position="0 0 0" scale="1 1 1">
             <a-entity id="planeboxx" position="0 0 0">
                 <a-entity id="planebox" position="0 0 0">
                     <a-plane side="double" color="green" position="0 -20 0" rotation="-90 0 0" height="40" width="40" material="" static-body></a-plane>
@@ -547,10 +633,7 @@
                 <a-box position="-20 0 0" rotation="0 0 90" width="30" depth="30" height="0.2" color="yellow" opacity="1" gridhelper="size: 25;divisions:5" static-body></a-box>
                 <a-box position="20 0 0" rotation="0 0 90" width="30" depth="30" height="0.2" color="yellow" opacity="1.0" gridhelper="size: 25;divisions:5" static-body></a-box>
 
-                <a-box mixin="rotyy" color="green" position="0 18 0" rotation="0 0 0" height="1" width="20" depth="20" material="" static-body></a-box>
-                <a-box mixin="rotzz" color="blue" position="0 0 18" rotation="0 0 0" height="20" width="20" depth="1" material="" static-body></a-box>
-                <a-box mixin="rotxx" color="red" position="18 0 0" rotation="0 0 0" height="20" width="1" depth="20" material="" static-body></a-box>
-
+                
                 <a-box position="0 0 -20" rotation="0 0 0" width="40" depth="0.5" height="40" color="lightblue" opacity=".1" static-body>
                     <a-entity id="cmnd1" mixin="trigger-box4" position="-10 0 0" rotation="0 0 0" onclick="cmm1()" static-body><a-sphere id="cmcdsph1" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
                     <a-entity id="cmnd2" mixin="trigger-box4" position="-10 5 0" rotation="0 0 0" onclick="cmm2()" static-body><a-sphere id="cmcdsph2" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
@@ -624,63 +707,34 @@
             </a-entity>
         </a-entity>
 
-
-
-
-
-
-        <!-- Camera + cursor. -->
-        <a-entity id="cameraRig" position="0 1.6 0" active="false">
-            <a-camera look-controls wasd-controls position="0 0 0">
-                <a-gui-cursor id="cursor"
-                              raycaster="objects: [gui-interactable]"
-                              fuse="false">
-                </a-gui-cursor> <!-- /cursor -->
-            </a-camera> <!-- /camera -->
-        </a-entity>
-        <!-- Camera + cursor. -->
-        <a-entity id="cameraRig" position="0 1.6 0" active="true">
-            <a-camera look-controls wasd-controls position="0 0 0">
-                <a-gui-cursor id="cursor"
-                              raycaster="objects: [gui-interactable]"
-                              fuse="true" fuse-timeout="2000"
-                              color="#ECEFF1"
-                              hover-color="#CFD8DC"
-                              active-color="#607D8B"
-                              design="ring">
-                    <!-- dot, ring, reticle, cross  -->
-                </a-gui-cursor> <!-- /cursor -->
-            </a-camera> <!-- /camera -->
-        </a-entity>
-    </a-scene>
-
-
-
-    <script>
-        function exportGLTF(input, options) {
-            AFRAME.scenes[0].systems['gltf-exporter'].export(input, options);
-        }
-
-        document.getElementById('export-scene').addEventListener('click', function () {
-            exportGLTF();
-        });
-
-        document.getElementById('export-scene-bin').addEventListener('click', function () {
-            exportGLTF(undefined, { binary: true });
-        });
-
-        document.getElementById('export-sphere').addEventListener('click', function () {
-            exportGLTF(document.getElementById('yellowSphere'), { binary: true });
-        });
-
-        document.getElementById('export-two').addEventListener('click', function () {
-            exportGLTF([document.getElementById('blueBox'), document.getElementById('yellowSphere')]);
-        });
-
-        document.getElementById('export-selector').addEventListener('click', function () {
-            exportGLTF(document.querySelectorAll("[geometry='primitive: box']"));
-        });
-
-    </script>
-</body>
+	
+	
+	
+	
+	
+			<!-- Camera + cursor. -->
+			<a-entity id="cameraRig" position="0 1.6 0" active="false">
+				<a-camera look-controls wasd-controls position="0 0 0">
+					<a-gui-cursor id="cursor"
+							  raycaster="objects: [gui-interactable]"
+							  fuse="false"
+					>
+					</a-gui-cursor> <!-- /cursor -->
+				</a-camera> <!-- /camera -->
+			</a-entity>
+			<!-- Camera + cursor. -->
+			<a-entity id="cameraRig" position="0 1.6 0" active="true" >
+				<a-camera look-controls wasd-controls position="0 0 0">
+					<a-gui-cursor id="cursor"
+							  raycaster="objects: [gui-interactable]"
+							  fuse="true" fuse-timeout="2000"
+							  color="#ECEFF1"
+							  hover-color="#CFD8DC"
+							  active-color="#607D8B"
+							  design="ring" > <!-- dot, ring, reticle, cross  -->
+					</a-gui-cursor> <!-- /cursor -->
+				</a-camera> <!-- /camera -->
+			</a-entity>		
+		</a-scene>
+	</body>
 </html>
