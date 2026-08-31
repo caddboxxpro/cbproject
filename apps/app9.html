@@ -34,7 +34,7 @@
     <script src="https://rawgit.com/dbradleyfl/aframe-selectable-light-component/master/dist/aframe-selectable-light-component.min.js"></script>
     <!--latest scripts-->
     <script src="https://cdn.jsdelivr.net/npm/aframe-connecting-line@0.1.0/index.min.js"></script>
-
+<!--
     <script src="js/aframe-extras.min.js"></script>
     <script src="js/aframe-extras.controls.mih.js"></script>
     <script src="js/aframe-extras.misc.js"></script>
@@ -68,7 +68,7 @@
     <script src="aframe-mouse-cursor-component.min.js"></script>
     <script src="aframe-gltf-exporter-component.min.js"></script>
 
-    <!--reaction components-->
+    <!--reaction components--
     <script src="reaction_components/clickable.js"></script>
     <script src="reaction_components/draggable.js"></script>
     <script src="reaction_components/drag-droppable.js"></script>
@@ -170,14 +170,7 @@
 
 </head>
 <body>
-    <div id="container">
-        <button id="export-scene" class="button"><span>Export Scene</span></button>
-        <button id="export-scene-bin" class="button"><span>Export glb</span></button>
-        <button id="export-sphere" class="button"><span>Export Sphere</span></button>
-        <button id="export-two" class="button"><span>Export</span></button>
-        <button id="playground" class="button" onclick=function(´matchanger´)><span>matchanger</span></button>
-    </div>
-
+    
     <a-scene gltf-exporter physics="debug: false; friction: 0.1; restitution: 0.5; gravity:-10">
         <a-assets>
 
@@ -539,14 +532,14 @@
                     <a-plane side="double" color="red" position="20 0 0" rotation="0 -90 0" height="40" width="40" material="" static-body></a-plane>
                     <a-plane side="double" color="red" position="-20 0 0" rotation="0 90 0" height="40" width="40" material="" static-body></a-plane>
                 </a-entity>
-                <!--mesh overlay for walls-->
+                <!--mesh overlay for walls
                 <a-box position="0 -20 0" rotation="0 0 0" width="30" depth="30" height="0.2" color="yellow" opacity="" gridhelper="size: 25;divisions:5" static-body></a-box>
                 <a-box position="0 20 0" rotation="0 0 0" width="30" depth="30" height="0.2" color="yellow" opacity="1" gridhelper="size: 25;divisions:5" static-body></a-box>
                 <a-box position="0 0 -20" rotation="90 0 0" width="30" depth="30" height="0.2" color="yellow" opacity="" gridhelper="size: 25;divisions:5" static-body></a-box>
                 <a-box position="0 0 20" rotation="90 0 0" width="30" depth="30" height="0.2" color="yellow" opacity="1" gridhelper="size: 25;divisions:5" static-body></a-box>
                 <a-box position="-20 0 0" rotation="0 0 90" width="30" depth="30" height="0.2" color="yellow" opacity="1" gridhelper="size: 25;divisions:5" static-body></a-box>
                 <a-box position="20 0 0" rotation="0 0 90" width="30" depth="30" height="0.2" color="yellow" opacity="1.0" gridhelper="size: 25;divisions:5" static-body></a-box>
-
+-->
                 <a-box mixin="rotyy" color="green" position="0 18 0" rotation="0 0 0" height="1" width="20" depth="20" material="" static-body></a-box>
                 <a-box mixin="rotzz" color="blue" position="0 0 18" rotation="0 0 0" height="20" width="20" depth="1" material="" static-body></a-box>
                 <a-box mixin="rotxx" color="red" position="18 0 0" rotation="0 0 0" height="20" width="1" depth="20" material="" static-body></a-box>
