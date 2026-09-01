@@ -13,13 +13,23 @@
       <a-assets>
         
       </a-assets>
+    <!-- your scene content -->
+
+
+
 
 
 
       
     </a-scene>
+
+<button style="position:fixed;top:10px;right:10px;z-index:9999;" onclick="AFRAME.INSPECTOR.open()">
+  Open Inspector
+</button>
     <script>
-      
+      document.getElementById('open-inspector').onclick = () => {
+      AFRAME.INSPECTOR.open();
+        }
     </script>
   </body>
 </html>
