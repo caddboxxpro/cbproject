@@ -65,25 +65,14 @@
     <a-scene physics>
 
         <a-assets>
-            <a-asset-item id="city1" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/building_ground_level.glb?v=1700071311269"></a-asset-item>
-            <a-asset-item id="city2" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/building_single_level.glb?v=1700071289985"></a-asset-item>
-            <a-asset-item id="city3" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/floor.glb?v=1700154134820"></a-asset-item>
-            <a-asset-item id="city4" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/longroad8.glb?v=1700154172184"></a-asset-item>
-            <a-asset-item id="city5" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/roadmarkings.glb?v=1700289835737"></a-asset-item>
-            <a-asset-item id="city6" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/sky-scraper.glb?v=1700290690506"></a-asset-item>
-            <a-asset-item id="city7" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/sky-scraper2.glb?v=1700299443384"></a-asset-item>
-            <a-asset-item id="city8" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/glassbalconyrroof.glb?v=1700298670554"></a-asset-item>
-            <a-asset-item id="city9" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/pyramidtop.glb?v=1700289603900"></a-asset-item>
-            <a-asset-item id="city10" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/pyramidchrome.glb?v=1700255242161"></a-asset-item>
-
-
+           
 
         </a-assets>
 
 
 
 
-        <!--ground entity-->
+        <!--ground entity--
         <a-entity id="city" position="0 0 0" rotation="0 0 0" static-body>
 
             <a-entity id="bbb1" gltf-model="#city3" position="0 0 0" rotation="0 0 0" scale="1 1 1" static-body></a-entity>
@@ -100,16 +89,16 @@
 
 
 
-        </a-entity>
+        </a-entity-->
 
 
+<a-box id="bx" position="0 0 0" rotation="25 25 25" scale="5 5 5" color="red" ></a-box>
 
 
-
-        <a-entity light="type: hemisphere; color: #33C; groundColor: #3C3; intensity: 2"></a-entity>
+        <a-entity light="type: hemisphere; color: white#33C; groundColor: #3C3; intensity: 2"></a-entity>
 
         <a-entity>
-            <a-entity camera look-controls orbit-controls="target: 0 0 0; minDistance: 0.5; maxDistance: 15; initialPosition: 2.5 0 7.5">
+            <a-entity camera look-controls orbit-controls="target: 0 0 0; minDistance: 0.5; maxDistance: 15; initialPosition: 2.5 0 12">
                 <a-entity cursor="fuse: false; rayOrigin: mouse;"></a-entity>
 
             </a-entity>
