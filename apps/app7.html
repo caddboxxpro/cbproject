@@ -1,3 +1,20 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.8.0/aframe.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
+      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+      <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+      <a-sky color="#ECECEC"></a-sky>
+    </a-scene>
+  </body>
+</html>
+
+
+<!--
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,7 +79,7 @@
     <script src="aframe-mouse-cursor-component.min.js"></script>
     <script src="aframe-gltf-exporter-component.min.js"></script>
 
-    <!--reaction components-->
+    <!--reaction components--
     <script src="reaction_components/clickable.js"></script>
     <script src="reaction_components/draggable.js"></script>
     <script src="reaction_components/drag-droppable.js"></script>
@@ -117,7 +134,7 @@
     </script>
 	<!--DRAG-N-DROP
 	
-	-->
+	--
     <script src=" https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
     <style>
         .button:hover {
@@ -209,7 +226,7 @@
             <img id="pic5" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/roboxx.png?v=1659362885712">
             <img id="pic6" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/cadboxx.png?v=1659434696690">
 
-            <!--sphorb-->
+            <!--sphorb--
             <a-asset-item id="bb02" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/sphorb1.glb?v=1655710163279"></a-asset-item>
             <a-asset-item id="bb03" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/sphorb2.glb?v=1655710178528"></a-asset-item>
             <a-asset-item id="bb04" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/sphorb3.glb?v=1655710192379"></a-asset-item>
@@ -219,7 +236,7 @@
             <a-asset-item id="chlink1" src="https://cdn.glitch.com/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538%2Fchink1.glb?v=1606822463366"></a-asset-item>
             <a-asset-item id="chlink2" src="https://cdn.glitch.com/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538%2Fchink2.glb?v=1606822434718"></a-asset-item>
 
-            <!--boxaxis-->
+            <!--boxaxis--
             <a-asset-item id="bb07" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/box-axis-boxx.glb?v=1655717437382"></a-asset-item>
             <a-asset-item id="bb08" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/box-axis-xx.glb?v=1655717457786"></a-asset-item>
             <a-asset-item id="bb09" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/box-axis-x-x.glb?v=1655717477839"></a-asset-item>
@@ -231,33 +248,33 @@
 
 
             <a-asset-item id="bb019" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/generic-wheel.glb?v=1655896082243"></a-asset-item>
-            <!--stub gears-->
+            <!--stub gears--
             <a-asset-item id="bb020" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/32stub.glb?v=1656255390214"></a-asset-item>
             <a-asset-item id="bb021" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/16stub.glb?v=1656313611998"></a-asset-item>
 
             <a-asset-item id="bb022" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/roller-ball-assy.glb?v=1655472956891"></a-asset-item>
             <a-asset-item id="bb023" src="https://cdn.glitch.com/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538%2Fcadboxx-standard.glb?v=1618293365748"></a-asset-item>
-            <!--gears-->
+            <!--gears--
             <a-asset-item id="bb024" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/g16-3.glb?v=1656487133082"></a-asset-item>
             <a-asset-item id="bb025" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/g32-3.glb?v=1656486880844"></a-asset-item>
             <a-asset-item id="bb026" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/g48-3.glb?v=1656487231427"></a-asset-item>
-            <!--fan-->
+            <!--fan--
             <a-asset-item id="bb027" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/fan-center.glb?v=1656475522384"></a-asset-item>
             <a-asset-item id="bb028" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/fan-blades.glb?v=1656475487109"></a-asset-item>
             <!--plane-->
             <a-asset-item id="bb030" src="https://cdn.glitch.me/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538%2Fplanex1sq.glb?v=1635660167471"></a-asset-item>
 
-            <!--uj-->
+            <!--uj--
             <a-asset-item id="bb036" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/yyyzzz.glb?v=1656646905880"></a-asset-item>
             <a-asset-item id="bb037" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/yyyxxx.glb?v=1656646922662"></a-asset-item>
             <a-asset-item id="bb038" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/dddxxx.glb?v=1656646954681"></a-asset-item>
 
             <a-asset-item id="optimerBoldFont" src="https://rawgit.com/mrdoob/three.js/dev/examples/fonts/optimer_bold.typeface.json"></a-asset-item>
-            <!--lead screw-->
+            <!--lead screw->
             <a-asset-item id="bb039" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/linear-screw-2000-1.glb?v=1659723632101"></a-asset-item>
             <a-asset-item id="bb040" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/linear-nut-1.glb?v=1659723551067"></a-asset-item>
             <a-asset-item id="bb041" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/linear-screw-1000.glb?v=1659858281452"></a-asset-item>
-            <!--hex n ball-->
+            <!--hex n ball--
             <a-asset-item id="bb042" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/full-hex-50-hole.glb?v=1659723446134"></a-asset-item>
             <a-asset-item id="bb043" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/bottom-sq-100x100x10.glb?v=1659723230346"></a-asset-item>
             <a-asset-item id="bb044" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/dia50x200.glb?v=1659723364778"></a-asset-item>
@@ -394,7 +411,7 @@
             <a-mixin id="" geometry="gltf-model: model;src:#prt0"></a-mixin>
 
             <a-mixin id="" constraint="type: hinge;axis:0 1 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 0 0"></a-mixin>
-                -->
+                --
 
             <a-mixin id="trigger-box" geometry="primitive:box;width:4; depth:4; height:4; color:green; opacity:1"
                      class="clickable" event-set__enter="_event: mouseenter; color: #026fc9" event-set__leave="_event: mouseleave; color: #4CC3D9"
@@ -482,7 +499,7 @@
                 <a-box id="changesphere" class="clickable" position="0 5 -10" rotation="0 0 0" width="5" depth=".5" height="5" color="blue" opacity="1" static-body onclick="changesphere()"></a-box>
                 <a-sphere id="sph1" class="clickable" position="0 5 0" rotation="0 0 0" radius="2" color="green" opacity="1" static-body></a-sphere>
 
-                <!--control box-->
+                <!--control box--
         <a-box position="32.5 0 0" rotation="0 0 0" width="5" depth="5" height="5" scale="5 5 5" color="black" opacity="1" static-body>
 				<a-gui-flex-container 
 				    flex-direction="column" justify-content="center" align-items="normal" component-padding="0.1" opacity="0.7" width="3.5" height="4.5" 
@@ -606,7 +623,7 @@
 
             </a-box>
         </a-box>
-        <!--end control box-->
+        <!--end control box--
 
         <a-gltf-model id="ground" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/ground-plane_with_mesh.glb?v=1678034073866" position="0 0 0" scale="1 1 1" rotation="180 0 0" static-body></a-gltf-model>
 
@@ -622,7 +639,7 @@
                     <a-plane side="double" color="red" position="20 0 0" rotation="0 -90 0" height="40" width="40" material="" static-body></a-plane>
                     <a-plane side="double" color="red" position="-20 0 0" rotation="0 90 0" height="40" width="40" material="" static-body></a-plane>
                 </a-entity>
-                <!--mesh overlay for walls-->
+                <!--mesh overlay for walls--
                 <a-box position="0 -20 0" rotation="0 0 0" width="30" depth="30" height="0.2" color="yellow" opacity="" gridhelper="size: 25;divisions:5" static-body></a-box>
                 <a-box position="0 20 0" rotation="0 0 0" width="30" depth="30" height="0.2" color="yellow" opacity="1" gridhelper="size: 25;divisions:5" static-body></a-box>
                 <a-box position="0 0 -20" rotation="90 0 0" width="30" depth="30" height="0.2" color="yellow" opacity="" gridhelper="size: 25;divisions:5" static-body></a-box>
@@ -709,17 +726,17 @@
 	
 	
 	
-			<!-- Camera + cursor. -->
+			<!-- Camera + cursor. --
 			<a-entity id="cameraRig" position="0 1.6 0" active="false">
 				<a-camera look-controls wasd-controls position="0 0 0">
 					<a-gui-cursor id="cursor"
 							  raycaster="objects: [gui-interactable]"
 							  fuse="false"
 					>
-					</a-gui-cursor> <!-- /cursor -->
-				</a-camera> <!-- /camera -->
+					</a-gui-cursor> <!-- /cursor --
+				</a-camera> <!-- /camera --
 			</a-entity>
-			<!-- Camera + cursor. -->
+			<!-- Camera + cursor. --
 			<a-entity id="cameraRig" position="0 1.6 0" active="true" >
 				<a-camera look-controls wasd-controls position="0 0 0">
 					<a-gui-cursor id="cursor"
@@ -728,10 +745,10 @@
 							  color="#ECEFF1"
 							  hover-color="#CFD8DC"
 							  active-color="#607D8B"
-							  design="ring" > <!-- dot, ring, reticle, cross  -->
-					</a-gui-cursor> <!-- /cursor -->
-				</a-camera> <!-- /camera -->
-			</a-entity>		
+							  design="ring" > <!-- dot, ring, reticle, cross  --
+					</a-gui-cursor> <!-- /cursor --
+				</a-camera> <!-- /camera --
+			</a-entity>-->		
 		</a-scene>
 	</body>
 </html>
