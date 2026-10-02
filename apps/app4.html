@@ -1,1750 +1,995 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <title>layout</title>
+    <!--aframe 1.2-->
+    <!--script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>-->
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <!--physics component-->
+    
+    <!--camera component-->
+    
+    <!--trokia text-->
+    
+    <!--grabbers-->
+    
+    <!--controllers-->
+    <script src="https://unpkg.com/aframe-controller-cursor-component@0.2.7/dist/aframe-controller-cursor-component.min.js"></script>
 
-<title>Image Area Colour Creator</title>
 
-<style>
-* {
-    box-sizing: border-box;
-}
 
-body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #111;
-    color: white;
-}
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--code-->
+    <!--grab move-->
+    <!--all interactions-->
+    <!--physics hands-->
 
-header {
-    background: #181818;
-    padding: 18px 24px;
-}
 
-header h1 {
-    margin: 0;
-    font-size: 24px;
-}
+    <style>
+        .button1:hover {
+            background-color: yellow;
+            color: darkred;
+        }
 
-header p {
-    margin: 6px 0 0;
-    color: #aaa;
-}
+        .button1 {
+            background-color: yellow;
+            border-radius: 8px;
+            border: none;
+            color: pink;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 12px;
+            height: 34px;
+            margin-top: 5px;
+            margin-left: 5px;
+            outline: none;
+            position: relative;
+            width: 180px;
+            z-index: 999;
+        }
 
-.app {
-    display: grid;
-    grid-template-columns: 1fr 300px;
-    min-height: calc(100vh - 90px);
-}
+        .container1 {
+            position: absolute;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+    <style type="text/javascript">
+        .button2:hover {
+            background-color: black;
+            color: green;
+        }
 
-.image-panel {
-    background: #333;
-    padding: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        .button2 {
+            background-color: blue;
+            border-radius: 8px;
+            border: none;
+            color: lightgreen;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 12px;
+            height: 34px;
+            margin-top: 5px;
+            margin-left: 5px;
+            outline: none;
+            position: relative;
+            width: 180px;
+            z-index: 999;
+        }
 
-.canvas-wrap {
-    width: 100%;
-    max-width: 850px;
-}
-
-canvas {
-    display: block;
-    width: 100%;
-    height: auto;
-}
-
-#imageCanvas {
-    cursor: crosshair;
-    background: #222;
-}
-
-.controls {
-    background: #f4f4f4;
-    color: #222;
-    padding: 22px;
-}
-
-.section {
-    margin-bottom: 22px;
-}
-
-.section-title {
-    font-weight: bold;
-    margin-bottom: 9px;
-    font-size: 15px;
-}
-
-input[type="file"] {
-    width: 100%;
-}
-
-input[type="color"] {
-    width: 100%;
-    height: 50px;
-    padding: 3px;
-    border: 1px solid #aaa;
-    border-radius: 7px;
-    cursor: pointer;
-}
-
-button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 7px;
-    border: 0;
-    border-radius: 7px;
-    background: #176b32;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #125528;
-}
-
-button.secondary {
-    background: #ddd;
-    color: #222;
-}
-
-button.secondary:hover {
-    background: #ccc;
-}
-
-button.danger {
-    background: #b52b2b;
-}
-
-button.danger:hover {
-    background: #922222;
-}
-
-.area {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px;
-    margin-top: 6px;
-    background: #e5e5e5;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.area.selected {
-    outline: 2px solid #176b32;
-}
-
-.area-name {
-    flex: 1;
-    font-weight: bold;
-}
-
-.area-colour {
-    width: 27px;
-    height: 27px;
-    border-radius: 4px;
-    border: 1px solid #888;
-}
-
-#boundaryControls,
-#colourControls {
-    display: none;
-}
-
-#status {
-    margin-top: 12px;
-    font-size: 13px;
-    color: #555;
-    line-height: 1.4;
-}
-
-#collection {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 18px;
-    padding: 25px;
-    background: #111;
-}
-
-.card {
-    background: #222;
-    border-radius: 9px;
-    padding: 10px;
-    text-align: center;
-}
-
-.card canvas {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-}
-
-.card h3 {
-    margin: 8px 0;
-}
-
-.card button {
-    margin-top: 0;
-}
-
-@media(max-width:850px) {
-    .app {
-        grid-template-columns: 1fr;
-    }
-
-    #collection {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media(max-width:600px) {
-    #collection {
-        grid-template-columns: repeat(2, 1fr);
-        padding: 10px;
-    }
-}
-</style>
+        .container2 {
+            position: absolute;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+    </style>
 </head>
 
-<body>
-
-<header>
-    <h1>Image Area Colour Creator</h1>
-    <p>Define the areas first, flatten them, then colour them.</p>
-</header>
+<body onload=("showmainmenu()')>
 
 
-<div class="app">
+    <div id="mainmenu" class="container1" visible="true">
+        <center>
+            <div id="btnbar" display="inline-block">
+                <button id="bcreate" class="clickable button2" onclick="showcreatemenu()">CREATE</button>
+                <button id="bcontrol" class="clickable button3" onclick="showcontrolmenu()">CONTROL</button>
+                <button id="bedit" class="clickable button3" onclick="showeditmenu()">EDIT</button>
+                <button id="bassemble" class="clickable button4" onclick="showassemblymenu()">ASSEMBLE</button>
+                <button id="bmotion" class="clickable button5" onclick="showmotionmenu()">MOTION</button>
+                <button id="btest" class="clickable button6" onclick="showtestmenu()">TEST</button>
 
-    <div class="image-panel">
+            </div>
+        </center>
+    </div>
+    <div id="createmenu" class="container2" visible="false">
+        <center>
+            <div id="btnnbar2" display="inline-block">
+                <button id="bcube" class="clickable button1" onclick="newcube()">CUBE</button>
+                <button id="bsphere" class="clickable button1" onclick="newsphere()">SPHERE</button>
+                <button id="bcyl" class="clickable button1" onclick="newcylinder()">CYL</button>
+                <button id="btube" class="clickable button1" onclick="newtube()">TUBE</button>
+                <button id="bcone" class="clickable button1" onclick="newconetopoint()">CONE</button>
+                <button id="bmainmenu" class="clickable button1" onclick="mainmenu()">HOME</button>
+            </div>
+        </center>
+    </div>
+    <!--
+     <div id="container1" class="container1">
+         <button id="export-scene" class="button1"><span>3333</span></button>
+         <button id="export-scene-bin" class="button1"><span>3333</span></button>
+         <button id="export-sphere" class="button1"><span>3333</span></button>
+         <button id="export-two" class="button1"><span>3333</span></button>
+         <button id="butt2" class="button2 clickable" onclick="showcontainer2()" ><span>Export</span></button>
+     </div>
+     <div id="container2" class="container2">
+         <button id="export-scene2" class="button2"><span>7777</span></button>
+         <button id="export-scene-bin2" class="button2"><span>7777</span></button>
+         <button id="export-spher2" class="button2"><span>7777</span></button>
+         <button id="export-two2" class="button2"><span>7777</span></button>
+         <button id="butt1" class="button1 clickable" onclick="showcontainer1()" ><span>sssss</span></button>
+     </div>
 
-        <div class="canvas-wrap">
 
-            <canvas id="imageCanvas"></canvas>
+     -->
 
-        </div>
+    <div id="mainmneu" class="container1" visible="true">
+
+    </div>
+    <div id="createmenu" class="container2" visible="false">
+
+    </div>
+    <div id="controlmenu" class="container3" visible="false">
+
+    </div>
+    <div id="editmenu" class="container4" visible="false">
+
+    </div>
+    <div id="assemblemenu" class="container5" visible="false">
+
+    </div>
+    <div id="motionmenu" class="container6" visible="false">
 
     </div>
 
-
-    <aside class="controls">
-
-        <!-- UPLOAD -->
-
-        <div class="section">
-
-            <div class="section-title">
-                1. Upload Image
-            </div>
-
-            <input
-                id="upload"
-                type="file"
-                accept="image/*"
-            >
-
-        </div>
-
-
-        <!-- BOUNDARY -->
-
-        <div
-            class="section"
-            id="boundaryControls"
-        >
-
-            <div class="section-title">
-                Define Area
-            </div>
-
-            <button id="acceptBoundary">
-                ACCEPT BOUNDARY
-            </button>
-
-            <button
-                id="cancelBoundary"
-                class="danger"
-            >
-                CANCEL
-            </button>
-
-        </div>
-
-
-        <!-- AREAS -->
-
-        <div class="section">
-
-            <div class="section-title">
-                Defined Areas
-            </div>
-
-            <div id="areas"></div>
-
-        </div>
-
-
-        <!-- COLOUR -->
-
-        <div
-            class="section"
-            id="colourControls"
-        >
-
-            <div class="section-title">
-                Selected Area
-            </div>
-
-            <input
-                id="colourPicker"
-                type="color"
-                value="#ff0000"
-            >
-
-            <button id="flatten">
-                FLATTEN SELECTED AREA
-            </button>
-
-            <button id="applyColour">
-                APPLY COLOUR
-            </button>
-
-            <button
-                id="randomColours"
-                class="secondary"
-            >
-                RANDOMISE COLOURS
-            </button>
-
-        </div>
-
-
-        <!-- COLLECTION -->
-
-        <div class="section">
-
-            <button id="create">
-                CREATE 10 VARIATIONS
-            </button>
-
-        </div>
-
-
-        <div id="status">
-            Upload an image to begin.
-        </div>
-
-    </aside>
-
-</div>
-
-
-<div id="collection"></div>
-
-
-<script>
-
-/*
-========================================================
-MAIN VARIABLES
-========================================================
-*/
-
-const canvas =
-    document.getElementById("imageCanvas");
-
-const ctx =
-    canvas.getContext("2d", {
-        willReadFrequently: true
-    });
-
-const upload =
-    document.getElementById("upload");
-
-const areasDiv =
-    document.getElementById("areas");
-
-const boundaryControls =
-    document.getElementById("boundaryControls");
-
-const colourControls =
-    document.getElementById("colourControls");
-
-const colourPicker =
-    document.getElementById("colourPicker");
-
-const status =
-    document.getElementById("status");
-
-const collection =
-    document.getElementById("collection");
-
-
-let originalPixels = null;
-
-let areas = [];
-
-let selectedArea = null;
-
-let proposedMask = null;
-
-
-/*
-========================================================
-UPLOAD
-========================================================
-*/
-
-upload.addEventListener("change", function() {
-
-    const file = this.files[0];
-
-    if (!file) return;
-
-
-    const reader = new FileReader();
-
-
-    reader.onload = function(event) {
-
-        const img = new Image();
-
-
-        img.onload = function() {
-
-            canvas.width = img.width;
-            canvas.height = img.height;
-
-
-            ctx.drawImage(
-                img,
-                0,
-                0
-            );
-
-
-            const data =
-                ctx.getImageData(
-                    0,
-                    0,
-                    canvas.width,
-                    canvas.height
-                );
-
-
-            originalPixels =
-                new Uint8ClampedArray(
-                    data.data
-                );
-
-
-            areas = [];
-
-            selectedArea = null;
-
-            proposedMask = null;
-
-
-            boundaryControls.style.display =
-                "none";
-
-            colourControls.style.display =
-                "none";
-
-
-            areasDiv.innerHTML = "";
-
-            collection.innerHTML = "";
-
-
-            status.textContent =
-                "Click inside an area to detect its boundary.";
-
-        };
-
-
-        img.src = event.target.result;
-
-    };
-
-
-    reader.readAsDataURL(file);
-
-});
-
-
-/*
-========================================================
-CLICK IMAGE
-========================================================
-*/
-
-canvas.addEventListener("click", function(event) {
-
-    if (!originalPixels) return;
-
-
-    const rect =
-        canvas.getBoundingClientRect();
-
-
-    const x =
-        Math.floor(
-            (event.clientX - rect.left)
-            *
-            canvas.width /
-            rect.width
-        );
-
-
-    const y =
-        Math.floor(
-            (event.clientY - rect.top)
-            *
-            canvas.height /
-            rect.height
-        );
-
-
-    proposedMask =
-        findRegion(
-            x,
-            y
-        );
-
-
-    if (!proposedMask) {
-
-        status.textContent =
-            "No area detected.";
-
-        return;
-
-    }
-
-
-    drawPreview();
-
-
-    boundaryControls.style.display =
-        "block";
-
-
-    status.textContent =
-        "Boundary detected. Accept it or cancel it.";
-
-});
-
-
-/*
-========================================================
-FIND REGION
-========================================================
-
-Flood-fill from the selected point.
-
-The important part is that this creates
-a MASK for this particular connected
-region.
-
-========================================================
-*/
-
-function findRegion(startX, startY) {
-
-    const width =
-        canvas.width;
-
-    const height =
-        canvas.height;
-
-
-    const start =
-        (
-            startY * width +
-            startX
-        ) * 4;
-
-
-    const sr =
-        originalPixels[start];
-
-    const sg =
-        originalPixels[start + 1];
-
-    const sb =
-        originalPixels[start + 2];
-
-
-    /*
-    Colour tolerance.
-
-    This controls how far the region
-    can vary in shade.
-    */
-
-    const tolerance = 35;
-
-    const toleranceSquared =
-        tolerance * tolerance;
-
-
-    const visited =
-        new Uint8Array(
-            width * height
-        );
-
-
-    const mask =
-        new Uint8Array(
-            width * height
-        );
-
-
-    const queue = [];
-
-    queue.push({
-        x: startX,
-        y: startY
-    });
-
-
-    visited[
-        startY * width +
-        startX
-    ] = 1;
-
-
-    let position = 0;
-
-
-    while (
-        position < queue.length
-    ) {
-
-        const point =
-            queue[position++];
-
-        const x = point.x;
-        const y = point.y;
-
-
-        const pixel =
-            (
-                y * width +
-                x
-            ) * 4;
-
-
-        const r =
-            originalPixels[pixel];
-
-        const g =
-            originalPixels[pixel + 1];
-
-        const b =
-            originalPixels[pixel + 2];
-
-
-        const dr = r - sr;
-        const dg = g - sg;
-        const db = b - sb;
-
-
-        const distance =
-            dr * dr +
-            dg * dg +
-            db * db;
-
-
-        if (
-            distance >
-            toleranceSquared
-        ) {
-
-            continue;
+    
+              <a-scene onload="showmainmenu()" gltf-exporter environment="preset:contact" physics="" friction="" restitution="">
+                    <a-assets>
+                        <img id="m01" src="https://cdn.glitch.global/9b88d7be-d0c9-485f-a6f9-677367608e30/pexels-dlkr-5676470%20(1).jpg?v=1671179886918" />
+                        <img id="m02" src="https://cdn.glitch.global/9b88d7be-d0c9-485f-a6f9-677367608e30/pexels-eva-bronzini-6485438.jpg?v=1671179938437" />
+                        <img id="m03" src="https://cdn.glitch.global/9b88d7be-d0c9-485f-a6f9-677367608e30/pexels-hoang-le-978462.jpg?v=1671180017611" />
+                        <img id="m04" src="https://cdn.glitch.global/9b88d7be-d0c9-485f-a6f9-677367608e30/pexels-hoang-le-978503.jpg?v=1671180039120" />
+                        <img id="m05" src="https://cdn.glitch.global/9b88d7be-d0c9-485f-a6f9-677367608e30/pexels-milo-textures-2768398.jpg?v=1671180129644" />
+                        <img id="m06" src="https://cdn.glitch.global/9b88d7be-d0c9-485f-a6f9-677367608e30/pexels-pixabay-207300.jpg?v=1671180185041" />
+                        <img id="m07" src="https://cdn.glitch.global/9b88d7be-d0c9-485f-a6f9-677367608e30/pexels-pixabay-268415.jpg?v=1671180285873" />
+                        <img id="m08" src="https://cdn.glitch.global/9b88d7be-d0c9-485f-a6f9-677367608e30/pexels-piyapong-sayduang-4541011.jpg?v=1671180304280" />
+                        <img id="m09" src="https://cdn.glitch.global/9b88d7be-d0c9-485f-a6f9-677367608e30/pexels-pixabay-235985.jpg?v=1671180256508" />
+                        <img id="m10" src="https://cdn.glitch.global/9b88d7be-d0c9-485f-a6f9-677367608e30/pexels-steve-johnson-6353321.jpg?v=1671180659869" />
+                        <img id="m11" src="https://cdn.glitch.global/9b88d7be-d0c9-485f-a6f9-677367608e30/free_metal_texture_01.jpg?v=1671449502907" />
+                        <img id="m12" src="https://cdn.glitch.global/9b88d7be-d0c9-485f-a6f9-677367608e30/free_metal_texture_02.jpg?v=1671449528541" />
+                        <img id="m13" src="https://cdn.glitch.global/9b88d7be-d0c9-485f-a6f9-677367608e30/free_metal_texture_03.jpg?v=1671449535258" />
+                        <img id="m14" src="https://cdn.glitch.global/9b88d7be-d0c9-485f-a6f9-677367608e30/free_metal_texture_05.jpg?v=1671449549312" />
+                        <img id="m15" src="https://cdn.glitch.global/9b88d7be-d0c9-485f-a6f9-677367608e30/free_metal_texture_07.jpg?v=1671449555859" />
+                        <img id="metal" src="textures/metal/TexturesCom_MetalBare0043_M.jpg">
+                        <img id="metal2" src="textures/metal/TexturesCom_MetalBare0086_1_M.jpg">
+                        <img id="metal3" src="textures/metal/TexturesCom_MetalBare0104_1_M.jpg">
+
+                        <a-mixin id="cube" geometry="primitive: box; width: 2.0; height: 2.0; depth: 2.0"
+                                 hoverable grabbable stretchable draggable droppable
+                                 event-set__hoveron="_event: hover-start; material.opacity: 0.7; transparent: true"
+                                 event-set__hoveroff="_event: hover-end; material.opacity: 1; transparent: false"
+                                 body="shape: none" shape="shape: box; halfExtents: 1 1 1" shadow></a-mixin>
+                        <a-mixin id="gltfmodel" gltf-model="#cbb1"
+                                 hoverable grabbable stretchable draggable droppable clickable
+                                 event-set__hoveron="_event: hover-start; material.opacity: 0.7; transparent: true"
+                                 event-set__hoveroff="_event: hover-end; material.opacity: 1; transparent: false"
+                                 body="shape: none" shape="shape: box; halfExtents: 0.5 0.5 0.5" shadow></a-mixin>
+
+                        <a-mixin id="voxel"
+                                 geometry="primitive: box; height: 0.5; width: 0.5; depth: 0.5"
+                                 material="shader: standard"
+                                 random-color
+                                 snap="offset: 0.25 0.25 0.25; snap: 0.5 0.5 0.5"></a-mixin>
+                        <a-mixin id="voxelcb1"
+                                 gltf-model="#cb1"
+                                 snap="offset: 0.5 0.5 0.5; snap: 1 1 1"></a-mixin>
+                        <a-mixin id="voxelccyly"
+                                 gltf-model="#ccyly"
+                                 snap="offset: 0 0.5 0; snap: 1 1 1"></a-mixin>
+                        <a-mixin id="voxelccylx"
+                                 gltf-model="#ccylx"
+                                 snap="offset: 0.5 0.5 0.5; snap: 1 1 1"></a-mixin>
+                        <a-mixin id="voxelccylz"
+                                 gltf-model="#ccylz"
+                                 snap="offset: 0.5 0.5 0.5; snap: 1 1 1"></a-mixin>
+                        <a-mixin id="voxeldodd1"
+                                 gltf-model="#glbdodd"
+                                 snap="offset: 0.5 0.5 0.5; snap: 1 1 1"></a-mixin>
+
+                        <!--glb models-->
+                        <a-asset-item id="cb1" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/cadboxx-one.glb?v=1659721895630"></a-asset-item>
+                        <a-asset-item id="ccylx" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/centerx.glb?v=1672861412777"></a-asset-item>
+                        <a-asset-item id="ccyly" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/centery.glb?v=1672861445115"></a-asset-item>
+                        <a-asset-item id="ccylz" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/centerz.glb?v=1672861498630"></a-asset-item>
+
+                        <a-asset-item id="boxglbred" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/boxred.glb?v=1688019604745"></a-asset-item>
+                        <a-asset-item id="boxglbblue" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/boxblue.glb?v=1688019583475"></a-asset-item>
+                        <a-asset-item id="boxglbgreen" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/boxgreen.glb?v=1688019561769"></a-asset-item>
+
+                        <a-asset-item id="glbsphere" src="https://cdn.glitch.com/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538%2Fsphere-r1-p010.glb?v=1615396331056"></a-asset-item>
+                        <a-asset-item id="glbdodd" src="https://cdn.glitch.com/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538%2Fdodd-rpt5.glb?v=1632901912292"></a-asset-item>
+                        <a-asset-item id="glbtett" src="https://cdn.glitch.com/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538%2Ftet-block-rad1-p000.glb?v=1631529314495"></a-asset-item>
+                        <a-asset-item id="glbcyll" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/glcyl.glb?v=1661360434803"></a-asset-item>
+
+
+                        <a-asset-item id="" src=""></a-asset-item>
+                        <a-asset-item id="" src=""></a-asset-item>
+                        <a-asset-item id="" src=""></a-asset-item>
+
+                        <a-asset-item id="glb-box1" src="#boxglbred"></a-asset-item>
+                        <a-asset-item id="glb-box2" src="#boxglbred"></a-asset-item>
+                        <a-asset-item id="glb-box3" src="#boxglbred"></a-asset-item>
+                        <a-asset-item id="glb-box4" src="#boxglbblue"></a-asset-item>
+                        <a-asset-item id="glb-box5" src="#boxglbblue"></a-asset-item>
+                        <a-asset-item id="glb-box6" src="#boxglbblue"></a-asset-item>
+                        <a-asset-item id="glb-box7" src="#boxglbgreen"></a-asset-item>
+                        <a-asset-item id="glb-box8" src="#boxglbgreen"></a-asset-item>
+                        <a-asset-item id="glb-box9" src="#boxglbgreen"></a-asset-item>
+                        <a-asset-item id="glb-box0" src="#boxglbgreen"></a-asset-item>
+
+
+
+                        <!--plane-->
+                        <a-asset-item id="bb030" src="https://cdn.glitch.me/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538%2Fplanex1sq.glb?v=1635660167471"></a-asset-item>
+
+                        <a-asset-item id="cadboxx-floor" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/ground-plane_with_mesh.glb?v=1678034073866"></a-asset-item>
+                        <a-asset-item id="boxx" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/an_empty_cadboxx.glb?v=1678034061048"></a-asset-item>
+                        <a-asset-item id="floor-t" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/coloredfloor.glb?v=1683611162825"></a-asset-item>
+                        <a-asset-item id="anchor" src="#bb030"></a-asset-item>
+
+
+                        <img id="metal" src="textures/metal/TexturesCom_MetalBare0043_M.jpg">
+                        <img id="metal2" src="textures/metal/TexturesCom_MetalBare0086_1_M.jpg">
+                        <img id="metal3" src="textures/metal/TexturesCom_MetalBare0104_1_M.jpg">
+
+                        <a-asset-item id="cb1" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/cadboxx-one.glb?v=1659721895630"></a-asset-item>
+                        <a-asset-item id="ccylx" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/centerx.glb?v=1672861412777"></a-asset-item>
+                        <a-asset-item id="ccyly" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/centery.glb?v=1672861445115"></a-asset-item>
+                        <a-asset-item id="ccylz" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/centerz.glb?v=1672861498630"></a-asset-item>
+
+
+                        <a-asset-item id="glbsphere" src="https://cdn.glitch.com/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538%2Fsphere-r1-p010.glb?v=1615396331056"></a-asset-item>
+                        <a-asset-item id="glbdodd" src="https://cdn.glitch.com/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538%2Fdodd-rpt5.glb?v=1632901912292"></a-asset-item>
+                        <a-asset-item id="glbtett" src="https://cdn.glitch.com/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538%2Ftet-block-rad1-p000.glb?v=1631529314495"></a-asset-item>
+                        <a-asset-item id="glbcyll" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/glcyl.glb?v=1661360434803"></a-asset-item>
+
+                        <a-asset-item id="cranky" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/cranky.glb?v=1674247987909"></a-asset-item>
+                        <a-asset-item id="pistonplus" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/pistonplus.glb?v=1674335113584"></a-asset-item>
+
+                        <a-asset-item id="waddler" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/waddler.glb?v=1668021723166"></a-asset-item>
+
+
+                        <!--sphorb-->
+                        <a-asset-item id="bb02" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/sphorb1.glb?v=1655710163279"></a-asset-item>
+                        <a-asset-item id="bb03" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/sphorb2.glb?v=1655710178528"></a-asset-item>
+                        <a-asset-item id="bb04" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/sphorb3.glb?v=1655710192379"></a-asset-item>
+                        <a-asset-item id="bb05" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/sphorb4.glb?v=1655710213868"></a-asset-item>
+
+
+                        <a-asset-item id="chlink1" src="https://cdn.glitch.com/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538%2Fchink1.glb?v=1606822463366"></a-asset-item>
+                        <a-asset-item id="chlink2" src="https://cdn.glitch.com/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538%2Fchink2.glb?v=1606822434718"></a-asset-item>
+
+                        <!--boxaxis-->
+                        <a-asset-item id="bb07" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/box-axis-boxx.glb?v=1655717437382"></a-asset-item>
+                        <a-asset-item id="bb08" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/box-axis-xx.glb?v=1655717457786"></a-asset-item>
+                        <a-asset-item id="bb09" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/box-axis-x-x.glb?v=1655717477839"></a-asset-item>
+                        <a-asset-item id="bb010" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/box-axis-yy.glb?v=1655717521091"></a-asset-item>
+                        <a-asset-item id="bb011" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/box-axis-y-y.glb?v=1655717561218"></a-asset-item>
+                        <a-asset-item id="bb012" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/box-axis-zz.glb?v=1655717583030"></a-asset-item>
+                        <a-asset-item id="bb013" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/box-axis-z-z.glb?v=1655717667672"></a-asset-item>
+
+
+
+                        <a-asset-item id="bb019" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/generic-wheel.glb?v=1655896082243"></a-asset-item>
+                        <!--stub gears-->
+                        <a-asset-item id="bb020" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/32stub.glb?v=1656255390214"></a-asset-item>
+                        <a-asset-item id="bb021" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/16stub.glb?v=1656313611998"></a-asset-item>
+
+                        <a-asset-item id="bb022" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/roller-ball-assy.glb?v=1655472956891"></a-asset-item>
+                        <a-asset-item id="bb023" src="https://cdn.glitch.com/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538%2Fcadboxx-standard.glb?v=1618293365748"></a-asset-item>
+                        <!--gears-->
+                        <a-asset-item id="bb024" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/g16-3.glb?v=1656487133082"></a-asset-item>
+                        <a-asset-item id="bb025" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/g32-3.glb?v=1656486880844"></a-asset-item>
+                        <a-asset-item id="bb026" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/g48-3.glb?v=1656487231427"></a-asset-item>
+                        <!--fan-->
+                        <a-asset-item id="bb027" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/fan-center.glb?v=1656475522384"></a-asset-item>
+                        <a-asset-item id="bb028" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/fan-blades.glb?v=1656475487109"></a-asset-item>
+                        <!--plane-->
+                        <a-asset-item id="bb030" src="https://cdn.glitch.me/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538%2Fplanex1sq.glb?v=1635660167471"></a-asset-item>
+
+                        <!--uj-->
+                        <a-asset-item id="bb036" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/yyyzzz.glb?v=1656646905880"></a-asset-item>
+                        <a-asset-item id="bb037" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/yyyxxx.glb?v=1656646922662"></a-asset-item>
+                        <a-asset-item id="bb038" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/dddxxx.glb?v=1656646954681"></a-asset-item>
+
+                        <a-asset-item id="optimerBoldFont" src="https://rawgit.com/mrdoob/three.js/dev/examples/fonts/optimer_bold.typeface.json"></a-asset-item>
+                        <!--lead screw-->
+                        <a-asset-item id="bb039" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/linear-screw-2000-1.glb?v=1659723632101"></a-asset-item>
+                        <a-asset-item id="bb040" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/linear-nut-1.glb?v=1659723551067"></a-asset-item>
+                        <a-asset-item id="bb041" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/linear-screw-1000.glb?v=1659858281452"></a-asset-item>
+                        <!--hex n ball-->
+                        <a-asset-item id="bb042" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/full-hex-50-hole.glb?v=1659723446134"></a-asset-item>
+                        <a-asset-item id="bb043" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/bottom-sq-100x100x10.glb?v=1659723230346"></a-asset-item>
+                        <a-asset-item id="bb044" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/dia50x200.glb?v=1659723364778"></a-asset-item>
+                        <a-asset-item id="bb045" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/100-ball-25-hole.glb?v=1659722995037"></a-asset-item>
+                        <a-asset-item id="bb046" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/100-ball-cube.glb?v=1659723053725"></a-asset-item>
+                        <a-asset-item id="bb047" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/ball-and-top-hex100afx10.glb?v=1659723148016"></a-asset-item>
+                        <a-asset-item id="bb048" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/100-ball.glb?v=1659722945849"></a-asset-item>
+                        <a-asset-item id="bb049" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/50-ball.glb?v=1659722813834"></a-asset-item>
+                        <a-asset-item id="bb050" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/50-ball-w-bottom-sq-100x10.glb?v=1659722855011"></a-asset-item>
+                        <a-asset-item id="bb051" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/90cube.glb?v=1659856346086"></a-asset-item>
+                        <a-asset-item id="bb052" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/100ball25hole.glb?v=1659856419099"></a-asset-item>
+                        <a-asset-item id="bb053" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/25shaft100ball.glb?v=1659856366279"></a-asset-item>
+                        <a-asset-item id="bb054" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/top-hexagon-100afx10.glb?v=1659850795703"></a-asset-item>
+
+                        <a-asset-item id="snooker" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/tableview.glb?v=1658906349771"></a-asset-item>
+
+                        <a-asset-item id="buggy-wheel-chrome" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/Buggy-wheel-chrome.glb?v=1661360545183"></a-asset-item>
+
+                        <a-asset-item id="steer-ring" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/steer-ring.glb?v=1661754904188"></a-asset-item>
+                        <a-asset-item id="wheel-spinner" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/wheel-spinner.glb?v=1661754959348"></a-asset-item>
+
+                        <a-asset-item id="central-link" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/central-link.glb?v=1661445167231"></a-asset-item>
+
+                        <a-mixin id="cubed" geometry="primitive: box; width: 1.0; height: 1.0; depth: 1.0"
+                                 hoverable grabbable stretchable draggable droppable clickable
+                                 dynamic-body shadow>
+                        </a-mixin>
+                        <a-mixin id="cyll" geometry="primitive: cylinder; radius: 0.5; height: 1.0"
+                                 hoverable grabbable stretchable draggable droppable clickable
+                                 dynamic-body shadow>
+                        </a-mixin>
+                        <a-mixin id="sphh" geometry="primitive: sphere; radius: 0.5"
+                                 hoverable grabbable stretchable draggable droppable clickable
+                                 dynamic-body shadow>
+                        </a-mixin>
+                        <a-mixin id="octt" geometry="primitive: octahedron; radius: 0.5"
+                                 hoverable grabbable stretchable draggable droppable clickable
+                                 dynamic-body shadow>
+                        </a-mixin>
+                        <a-mixin id="dodd" geometry="primitive: dodecahedron; radius: 0.5"
+                                 hoverable grabbable stretchable draggable droppable clickable
+                                 dynamic-body shadow>
+                        </a-mixin>
+                        <a-mixin id="tett" geometry="primitive: tetrahedron; radius: 0.5"
+                                 hoverable grabbable stretchable draggable droppable clickable
+                                 dynamic-body shadow>
+                        </a-mixin>
+                        <a-mixin id="tria" geometry="primitive: triangle" material="side: double"
+                                 hoverable grabbable stretchable draggable droppable clickable
+                                 dynamic-body shadow>
+                        </a-mixin>
+                        <a-mixin id="toru" geometry="primitive: torus; radius: .5; radiusTubular: 0.05; arc: 360"
+                                 hoverable grabbable stretchable draggable droppable clickable
+                                 static-body shadow>
+                        </a-mixin>
+                        <a-mixin id="plan" geometry="primitive: plane; side:double; height: 1.0; width: 1.0"
+                                 material="side: double" hoverable grabbable stretchable draggable droppable clickable
+                                 dynamic-body shadow>
+                        </a-mixin>
+                        <a-mixin id="cone" geometry="primitive: cone; radiusBottom: 0.5; radiusTop: 0.25"
+                                 hoverable grabbable stretchable draggable droppable clickable
+                                 dynamic-body shadow>
+                        </a-mixin>
+                        <a-mixin id="voxel"
+                                 gltf-model="#cb1"
+                                 intersection-spawn="event: click; mixin: voxel"
+                                 snap="offset: 0.5 0.5 0.5; snap: 1 1 1"
+                                 event-set__mouseenter="material.opacity: 0.7"
+                                 event-set__mouseleave="material.opacity: 1.0"
+                                 event-set__dragover-start="material.wireframe: true"
+                                 event-set__dragover-end="material.wireframe: false"></a-mixin>
+
+                        <a-mixin id="gglb" geometry="gltf-model: model;"
+                                 hoverable grabbable stretchable draggable droppable
+                                 dynamic-body shadow>
+                        </a-mixin>
+
+
+                        <a-mixin id="constraint_hinge_x" constraint="type: hinge;target:bodyx;axis:1 0 0;targetAxis:1 0 0;pivot:0 0 0;targetPivot:0 0 0"></a-mixin>
+                        <a-mixin id="constraint_hinge_y" constraint="type: hinge;target:bodyy;axis:0 1 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 0 0"></a-mixin>
+                        <a-mixin id="constraint_hinge_z" constraint="type: hinge;target:bodyz;axis:0 0 1;targetAxis:0 0 1;pivot:0 0 0;targetPivot:0 0 0"></a-mixin>
+                        <a-mixin id="constraint_distance" constraint="type: distance;pivot:0 0 0;targetPivot:0 0 0"></a-mixin>
+                        <a-mixin id="constraint_slider" constraint="type: slider;axis:0 1 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 0 0"></a-mixin>
+                        <a-mixin id="constraint_lock" constraint="type: lock;pivot:0 0 0;targetPivot:0 0 0"></a-mixin>
+                        <a-mixin id="constraint_pointTopoint_x" constraint="type: pointTopoint;axis:1 0 0;targetAxis:1 0 0;pivot:1 0 0;targetPivot:0 0 0"></a-mixin>
+                        <a-mixin id="constraint_pointTopoint_y" constraint="type: pointTopoint;axis:0 1 0;targetAxis:0 1 0;pivot:0 1 0;targetPivot:0 0 0"></a-mixin>
+                        <a-mixin id="constraint_pointTopoint_z" constraint="type: pointTopoint;axis:0 0 1;targetAxis:0 0 1;pivot:0 0 1;targetPivot:0 0 0"></a-mixin>
+
+                        <a-mixin id="weight1" mass="1.0"></a-mixin>
+                        <a-mixin id="weight2" mass="2.0"></a-mixin>
+                        <a-mixin id="weight4" mass="4.0"></a-mixin>
+                        <a-mixin id="weight8" mass="8.0"></a-mixin>
+                        <a-mixin id="weight16" mass="16.0"></a-mixin>
+                        <a-mixin id="weight32" mass="32.0"></a-mixin>
+
+
+
+                        <a-mixin id="hingeBottom1" gltf-model="#cb1" model-center="bottomAlign:true" position="0 0 0"></a-mixin>
+                        <a-mixin id="sliderBottom1" gltf-model="#cb1" model-center="bottomAlign:true" position="0 0 0"></a-mixin>
+                        <a-mixin id="lockBottom1" gltf-model="#cb1" model-center="bottomAlign:true" position="0 0 0"></a-mixin>
+                        <a-mixin id="pointBottom1" gltf-model="#cb1" model-center="bottomAlign:true" position="0 0 0"></a-mixin>
+                        <a-mixin id="rotxBottom1" gltf-model="#cb1" model-center="bottomAlign:true" position="0 0 0"></a-mixin>
+                        <a-mixin id="rotyBottom1" gltf-model="#cb1" model-center="bottomAlign:true" position="0 0 0"></a-mixin>
+                        <a-mixin id="rotzBottom1" gltf-model="#cb1" model-center="bottomAlign:true" position="0 0 0"></a-mixin>
+
+
+                        <a-mixin id="red" material="color: red"></a-mixin>
+                        <a-mixin id="blue" material="color: blue"></a-mixin>
+                        <a-mixin id="brown" material="color: brown"></a-mixin>
+                        <a-mixin id="green" material="color: green"></a-mixin>
+                        <a-mixin id="orange" material="color: orange"></a-mixin>
+                        <a-mixin id="yellow" material="color: yellow"></a-mixin>
+
+
+                        <a-mixin id="trigger-box" geometry="primitive:box;width:4; depth:4; height:4; color:green; opacity:1"
+                                 class="clickable" event-set__enter="_event: mouseenter; color: #026fc9" event-set__leave="_event: mouseleave; color: #4CC3D9"
+                                 static-body></a-mixin>
+                        <a-mixin id="trigger" geometry="primitive:box;width:4; depth:4; height:4; color:green; opacity:1"
+                                 class="clickable" event-set__enter="_event: mouseenter; color: #026fc9" event-set__leave="_event: mouseleave; color: #4CC3D9"
+                                 static-body></a-mixin>
+
+                        <a-mixin id="hinge-bodya" gltf-model="#cb1" position="0 0 0" rotation="0 0 0" scale="1 1 1" dynamic-body click-impulse></a-mixin>
+                        <a-mixin id="hinge-bodyb" gltf-model="#ccyly" position="0 2.5 0" rotation="0 0 0" scale="2 1 2"
+                                 constraint="type:hinge;target:#bodya;axis:0 1 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 2.5 0"
+                                 dynamic-body click-impulse></a-mixin>
+                        <a-mixin id="hinge-bottom-bodya" gltf-model="#cbplane" position="0 0 0" rotation="0 0 0" scale="1 1 1" dynamic-body click-impulse></a-mixin>
+                        <a-mixin id="hinge-bottom-bodyb" gltf-model="#cb1" position="0 0 0" rotation="0 0 0" scale="1 1 1"
+                                 constraint="type:hinge;target:#bodyc;axis:0 1 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 2 0"
+                                 dynamic-body click-impulse></a-mixin>
+                        <a-mixin id="hinge-planes-bodya" gltf-model="#cbplane" position="0 0 0" rotation="0 0 0" scale="1 1 1" dynamic-body click-impulse></a-mixin>
+                        <a-mixin id="hinge-planes-bodyb" gltf-model="#cbplane" position="0 0 0" rotation="0 0 0" scale="1 1 1"
+                                 constraint="type:hinge;target:#bodye;axis:0 1 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 1 0"
+                                 dynamic-body click-impulse></a-mixin>
+
+                        <a-mixin id="p2p-planes-bodya" gltf-model="#bb030" position="0 0 0" rotation="0 0 0" scale="1 1 1" dynamic-body click-impulse></a-mixin>
+                        <a-mixin id="p2p-planes-bodyb" gltf-model="#bb030" position="0 0 0" rotation="0 0 0" scale="1 1 1"
+                                 constraint="type:pointTopoint;target:#bodya;axis:0 0 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 1 0"
+                                 dynamic-body click-impulse></a-mixin>
+
+                        <a-mixin id="p2p-bodya" gltf-model="#cb1" position="0 0 0" rotation="0 0 0" scale="1 1 1" dynamic-body click-impulse></a-mixin>
+                        <a-mixin id="p2p-bodyb" gltf-model="#ccyly" position="0 2.5 0" rotation="0 0 0" scale="2 2 2"
+                                 constraint="type:pointTopoint;target:#bodye;axis:0 0 0;targetAxis:0 0 0;pivot:0 0 0;targetPivot:0 -2 0"
+                                 dynamic-body click-impulse></a-mixin>
+
+                        <a-mixin id="trigger-box1" gltf-model="#cb1" scale="10 10 10"
+                                 class="clickable" constraint="type:hinge;target:#anchor;axis:0 0 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 1 0"
+                                 static-body click-impulse></a-mixin>
+                        <a-mixin id="trigger-box2" gltf-model="#ccylx" scale="10 10 10"
+                                 class="clickable" constraint="type:hinge;target:#anchor;axis:0 0 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 1 0"
+                                 static-body click-impulse></a-mixin>
+                        <a-mixin id="bigendx" gltf-model="#ccylx" scale="10 10 10"
+                                 class="clickable" constraint="type:hinge;target:#anchor;axis:0 0 0;targetAxis:1 0 0;pivot:0 0 0;targetPivot:1 0 0"
+                                 static-body click-impulse></a-mixin>
+                        <a-mixin id="trigger-box3" gltf-model="#ccyly" scale="10 10 10"
+                                 class="clickclass=" clickable" constraint="type:hinge;target:#anchor;axis:0 0 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 1 0"
+                                 static-body click-impulse></a-mixin>
+                        <a-mixin id="trigger-box4" gltf-model="#ccylz" scale="10 10 10"
+                                 class="clickable" constraint="type:hinge;target:#anchor;axis:0 0 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 1 0"
+                                 static-body click-impulse></a-mixin>
+                        <a-mixin id="trigger-box5" gltf-model="#glbdodd" scale="2 2 2"
+                                 class="clickable" constraint="type:hinge;target:#anchor;axis:0 0 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 1 0"
+                                 static-body click-impulse></a-mixin>
+                        <a-mixin id="trigger-box6" gltf-model="#glbcyll" scale="4 4 4"
+                                 class="clickable" constraint="type:hinge;target:#anchor;axis:0 0 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 1 0"
+                                 static-body click-impulse></a-mixin>
+
+                        <a-mixin id="rotxx" animation__rotation__xx="property: rotation; dir: forward; dur: 42000;
+                    repeat: indefinite; easing: linear; loop: true; to: 360 0 0"></a-mixin>
+                        <a-mixin id="rotyy" animation__rotation__yy="property: rotation; dir: forward; dur: 9000;
+                    repeat: indefinite; easing: linear; loop: true; to: 0 360 0"></a-mixin>
+                        <a-mixin id="rotzz" animation__rotation__zz="property: rotation; dir: forward; dur: 23000;
+                    repeat: indefinite; easing: linear; loop: true; to: 0 0 360"></a-mixin>
+                        <a-mixin id="rotxyz" animation__rotation__xyz="property: rotation; dir: forward; dur: 13000;
+                    repeat: indefinite; easing: linear; loop: true; to: 360 360 360"></a-mixin>
+
+                        <a-asset-item id="crank4cyl" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/crankwtextures.glb?v=1674211472071"></a-asset-item>
+                        <a-asset-item id="crank4cyl-we" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/crankwtextures.glb?v=1674211472071"></a-asset-item>
+
+                        <a-gltf-model id="airplane" src="#"></a-gltf-model>
+                        <a-gltf-model id="airplane2" src="#"></a-gltf-model>
+                        <a-gltf-model id="airplane3" src="#"></a-gltf-model>
+
+
+
+                        <a-mixin id="modelmover" geometry="gltf-model:model" hoverable grabbable stretchable draggable droppable
+                                 body="shape: none" shape="shape: box; halfExtents: 1 1 1" shadow></a-mixin>
+                        <a-mixin id="cube" geometry="primitive: box; width: 2.0; height: 2.0; depth: 2.0"
+                                 hoverable grabbable stretchable draggable droppable
+                                 event-set__hoveron="_event: hover-start; material.opacity: 0.7; transparent: true"
+                                 event-set__hoveroff="_event: hover-end; material.opacity: 1; transparent: false"
+                                 body="shape: none" shape="shape: box; halfExtents: 1 1 1" shadow></a-mixin>
+                        <a-mixin id="gltfmodel" gltf-model="#cbb1"
+                                 hoverable grabbable stretchable draggable droppable clickable
+                                 event-set__hoveron="_event: hover-start; material.opacity: 0.7; transparent: true"
+                                 event-set__hoveroff="_event: hover-end; material.opacity: 1; transparent: false"
+                                 body="shape: none" shape="shape: box; halfExtents: 0.5 0.5 0.5" shadow></a-mixin>
+                        <a-mixin id="menubox" hoverable clickable static-body
+                                 event-set__hoveron="_event: hover-start; material.opacity: 0.2; scale: 5 5 5"
+                                 event-set__hoveroff="_event: hover-end; material.opacity: 1; scale: 1 1 1"
+                                 body="shape: none" shape="shape: box; halfExtents: 0.5 0.5 0.5"></a-mixin>
+                        <a-mixin id="boxbasespin" hoverable clickable
+                                 event-set__hoveron="_event: hover-start; material.opacity: 0.2; scale: 5 5 5"
+                                 event-set__hoveroff="_event: hover-end; material.opacity: 1; scale: 1 1 1"
+                                 body="shape: none" shape="shape: box; halfExtents: 0.5 0.5 0.5"></a-mixin>
+
+                        <a-asset-item id="cb1" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/cadboxx-one.glb?v=1659721895630"></a-asset-item>
+                        <a-asset-item id="ccylx" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/centerx.glb?v=1672861412777"></a-asset-item>
+                        <a-asset-item id="ccyly" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/centery.glb?v=1672861445115"></a-asset-item>
+                        <a-asset-item id="ccylz" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/centerz.glb?v=1672861498630"></a-asset-item>
+
+
+                        <a-asset-item id="boxglbred" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/boxred.glb?v=1688019604745"></a-asset-item>
+                        <a-asset-item id="boxglbblue" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/boxblue.glb?v=1688019583475"></a-asset-item>
+                        <a-asset-item id="boxglbgreen" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/boxgreen.glb?v=1688019561769"></a-asset-item>
+
+                        <a-asset-item id="glbsphere" src="https://cdn.glitch.com/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538%2Fsphere-r1-p010.glb?v=1615396331056"></a-asset-item>
+                        <a-asset-item id="glbdodd" src="https://cdn.glitch.com/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538%2Fdodd-rpt5.glb?v=1632901912292"></a-asset-item>
+                        <a-asset-item id="glbtett" src="https://cdn.glitch.com/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538%2Ftet-block-rad1-p000.glb?v=1631529314495"></a-asset-item>
+                        <a-asset-item id="glbcyll" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/glcyl.glb?v=1661360434803"></a-asset-item>
+
+
+                        <a-asset-item id="" src=""></a-asset-item>
+                        <a-asset-item id="" src=""></a-asset-item>
+                        <a-asset-item id="" src=""></a-asset-item>
+
+                        <img id="metal" src="textures/metal/TexturesCom_MetalBare0043_M.jpg">
+                        <img id="metal2" src="textures/metal/TexturesCom_MetalBare0086_1_M.jpg">
+                        <img id="metal3" src="textures/metal/TexturesCom_MetalBare0104_1_M.jpg">
+
+                        <a-asset-item id="cranky" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/cranky.glb?v=1674247987909"></a-asset-item>
+                        <a-asset-item id="pistonplus" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/pistonplus.glb?v=1674335113584"></a-asset-item>
+
+                        <a-asset-item id="waddler" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/waddler.glb?v=1668021723166"></a-asset-item>
+
+                        <!--sphorb-->
+                        <a-asset-item id="bb02" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/sphorb1.glb?v=1655710163279"></a-asset-item>
+                        <a-asset-item id="bb03" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/sphorb2.glb?v=1655710178528"></a-asset-item>
+                        <a-asset-item id="bb04" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/sphorb3.glb?v=1655710192379"></a-asset-item>
+                        <a-asset-item id="bb05" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/sphorb4.glb?v=1655710213868"></a-asset-item>
+
+                        <a-asset-item id="chlink1" src="https://cdn.glitch.com/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538%2Fchink1.glb?v=1606822463366"></a-asset-item>
+                        <a-asset-item id="chlink2" src="https://cdn.glitch.com/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538%2Fchink2.glb?v=1606822434718"></a-asset-item>
+
+                        <!--boxaxis-->
+                        <a-asset-item id="bb07" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/box-axis-boxx.glb?v=1655717437382"></a-asset-item>
+                        <a-asset-item id="bb08" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/box-axis-xx.glb?v=1655717457786"></a-asset-item>
+                        <a-asset-item id="bb09" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/box-axis-x-x.glb?v=1655717477839"></a-asset-item>
+                        <a-asset-item id="bb010" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/box-axis-yy.glb?v=1655717521091"></a-asset-item>
+                        <a-asset-item id="bb011" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/box-axis-y-y.glb?v=1655717561218"></a-asset-item>
+                        <a-asset-item id="bb012" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/box-axis-zz.glb?v=1655717583030"></a-asset-item>
+                        <a-asset-item id="bb013" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/box-axis-z-z.glb?v=1655717667672"></a-asset-item>
+
+                        <a-asset-item id="bb555" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/UJ-ASSY.glb?v=1682855732509"></a-asset-item>
+
+
+                        <a-asset-item id="bb019" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/generic-wheel.glb?v=1655896082243"></a-asset-item>
+                        <!--stub gears-->
+                        <a-asset-item id="bb020" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/32stub.glb?v=1656255390214"></a-asset-item>
+                        <a-asset-item id="bb021" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/16stub.glb?v=1656313611998"></a-asset-item>
+
+                        <a-asset-item id="bb022" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/roller-ball-assy.glb?v=1655472956891"></a-asset-item>
+                        <a-asset-item id="bb023" src="https://cdn.glitch.com/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538%2Fcadboxx-standard.glb?v=1618293365748"></a-asset-item>
+                        <!--gears-->
+                        <a-asset-item id="bb024" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/g16-3.glb?v=1656487133082"></a-asset-item>
+                        <a-asset-item id="bb025" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/g32-3.glb?v=1656486880844"></a-asset-item>
+                        <a-asset-item id="bb026" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/g48-3.glb?v=1656487231427"></a-asset-item>
+                        <!--fan-->
+                        <a-asset-item id="bb027" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/fan-center.glb?v=1656475522384"></a-asset-item>
+                        <a-asset-item id="bb028" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/fan-blades.glb?v=1656475487109"></a-asset-item>
+                        <!--plane-->
+                        <a-asset-item id="bb030" src="https://cdn.glitch.me/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538%2Fplanex1sq.glb?v=1635660167471"></a-asset-item>
+
+                        <!--uj-->
+                        <a-asset-item id="bb036" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/yyyzzz.glb?v=1656646905880"></a-asset-item>
+                        <a-asset-item id="bb037" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/yyyxxx.glb?v=1656646922662"></a-asset-item>
+                        <a-asset-item id="bb038" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/dddxxx.glb?v=1656646954681"></a-asset-item>
+
+                        <a-asset-item id="optimerBoldFont" src="https://rawgit.com/mrdoob/three.js/dev/examples/fonts/optimer_bold.typeface.json"></a-asset-item>
+                        <!--lead screw-->
+                        <a-asset-item id="bb039" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/linear-screw-2000-1.glb?v=1659723632101"></a-asset-item>
+                        <a-asset-item id="bb040" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/linear-nut-1.glb?v=1659723551067"></a-asset-item>
+                        <a-asset-item id="bb041" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/linear-screw-1000.glb?v=1659858281452"></a-asset-item>
+                        <!--hex n ball-->
+                        <a-asset-item id="bb042" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/full-hex-50-hole.glb?v=1659723446134"></a-asset-item>
+                        <a-asset-item id="bb043" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/bottom-sq-100x100x10.glb?v=1659723230346"></a-asset-item>
+                        <a-asset-item id="bb044" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/dia50x200.glb?v=1659723364778"></a-asset-item>
+                        <a-asset-item id="bb045" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/100-ball-25-hole.glb?v=1659722995037"></a-asset-item>
+                        <a-asset-item id="bb046" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/100-ball-cube.glb?v=1659723053725"></a-asset-item>
+                        <a-asset-item id="bb047" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/ball-and-top-hex100afx10.glb?v=1659723148016"></a-asset-item>
+                        <a-asset-item id="bb048" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/100-ball.glb?v=1659722945849"></a-asset-item>
+                        <a-asset-item id="bb049" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/50-ball.glb?v=1659722813834"></a-asset-item>
+                        <a-asset-item id="bb050" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/50-ball-w-bottom-sq-100x10.glb?v=1659722855011"></a-asset-item>
+                        <a-asset-item id="bb051" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/90cube.glb?v=1659856346086"></a-asset-item>
+                        <a-asset-item id="bb052" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/100ball25hole.glb?v=1659856419099"></a-asset-item>
+                        <a-asset-item id="bb053" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/25shaft100ball.glb?v=1659856366279"></a-asset-item>
+                        <a-asset-item id="bb054" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/top-hexagon-100afx10.glb?v=1659850795703"></a-asset-item>
+
+                        <a-asset-item id="snooker" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/tableview.glb?v=1658906349771"></a-asset-item>
+
+                        <a-asset-item id="buggy" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/Mini_Dune_Buggy-color.glb?v=1685951645848"></a-asset-item>
+                        <a-asset-item id="buggy-wheel-chrome" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/Buggy-wheel-chrome.glb?v=1661360545183"></a-asset-item>
+
+                        <a-asset-item id="steer-ring" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/steer-ring.glb?v=1661754904188"></a-asset-item>
+                        <a-asset-item id="wheel-spinner" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/wheel-spinner.glb?v=1661754959348"></a-asset-item>
+
+                        <a-asset-item id="onebox" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/onebox.glb?v=1655710263791"></a-asset-item>
+                        <a-asset-item id="redspring" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/springred.glb?v=1680272516428"></a-asset-item>
+                        <a-asset-item id="glbplate" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/glbplate.glb?v=1679513082607"></a-asset-item>
+                        <a-asset-item id="glbplate2" src="#"></a-asset-item>
+                        <a-asset-item id="glbplate3" src="#"></a-asset-item>
+
+                        <a-mixin id="cubed" geometry="primitive: box; width: 1.0; height: 1.0; depth: 1.0"
+                                 hoverable grabbable stretchable draggable droppable clickable
+                                 dynamic-body shadow>
+                        </a-mixin>
+                        <a-mixin id="cyll" geometry="primitive: cylinder; radius: 0.5; height: 1.0"
+                                 hoverable grabbable stretchable draggable droppable clickable
+                                 dynamic-body shadow>
+                        </a-mixin>
+                        <a-mixin id="sphh" geometry="primitive: sphere; radius: 0.5"
+                                 hoverable grabbable stretchable draggable droppable clickable
+                                 dynamic-body shadow>
+                        </a-mixin>
+                        <a-mixin id="octt" geometry="primitive: octahedron; radius: 0.5"
+                                 hoverable grabbable stretchable draggable droppable clickable
+                                 dynamic-body shadow>
+                        </a-mixin>
+                        <a-mixin id="dodd" geometry="primitive: dodecahedron; radius: 0.5"
+                                 hoverable grabbable stretchable draggable droppable clickable
+                                 dynamic-body shadow>
+                        </a-mixin>
+                        <a-mixin id="tett" geometry="primitive: tetrahedron; radius: 0.5"
+                                 hoverable grabbable stretchable draggable droppable clickable
+                                 dynamic-body shadow>
+                        </a-mixin>
+                        <a-mixin id="tria" geometry="primitive: triangle" material="side: double"
+                                 hoverable grabbable stretchable draggable droppable clickable
+                                 dynamic-body shadow>
+                        </a-mixin>
+                        <a-mixin id="toru" geometry="primitive: torus; radius: .5; radiusTubular: 0.05; arc: 360"
+                                 hoverable grabbable stretchable draggable droppable clickable
+                                 static-body shadow>
+                        </a-mixin>
+                        <a-mixin id="plan" geometry="primitive: plane; side:double; height: 1.0; width: 1.0"
+                                 material="side: double" hoverable grabbable stretchable draggable droppable clickable
+                                 dynamic-body shadow>
+                        </a-mixin>
+                        <a-mixin id="cone" geometry="primitive: cone; radiusBottom: 0.5; radiusTop: 0.25"
+                                 hoverable grabbable stretchable draggable droppable clickable
+                                 dynamic-body shadow>
+                        </a-mixin>
+                        <a-mixin id="voxel"
+                                 gltf-model="#cb1"
+                                 intersection-spawn="event: click; mixin: voxel"
+                                 snap="offset: 0.5 0.5 0.5; snap: 1 1 1"
+                                 event-set__mouseenter="material.opacity: 0.7"
+                                 event-set__mouseleave="material.opacity: 1.0"
+                                 event-set__dragover-start="material.wireframe: true"
+                                 event-set__dragover-end="material.wireframe: false"></a-mixin>
+
+                        <a-mixin id="gglb" geometry="gltf-model: model;"
+                                 hoverable grabbable stretchable draggable droppable
+                                 dynamic-body shadow>
+                        </a-mixin>
+
+                        <a-mixin id="constraint_hinge_x" constraint="type: hinge;target:bodyx;axis:1 0 0;targetAxis:1 0 0;pivot:0 0 0;targetPivot:0 0 0"></a-mixin>
+                        <a-mixin id="constraint_hinge_y" constraint="type: hinge;target:bodyy;axis:0 1 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 0 0"></a-mixin>
+                        <a-mixin id="constraint_hinge_z" constraint="type: hinge;target:bodyz;axis:0 0 1;targetAxis:0 0 1;pivot:0 0 0;targetPivot:0 0 0"></a-mixin>
+                        <a-mixin id="constraint_distance" constraint="type: distance;pivot:0 0 0;targetPivot:0 0 0"></a-mixin>
+                        <a-mixin id="constraint_slider" constraint="type: slider;axis:0 1 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 0 0"></a-mixin>
+                        <a-mixin id="constraint_lock" constraint="type: lock;pivot:0 0 0;targetPivot:0 0 0"></a-mixin>
+                        <a-mixin id="constraint_pointTopoint_x" constraint="type: pointTopoint;axis:1 0 0;targetAxis:1 0 0;pivot:1 0 0;targetPivot:0 0 0"></a-mixin>
+                        <a-mixin id="constraint_pointTopoint_y" constraint="type: pointTopoint;axis:0 1 0;targetAxis:0 1 0;pivot:0 1 0;targetPivot:0 0 0"></a-mixin>
+                        <a-mixin id="constraint_pointTopoint_z" constraint="type: pointTopoint;axis:0 0 1;targetAxis:0 0 1;pivot:0 0 1;targetPivot:0 0 0"></a-mixin>
+
+                        <a-mixin id="weight1" mass="1.0"></a-mixin>
+                        <a-mixin id="weight2" mass="2.0"></a-mixin>
+                        <a-mixin id="weight4" mass="4.0"></a-mixin>
+                        <a-mixin id="weight8" mass="8.0"></a-mixin>
+                        <a-mixin id="weight16" mass="16.0"></a-mixin>
+                        <a-mixin id="weight32" mass="32.0"></a-mixin>
+
+                        <a-mixin id="hingeBottom1" gltf-part-plus="model-center:bottomAlign" position="0 0 0" rotation="-90 0 0" scale="10 10 10" static-body></a-mixin>
+                        <a-mixin id="sliderBottom1" gltf-model="#ccyly" model-center="bottomAlign:true" position="0 0 0"></a-mixin>
+                        <a-mixin id="lockBottom1" gltf-model="#ccyly" model-center="bottomAlign:true" position="0 0 0"></a-mixin>
+                        <a-mixin id="pointBottom1" gltf-model="#ccyly" model-center="bottomAlign:true" position="0 0 0"></a-mixin>
+                        <a-mixin id="rotxBottom1" gltf-model="#ccyly" model-center="bottomAlign:true" position="0 0 0"></a-mixin>
+                        <a-mixin id="rotyBottom1" gltf-model="#ccyly" model-center="bottomAlign:true" position="0 0 0"></a-mixin>
+                        <a-mixin id="rotzBottom1" gltf-model="#ccyly" model-center="bottomAlign:true" position="0 0 0"></a-mixin>
+
+
+                        <a-mixin id="red" material="color: red"></a-mixin>
+                        <a-mixin id="blue" material="color: blue"></a-mixin>
+                        <a-mixin id="brown" material="color: brown"></a-mixin>
+                        <a-mixin id="green" material="color: green"></a-mixin>
+                        <a-mixin id="orange" material="color: orange"></a-mixin>
+                        <a-mixin id="yellow" material="color: yellow"></a-mixin>
+
+
+
+                        <a-mixin id="trigger-box" geometry="primitive:box;width:4; depth:4; height:4; color:green; opacity:1"
+                                 class="clickable" event-set__enter="_event: mouseenter; color: #026fc9" event-set__leave="_event: mouseleave; color: #4CC3D9"
+                                 static-body></a-mixin>
+                        <a-mixin id="trigger" geometry="primitive:box;width:4; depth:4; height:4; color:green; opacity:1"
+                                 class="clickable" event-set__enter="_event: mouseenter; color: #026fc9" event-set__leave="_event: mouseleave; color: #4CC3D9"
+                                 static-body></a-mixin>
+
+                        <a-mixin id="hinge-bodya" gltf-model="#cb1" position="0 0 0" rotation="0 0 0" scale="1 1 1" dynamic-body click-impulse></a-mixin>
+                        <a-mixin id="hinge-bodyb" gltf-model="#ccyly" position="0 2.5 0" rotation="0 0 0" scale="2 1 2"
+                                 constraint="type:hinge;target:#bodya;axis:0 1 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 2.5 0"
+                                 dynamic-body click-impulse></a-mixin>
+                        <a-mixin id="hinge-bottom-bodya" gltf-model="#cbplane" position="0 0 0" rotation="0 0 0" scale="1 1 1" dynamic-body click-impulse></a-mixin>
+                        <a-mixin id="hinge-bottom-bodyb" gltf-model="#cb1" position="0 0 0" rotation="0 0 0" scale="1 1 1"
+                                 constraint="type:hinge;target:#bodya;axis:0 1 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 2 0"
+                                 dynamic-body click-impulse></a-mixin>
+                        <a-mixin id="hinge-planes-bodya" gltf-model="#bb030" position="0 0 0" rotation="0 0 0" scale="1 1 1" dynamic-body click-impulse></a-mixin>
+                        <a-mixin id="hinge-planes-bodyb" gltf-model="#bb030" position="0 0 0" rotation="0 0 0" scale="1 1 1"
+                                 constraint="type:hinge;target:#bodya;axis:0 1 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 0 0"
+                                 dynamic-body click-impulse></a-mixin>
+
+                        <a-mixin id="p2p-planes-bodya" gltf-model="#cbplane" position="0 0 0" rotation="0 0 0" scale="1 1 1" dynamic-body click-impulse></a-mixin>
+                        <a-mixin id="p2p-planes-bodyb" gltf-model="#cbplane" position="0 0 0" rotation="0 0 0" scale="1 1 1"
+                                 constraint="type:pointTopoint;target:#bodya;axis:0 0 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 1 0"
+                                 dynamic-body click-impulse></a-mixin>
+
+                        <a-mixin id="p2p-bodya" gltf-model="#cb1" position="0 0 0" rotation="0 0 0" scale="1 1 1" dynamic-body click-impulse></a-mixin>
+                        <a-mixin id="p2p-bodyb" gltf-model="#ccyly" position="0 2.5 0" rotation="0 0 0" scale="2 2 2"
+                                 constraint="type:pointTopoint;target:#bodya;axis:0 0 0;targetAxis:0 0 0;pivot:0 0 0;targetPivot:0 -2 0"
+                                 dynamic-body click-impulse></a-mixin>
+
+                        <a-asset-item id="prt1" src="#bb030"></a-asset-item>
+                        <a-asset-item id="prt2" src="#bb030"></a-asset-item>
+                        <a-asset-item id="prt3" src="#bb030"></a-asset-item>
+                        <a-asset-item id="prt4" src="#bb030"></a-asset-item>
+                        <a-asset-item id="prt5" src="#bb030"></a-asset-item>
+                        <a-asset-item id="prt6" src="#bb030"></a-asset-item>
+                        <a-asset-item id="prt7" src="#bb030"></a-asset-item>
+                        <a-asset-item id="prt8" src="#bb030"></a-asset-item>
+                        <a-asset-item id="prt9" src="#bb030"></a-asset-item>
+
+                        <a-asset-item id="glbassy1" src=""></a-asset-item>
+                        <a-asset-item id="glbassy2" src=""></a-asset-item>
+                        <a-asset-item id="glbassy3" src=""></a-asset-item>
+                        <a-asset-item id="glbassy4" src=""></a-asset-item>
+                        <a-asset-item id="glbassy5" src=""></a-asset-item>
+                        <a-asset-item id="glbassy6" src=""></a-asset-item>
+                        <a-asset-item id="glbassy7" src=""></a-asset-item>
+                        <a-asset-item id="glbassy8" src=""></a-asset-item>
+
+                        <a-mixin id="gltfmodel" gltf-model="#cbb1"
+                                 hoverable grabbable stretchable draggable droppable clickable
+                                 event-set__hoveron="_event: hover-start; material.opacity: 0.7; transparent: true"
+                                 event-set__hoveroff="_event: hover-end; material.opacity: 1; transparent: false"
+                                 body="shape: none" shape="shape: box; halfExtents: 0.5 0.5 0.5" shadow></a-mixin>
+                        <a-mixin id="menubox" hoverable clickable static-body
+                                 event-set__hoveron="_event: hover-start; material.opacity: 0.2; scale: 5 5 5"
+                                 event-set__hoveroff="_event: hover-end; material.opacity: 1; scale: 1 1 1"
+                                 body="shape: none" shape="shape: box; halfExtents: 0.5 0.5 0.5"></a-mixin>
+                        <a-mixin id="boxbasespin" hoverable clickable
+                                 event-set__hoveron="_event: hover-start; material.opacity: 0.2; scale: 5 5 5"
+                                 event-set__hoveroff="_event: hover-end; material.opacity: 1; scale: 1 1 1"
+                                 body="shape: none" shape="shape: box; halfExtents: 0.5 0.5 0.5"></a-mixin>
+
+
+                        <a-mixin id="trigger-box1" gltf-model="#cb1" scale="2 2 2"
+                                 class="clickable" constraint="type:hinge;target:#anchor;axis:0 0 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 1 0"
+                                 static-body click-impulse></a-mixin>
+                        <a-mixin id="trigger-box2" gltf-model="#ccylx" scale="10 10 10"
+                                 class="clickable" constraint="type:hinge;target:#anchor;axis:0 0 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 1 0"
+                                 static-body click-impulse></a-mixin>
+                        <a-mixin id="bigendx" gltf-model="#ccylx" scale="10 10 10"
+                                 class="clickable" event-set__enter="_event: mouseenter; color: #026fc9" event-set__leave="_event: mouseleave; color: #4CC3D9"
+                                 static-body></a-mixin>
+                        <a-mixin id="bigendx" gltf-model="#ccylx" scale="10 10 10"
+                                 class="clickable" event-set__enter="_event: mouseenter; color: #026fc9" event-set__leave="_event: mouseleave; color: #4CC3D9"
+                                 static-body></a-mixin>
+                        <a-mixin id="trigger-box3" gltf-model="#ccyly" scale="10 10 10"
+                                 class="clickable" constraint="type:hinge;target:#anchor;axis:0 0 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 1 0"
+                                 static-body click-impulse></a-mixin>
+                        <a-mixin id="trigger-box4" gltf-model="#ccylz" scale="10 10 10"
+                                 class="clickable" constraint="type:hinge;target:#anchor;axis:0 0 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 1 0"
+                                 static-body click-impulse></a-mixin>
+                        <a-mixin id="trigger-box5" gltf-model="#glbdodd" scale="2 2 2"
+                                 class="clickable" constraint="type:hinge;target:#anchor;axis:0 0 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 1 0"
+                                 static-body click-impulse></a-mixin>
+                        <a-mixin id="trigger-box6" gltf-model="#glbcyll" scale="4 4 4"
+                                 class="clickable" constraint="type:hinge;target:#anchor;axis:0 0 0;targetAxis:0 1 0;pivot:0 0 0;targetPivot:0 1 0"
+                                 static-body click-impulse></a-mixin>
+                        <a-mixin id="rotxx" animation__rotation__xx="property: rotation; dir: forward; dur: 42000;
+                    repeat: indefinite; easing: linear; loop: true; to: 360 0 0"></a-mixin>
+                        <a-mixin id="rotyy" animation__rotation__yy="property: rotation; dir: forward; dur: 9000;
+                    repeat: indefinite; easing: linear; loop: true; to: 0 360 0"></a-mixin>
+                        <a-mixin id="rotzz" animation__rotation__zz="property: rotation; dir: forward; dur: 23000;
+                    repeat: indefinite; easing: linear; loop: true; to: 0 0 360"></a-mixin>
+                        <a-mixin id="rotxyz" animation__rotation__xyz="property: rotation; dir: forward; dur: 13000;
+                    repeat: indefinite; easing: linear; loop: true; to: 360 360 360"></a-mixin>
+                        <a-asset-item id="red-buggy" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/Mini_Dune_Buggy-color.glb?v=1685951645848"></a-asset-item>
+                        <a-asset-item id="bigendcaps" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/big-end_bearing_caps.glb?v=1684134543808"></a-asset-item>
+                        <a-asset-item id="#" src="#"></a-asset-item>
+                        <a-asset-item id="#" src="#"></a-asset-item>
+                        <a-asset-item id="#" src="#"></a-asset-item>
+                        <a-asset-item id="#" src="#"></a-asset-item>
+
+                        <a-mixin id="ball" constraint="#"></a-mixin>
+                        <a-mixin id="joint" constraint="type:hinge; target:bodya"></a-mixin>
+
+                        <a-asset-item id="buggy" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/Mini_Dune_Buggy-color.glb?v=1685951645848"></a-asset-item>
+                        <a-asset-item id="buggy-wheel-chrome" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/Buggy-wheel-chrome.glb?v=1661360545183"></a-asset-item>
+
+                        <a-asset-item id="steer-ring" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/steer-ring.glb?v=1661754904188"></a-asset-item>
+                        <a-asset-item id="wheel-spinner" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/wheel-spinner.glb?v=1661754959348"></a-asset-item>
+
+                        <a-asset-item id="onebox" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/onebox.glb?v=1655710263791"></a-asset-item>
+                        <a-asset-item id="redspring" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/springred.glb?v=1680272516428"></a-asset-item>
+                        <a-asset-item id="glbplate" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/glbplate.glb?v=1679513082607"></a-asset-item>
+                        <a-asset-item id="glbplate2" src="#"></a-asset-item>
+                        <a-asset-item id="glbplate3" src="#"></a-asset-item>
+
+                        <a-asset-item id="cadboxx" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/planebox-x.glb?v=1686288365491"></a-asset-item>
+
+
+                    </a-assets>
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <!--CODE-->
+    <a-sky color="lightblue" radius="75"></a bolero-sky>
+    </a-scene>
+    <script>
+        function showmainmenu() {
+
+            document.getElementById("container1").style.display = "block";
+            document.getElementById("container2").style.display = "none";
+            document.getElementById("mainmenu").style.display = "block";
+            document.getElementById("createmenu").style.display = "none";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            b((t.getElementById("controlmenu").style.display = "none";
+            document.getElementById("editmenu").style.display = "none";
+            document.getElementById("constrainmenu").style.display = "none";
+            document.getElementById("motionmenu").style.display = "none";
+            document.getElementById("testmenu").style.display = "none";
+
+        }
+        function showcreatemenu() {
+
+            document.getElementById("mainmenu").style.display = "none";
+            document.getElementById("createmenu").style.display = "block";
+            document.getElementById("controlmenu").style.display = "none";
+            document.getElementById("editmenu").style.display = "none";
+            document.getElementById("constrainmenu").style.display = "none";
+            document.getElementById("animatemenu").style.display = "none";
+            document.getElementById("motionmenu").style.display = "none";
+
+
+
+
+
+        }
+        function showcontrolmenu() {
+
+            document.getElementById("mainmenu").style.display = "none";
+            document.getElementById("createmenu").style.display = "none";
+            document.getElementById("controlmenu").style.display = "block";
+            document.getElementById("editmenu").style.display = "none";
+            document.getElementById("constrainmenu").style.display = "none";
+            document.getElementById("animatemenu").style.display = "none";
+            document.getElementById("motionmenu").style.display = "none";
+
+
+
+
+        }
+        function showeditmenu() {
+
+            document.getElementById("mainmenu").style.display = "none";
+            document.getElementById("createmenu").style.display = "none";
+            document.getElementById("controlmenu").style.display = "none";
+            document.getElementById("editmenu").style.display = "block";
+            document.getElementById("constrainmenu").style.display = "none";
+            document.getElementById("animatemenu").style.display = "none";
+                                                 document.getElementById("motionmenu").style.display = "none";
+
+
+
+        }
+        function showconstrainmenu() {
+
+            document.getElementById("mainmenu").style.display = "none";
+            document.getElementById("createmenu").style.display = "none";
+            document.getElementById("controlmenu").style.display = "none";
+            document.getElementById("editmenu").style.display = "none";
+            document.getElementById("constrainmenu").style.display = "none";
+            document.getElementById("animatemenu").style.display = "block";
+            document.getElementById("motionmenu").style.display = "none";
 
         }
 
+        function showanimatemenu() {
 
-        const index =
-            y * width + x;
+            document.getElementById("mainmenu").style.display = "none";
+            document.getElementById("createmenu").style.display = "none";
+            document.getElementById("controlmenu").style.display = "none";
+            document.getElementById("editmenu").style.display = "none";
+            document.getElementById("constrainmenu").style.display = "block";
+            document.getElementById("animatemenu").style.display = "none";
+            document.getElementById("motionmenu").style.display = "none";
 
-
-        mask[index] = 1;
-
-
-        addNeighbour(
-            x - 1,
-            y
-        );
-
-        addNeighbour(
-            x + 1,
-            y
-        );
-
-        addNeighbour(
-            x,
-            y - 1
-        );
-
-        addNeighbour(
-            x,
-            y + 1
-        );
-
-    }
-
-
-    function addNeighbour(x, y) {
-
-        if (
-            x < 0 ||
-            x >= width ||
-            y < 0 ||
-            y >= height
-        ) {
-            return;
         }
+    </script>
 
-
-        const index =
-            y * width + x;
-
-
-        if (
-            visited[index]
-        ) {
-            return;
-        }
-
-
-        visited[index] = 1;
-
-
-        queue.push({
-            x: x,
-            y: y
+    <script>
+        $(document).ready(function () {
+            console.log('this is run on page load');
+            showmainmenu();
         });
-
-    }
-
-
-    let count = 0;
-
-
-    for (
-        let i = 0;
-        i < mask.length;
-        i++
-    ) {
-
-        if (mask[i]) {
-            count++;
-        }
-
-    }
-
-
-    if (count < 10) {
-        return null;
-    }
-
-
-    return mask;
-
-}
-
-
-/*
-========================================================
-DRAW PREVIEW
-========================================================
-*/
-
-function drawPreview() {
-
-    const data =
-        new Uint8ClampedArray(
-            originalPixels
-        );
-
-
-    const width =
-        canvas.width;
-
-    const height =
-        canvas.height;
-
-
-    for (
-        let y = 0;
-        y < height;
-        y++
-    ) {
-
-        for (
-            let x = 0;
-            x < width;
-            x++
-        ) {
-
-            const index =
-                y * width + x;
-
-
-            if (
-                !proposedMask[index]
-            ) {
-                continue;
-            }
-
-
-            let boundary = false;
-
-
-            if (
-                x === 0 ||
-                !proposedMask[index - 1]
-            ) {
-                boundary = true;
-            }
-
-
-            if (
-                x === width - 1 ||
-                !proposedMask[index + 1]
-            ) {
-                boundary = true;
-            }
-
-
-            if (
-                y === 0 ||
-                !proposedMask[index - width]
-            ) {
-                boundary = true;
-            }
-
-
-            if (
-                y === height - 1 ||
-                !proposedMask[index + width]
-            ) {
-                boundary = true;
-            }
-
-
-            if (boundary) {
-
-                const p =
-                    index * 4;
-
-
-                data[p] = 255;
-                data[p + 1] = 220;
-                data[p + 2] = 0;
-
-            }
-
-        }
-
-    }
-
-
-    ctx.putImageData(
-        new ImageData(
-            data,
-            width,
-            height
-        ),
-        0,
-        0
-    );
-
-}
-
-
-/*
-========================================================
-ACCEPT BOUNDARY
-========================================================
-*/
-
-document
-.getElementById("acceptBoundary")
-.addEventListener("click", function() {
-
-    if (!proposedMask) return;
-
-
-    const area = {
-
-        name:
-            "Area " +
-            String.fromCharCode(
-                65 + areas.length
-            ),
-
-        mask:
-            proposedMask,
-
-        colour:
-            randomColour(),
-
-        flat:
-            false
-
-    };
-
-
-    areas.push(area);
-
-
-    selectedArea =
-        area;
-
-
-    proposedMask = null;
-
-
-    redraw();
-
-    updateAreas();
-
-
-    boundaryControls.style.display =
-        "none";
-
-    colourControls.style.display =
-        "block";
-
-
-    colourPicker.value =
-        area.colour;
-
-
-    status.textContent =
-        area.name +
-        " accepted. Click another area or select an area below.";
-
-});
-
-
-/*
-========================================================
-CANCEL
-========================================================
-*/
-
-document
-.getElementById("cancelBoundary")
-.addEventListener("click", function() {
-
-    proposedMask = null;
-
-    redraw();
-
-
-    boundaryControls.style.display =
-        "none";
-
-
-    status.textContent =
-        "Boundary cancelled.";
-
-});
-
-
-/*
-========================================================
-SELECT AREA
-========================================================
-*/
-
-function updateAreas() {
-
-    areasDiv.innerHTML = "";
-
-
-    areas.forEach(function(area) {
-
-        const div =
-            document.createElement("div");
-
-
-        div.className = "area";
-
-
-        if (
-            area === selectedArea
-        ) {
-
-            div.classList.add(
-                "selected"
-            );
-
-        }
-
-
-        const name =
-            document.createElement("span");
-
-
-        name.className =
-            "area-name";
-
-
-        name.textContent =
-            area.name;
-
-
-        const colour =
-            document.createElement("span");
-
-
-        colour.className =
-            "area-colour";
-
-
-        colour.style.background =
-            area.colour;
-
-
-        div.appendChild(name);
-
-        div.appendChild(colour);
-
-
-        div.onclick =
-            function() {
-
-                selectedArea =
-                    area;
-
-
-                colourPicker.value =
-                    area.colour;
-
-
-                colourControls.style.display =
-                    "block";
-
-
-                updateAreas();
-
-
-                status.textContent =
-                    area.name +
-                    " selected.";
-
-            };
-
-
-        areasDiv.appendChild(div);
-
-    });
-
-}
-
-
-/*
-========================================================
-FLATTEN SELECTED AREA
-========================================================
-
-This is the new function.
-
-Every pixel inside the selected
-area receives EXACTLY the same
-colour.
-
-There is no shading.
-
-========================================================
-*/
-
-document
-.getElementById("flatten")
-.addEventListener("click", function() {
-
-    if (!selectedArea) {
-
-        alert(
-            "Select an area first."
-        );
-
-        return;
-
-    }
-
-
-    /*
-    Calculate the average colour
-    of the original area.
-
-    This gives us a sensible flat
-    representation of the existing
-    area.
-    */
-
-    let red = 0;
-    let green = 0;
-    let blue = 0;
-    let count = 0;
-
-
-    for (
-        let i = 0;
-        i < selectedArea.mask.length;
-        i++
-    ) {
-
-        if (
-            !selectedArea.mask[i]
-        ) {
-            continue;
-        }
-
-
-        const p =
-            i * 4;
-
-
-        red +=
-            originalPixels[p];
-
-        green +=
-            originalPixels[p + 1];
-
-        blue +=
-            originalPixels[p + 2];
-
-
-        count++;
-
-    }
-
-
-    if (count === 0) {
-        return;
-    }
-
-
-    red =
-        Math.round(
-            red / count
-        );
-
-    green =
-        Math.round(
-            green / count
-        );
-
-    blue =
-        Math.round(
-            blue / count
-        );
-
-
-    /*
-    Store the flat colour.
-    */
-
-    selectedArea.colour =
-        rgbToHex(
-            red,
-            green,
-            blue
-        );
-
-
-    selectedArea.flat =
-        true;
-
-
-    /*
-    Put that colour into the
-    colour picker.
-    */
-
-    colourPicker.value =
-        selectedArea.colour;
-
-
-    redraw();
-
-    updateAreas();
-
-
-    status.textContent =
-        selectedArea.name +
-        " has been flattened.";
-
-});
-
-
-/*
-========================================================
-APPLY COLOUR
-========================================================
-*/
-
-document
-.getElementById("applyColour")
-.addEventListener("click", function() {
-
-    if (!selectedArea) {
-
-        alert(
-            "Select an area first."
-        );
-
-        return;
-
-    }
-
-
-    selectedArea.colour =
-        colourPicker.value;
-
-
-    selectedArea.flat =
-        true;
-
-
-    redraw();
-
-    updateAreas();
-
-
-    status.textContent =
-        selectedArea.name +
-        " changed to " +
-        selectedArea.colour.toUpperCase();
-
-});
-
-
-/*
-========================================================
-RANDOMISE COLOURS
-========================================================
-*/
-
-document
-.getElementById("randomColours")
-.addEventListener("click", function() {
-
-    if (areas.length === 0) {
-
-        alert(
-            "Define some areas first."
-        );
-
-        return;
-
-    }
-
-
-    areas.forEach(function(area) {
-
-        area.colour =
-            randomColour();
-
-        area.flat =
-            true;
-
-    });
-
-
-    redraw();
-
-    updateAreas();
-
-
-    status.textContent =
-        "All defined areas have been given new colours.";
-
-});
-
-
-/*
-========================================================
-REDRAW
-========================================================
-*/
-
-function redraw() {
-
-    if (!originalPixels) {
-        return;
-    }
-
-
-    const data =
-        new Uint8ClampedArray(
-            originalPixels
-        );
-
-
-    /*
-    Apply each area independently.
-
-    Because each area has its own
-    MASK, identical original colours
-    do not cause problems.
-    */
-
-    areas.forEach(function(area) {
-
-        const rgb =
-            hexToRGB(
-                area.colour
-            );
-
-
-        for (
-            let i = 0;
-            i < area.mask.length;
-            i++
-        ) {
-
-            if (
-                !area.mask[i]
-            ) {
-                continue;
-            }
-
-
-            const p =
-                i * 4;
-
-
-            data[p] =
-                rgb.r;
-
-            data[p + 1] =
-                rgb.g;
-
-            data[p + 2] =
-                rgb.b;
-
-        }
-
-    });
-
-
-    ctx.putImageData(
-        new ImageData(
-            data,
-            canvas.width,
-            canvas.height
-        ),
-        0,
-        0
-    );
-
-}
-
-
-/*
-========================================================
-CREATE 10 VARIATIONS
-========================================================
-*/
-
-document
-.getElementById("create")
-.addEventListener("click", function() {
-
-    if (!originalPixels) {
-
-        alert(
-            "Upload an image first."
-        );
-
-        return;
-
-    }
-
-
-    if (areas.length === 0) {
-
-        alert(
-            "Define at least one area first."
-        );
-
-        return;
-
-    }
-
-
-    collection.innerHTML = "";
-
-
-    for (
-        let variation = 1;
-        variation <= 10;
-        variation++
-    ) {
-
-        const newCanvas =
-            document.createElement(
-                "canvas"
-            );
-
-
-        newCanvas.width =
-            canvas.width;
-
-        newCanvas.height =
-            canvas.height;
-
-
-        const newCtx =
-            newCanvas.getContext("2d");
-
-
-        const data =
-            new Uint8ClampedArray(
-                originalPixels
-            );
-
-
-        /*
-        Give every area a completely
-        flat colour for this variation.
-        */
-
-        areas.forEach(function(area) {
-
-            const colour =
-                randomColourRGB();
-
-
-            for (
-                let i = 0;
-                i < area.mask.length;
-                i++
-            ) {
-
-                if (
-                    !area.mask[i]
-                ) {
-                    continue;
-                }
-
-
-                const p =
-                    i * 4;
-
-
-                data[p] =
-                    colour.r;
-
-                data[p + 1] =
-                    colour.g;
-
-                data[p + 2] =
-                    colour.b;
-
-            }
-
-        });
-
-
-        newCtx.putImageData(
-            new ImageData(
-                data,
-                canvas.width,
-                canvas.height
-            ),
-            0,
-            0
-        );
-
-
-        /*
-        CARD
-        */
-
-        const card =
-            document.createElement(
-                "div"
-            );
-
-
-        card.className =
-            "card";
-
-
-        const title =
-            document.createElement(
-                "h3"
-            );
-
-
-        title.textContent =
-            "Variation " +
-            String(
-                variation
-            ).padStart(
-                2,
-                "0"
-            );
-
-
-        const button =
-            document.createElement(
-                "button"
-            );
-
-
-        button.textContent =
-            "DOWNLOAD PNG";
-
-
-        button.onclick =
-            function() {
-
-                newCanvas.toBlob(
-                    function(blob) {
-
-                        if (!blob) {
-
-                            alert(
-                                "Could not create PNG."
-                            );
-
-                            return;
-
-                        }
-
-
-                        const url =
-                            URL.createObjectURL(
-                                blob
-                            );
-
-
-                        const link =
-                            document.createElement(
-                                "a"
-                            );
-
-
-                        link.href =
-                            url;
-
-
-                        link.download =
-                            "variation-" +
-                            String(
-                                variation
-                            ).padStart(
-                                2,
-                                "0"
-                            ) +
-                            ".png";
-
-
-                        document.body.appendChild(
-                            link
-                        );
-
-
-                        link.click();
-
-
-                        document.body.removeChild(
-                            link
-                        );
-
-
-                        setTimeout(
-                            function() {
-
-                                URL.revokeObjectURL(
-                                    url
-                                );
-
-                            },
-                            1000
-                        );
-
-                    },
-                    "image/png"
-                );
-
-            };
-
-
-        card.appendChild(
-            newCanvas
-        );
-
-        card.appendChild(
-            title
-        );
-
-        card.appendChild(
-            button
-        );
-
-
-        collection.appendChild(
-            card
-        );
-
-    }
-
-
-    status.textContent =
-        "10 complete variations created.";
-
-});
-
-
-/*
-========================================================
-RANDOM COLOUR
-========================================================
-*/
-
-function randomColour() {
-
-    const letters =
-        "0123456789ABCDEF";
-
-
-    let result = "#";
-
-
-    for (
-        let i = 0;
-        i < 6;
-        i++
-    ) {
-
-        result +=
-            letters[
-                Math.floor(
-                    Math.random() * 16
-                )
-            ];
-
-    }
-
-
-    return result;
-
-}
-
-
-/*
-========================================================
-RANDOM RGB
-========================================================
-*/
-
-function randomColourRGB() {
-
-    return {
-
-        r:
-            Math.floor(
-                Math.random() * 256
-            ),
-
-        g:
-            Math.floor(
-                Math.random() * 256
-            ),
-
-        b:
-            Math.floor(
-                Math.random() * 256
-            )
-
-    };
-
-}
-
-
-/*
-========================================================
-RGB TO HEX
-========================================================
-*/
-
-function rgbToHex(r, g, b) {
-
-    return "#" +
-
-        [r, g, b]
-        .map(function(value) {
-
-            return value
-                .toString(16)
-                .padStart(
-                    2,
-                    "0"
-                );
-
-        })
-        .join("");
-
-}
-
-
-/*
-========================================================
-HEX TO RGB
-========================================================
-*/
-
-function hexToRGB(hex) {
-
-    hex =
-        hex.replace(
-            "#",
-            ""
-        );
-
-
-    return {
-
-        r:
-            parseInt(
-                hex.substring(0, 2),
-                16
-            ),
-
-        g:
-            parseInt(
-                hex.substring(2, 4),
-                16
-            ),
-
-        b:
-            parseInt(
-                hex.substring(4, 6),
-                16
-            )
-
-    };
-
-}
-
-</script>
+    </script>
 
 </body>
 </html>
