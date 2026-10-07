@@ -192,13 +192,12 @@
     </header>
 
     <main>
-<div id="overlay" onclick="off()"></div>
 
-<div style="padding:20px">
+<!--div style="padding:20px">
   <h2>Overlay</h2>
   <p>Add an overlay effect to the page content (100% width and height with a black background color with 50% opacity).</p>
   <button onclick="on()">Turn on overlay effect</button>
-</div>
+</di-->
 
 <script>
 function on() {
@@ -246,7 +245,9 @@ function off() {
             </a>
 
             <!-- APP 4 -->
-            <a class="app-button" target="" href="https://coinbase.com"><!--coinbase-->
+            <a class="app-button" target="_blank" href="https://coinbase.com"><!--coinbase-->
+                <div id="overlay" onclick=""></div>
+
                 <img
                     src="images/coinbase_600700.png"
                     alt=""
@@ -256,6 +257,8 @@ function off() {
 
             <!-- APP 5 -->
             <a class="app-button" href="apps/texture_loader.html"><!--texture change--->
+                <div id="overlay" onclick="off()"></div>
+
                 <img
                     src="images/texture_loader.png"
                     alt=""
