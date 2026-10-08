@@ -1,3 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CADBOXX Texture Loader</title>
+
+  <!-- A-Frame -->
+  <script src="https://aframe.io/releases/1.8.0/aframe.min.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: #111;
+    }
+
+    /* Five texture choices */
+    #textureBar {
+      position: fixed;
+      z-index: 20;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(90vw, 800px);
+      height: 100px;
+
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+
+      padding: 8px;
+      background: rgba(20, 20, 20, 0.88);
+      border-radius: 10px;
+    }
+
+    .textureChoice {
+      width: 125px;
+      height: 80px;
+      border: 3px solid transparent;
+      border-radius: 6px;
+      padding: 2px;
+      background: #333;
+      cursor: pointer;
+    }
+
+    .textureChoice.selected {
+      border-color: white;
+      box-shadow: 0 0 0 3px #00aaff;
+    }
+
+    .textureChoice img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 3px;
+      display: block;
+    }
+
+    /* GLB drop area */
+    #dropArea {
+      position: fixed;
+      z-index: 20;
+      left: 50%;
+      top: 55%;
+      transform: translate(-50%, -50%);
+
+      width: min(80vw, 600px);
+      min-height: 170px;
+
+      border: 3px dashed white;
+      border-radius: 14px;
+      background: rgba(0, 0, 0, 0.55);
+
+      color: white;
+      text-align: center;
+      padding: 35px 20px;
+
+      transition: 0.2s;
+    }
+
+    #dropArea.dragover {
+      background: rgba(0, 120, 200, 0.65);
+      border-color: #00ccff;
+      transform: translate(-50%, -50%) scale(1.03);
+    }
+
+    #dropArea h2 {
+      margin: 0 0 10px 0;
+    }
+
+    #dropArea p {
+      margin: 5px;
+    }
+
+    #fileInput {
+      margin-top: 15px;
+    }
+
+    #status {
+      position: fixed;
+      z-index: 20;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+
+      color: white;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 8px 16px;
+      border-radius: 6px;
+    }
+
+    /* A-Frame canvas */
+    a-scene {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+
+  <script>
+    let selectedTexture = "textures/texture1.jpg";
+    let currentModel = null;
+
+    /*
+     * Five texture choices.
+     *
+     * EDIT THESE FIVE IMAGE FILENAMES to your own textures.
+     *
+     * Example:
+     * textures/steel.jpg
+     * textures/redpaint.jpg
+     * textures/carbon.jpg
+     * textures/wood.jpg
+     * textures/rubber.jpg
+     */
+    const textureFiles = [
+      "textures/texture1.jpg",
+      "textures/texture2.jpg",
+      "textures/texture3.jpg",
+      "textures/texture4.jpg",
+      "textures/texture5.jpg"
+    ];
+
+    function selectTexture(number) {
+      selectedTexture = textureFiles[number - 1];
+
+      document.querySelectorAll(".textureChoice").forEach(function(button) {
+        button.classList.remove("selected");
+      });
+
+      document.getElementById("texture" + number).classList.add("selected");
+
+      document.getElementById("status").textContent =
+        "Selected texture " + number;
+
+      /*
+       * If a model is already loaded, changing the texture also
+       * changes the model immediately.
+       */
+      if (currentModel) {
+        applyTexture(currentModel, selectedTexture);
+      }
+    }
+
+    function applyTexture(modelObject, textureURL) {
+      const loader = new THREE.TextureLoader();
+
+      loader.load(
+        textureURL,
+
+        function(texture) {
+          texture.colorSpace = THREE.SRGBColorSpace;
+
+          modelObject.traverse(function(object) {
+
+            if (!object.isMesh) {
+              return;
+            }
+
+            /*
+             * Some GLB models have several materials.
+             * This applies the selected image to every mesh.
+             */
+            if (Array.isArray(object.material)) {
+
+              object.material.forEach(function(material) {
+                material.map = texture;
+                material.needsUpdate = true;
+              });
+
+            } else {
+
+              object.material.map = texture;
+              object.material.needsUpdate = true;
+            }
+          });
+
+          document.getElementById("status").textContent =
+            "Model loaded with selected texture";
+        },
+
+        undefined,
+
+        function(error) {
+          console.error("Texture loading error:", error);
+
+          document.getElementById("status").textContent =
+            "Model loaded, but texture could not be found";
+        }
+      );
+    }
+
+    function loadGLB(file) {
+
+      if (!file) {
+        return;
+      }
+
+      if (!file.name.toLowerCase().endsWith(".glb")) {
+        document.getElementById("status").textContent =
+          "Please drop a .glb file";
+        return;
+      }
+
+      const modelURL = URL.createObjectURL(file);
+
+      const scene = document.querySelector("a-scene");
+      const modelEntity = document.createElement("a-entity");
+
+      /*
+       * Remove the previous model.
+       */
+      if (currentModel) {
+        currentModel.parentNode.removeChild(currentModel);
+        currentModel = null;
+      }
+
+      /*
+       * Position the new GLB in front of the camera.
+       * Change these values later if required.
+       */
+      modelEntity.setAttribute("position", "0 0 -3");
+      modelEntity.setAttribute("scale", "1 1 1");
+      modelEntity.setAttribute("gltf-model", modelURL);
+
+      modelEntity.addEventListener("model-loaded", function(event) {
+
+        const loadedObject = event.detail.model;
+
+        currentModel = loadedObject;
+
+        /*
+         * THIS IS THE IMPORTANT ACTION:
+         *
+         * As soon as the GLB finishes loading,
+         * the currently selected texture is applied.
+         */
+        applyTexture(loadedObject, selectedTexture);
+
+        document.getElementById("status").textContent =
+          "GLB loaded — applying selected texture";
+
+        URL.revokeObjectURL(modelURL);
+      });
+
+      modelEntity.addEventListener("model-error", function(event) {
+
+        console.error("GLB loading error:", event);
+
+        document.getElementById("status").textContent =
+          "Error loading GLB";
+      });
+
+      scene.appendChild(modelEntity);
+    }
+
+    /*
+     * Drag-and-drop from Windows File Explorer / file manager.
+     */
+    function setupDropArea() {
+
+      const dropArea = document.getElementById("dropArea");
+      const fileInput = document.getElementById("fileInput");
+
+      dropArea.addEventListener("dragover", function(event) {
+        event.preventDefault();
+        dropArea.classList.add("dragover");
+      });
+
+      dropArea.addEventListener("dragleave", function() {
+        dropArea.classList.remove("dragover");
+      });
+
+      dropArea.addEventListener("drop", function(event) {
+        event.preventDefault();
+
+        dropArea.classList.remove("dragover");
+
+        const files = event.dataTransfer.files;
+
+        if (files.length > 0) {
+          loadGLB(files[0]);
+        }
+      });
+
+      /*
+       * File picker is included as a backup.
+       */
+      fileInput.addEventListener("change", function() {
+
+        if (fileInput.files.length > 0) {
+          loadGLB(fileInput.files[0]);
+        }
+      });
+    }
+
+    window.addEventListener("load", function() {
+      setupDropArea();
+
+      /*
+       * Texture 1 is pre-selected when the app starts.
+       */
+      selectTexture(1);
+    });
+  </script>
+</head>
+
+<body>
+
+  <!-- =====================================================
+       FIVE TEXTURE BUTTONS
+       ===================================================== -->
+  <div id="textureBar">
+
+    <button
+      id="texture1"
+      class="textureChoice"
+      onclick="selectTexture(1)">
+      <img src="textures/textures1.jpg" alt="Texture 1">
+    </button>
+
+    <button
+      id="texture2"
+      class="textureChoice"
+      onclick="selectTexture(2)">
+      <img src="textures/textures2.jpg" alt="Texture 2">
+    </button>
+
+    <button
+      id="texture3"
+      class="textureChoice"
+      onclick="selectTexture(3)">
+      <img src="textures/textures3.jpg" alt="Texture 3">
+    </button>
+
+    <button
+      id="texture4"
+      class="textureChoice"
+      onclick="selectTexture(4)">
+      <img src="textures/textures4.jpg" alt="Texture 4">
+    </button>
+
+    <button
+      id="texture5"
+      class="textureChoice"
+      onclick="selectTexture(5)">
+      <img src="textures/textures5.jpg" alt="Texture 5">
+    </button>
+
+  </div>
+
+
+  <!-- =====================================================
+       GLB DROP AREA
+       ===================================================== -->
+  <div id="dropArea">
+
+    <h2>DROP GLB MODEL HERE</h2>
+
+    <p>Select a texture above first.</p>
+
+    <p>Then drag a .GLB file from your file list onto this area.</p>
+
+    <input
+      id="fileInput"
+      type="file"
+      accept=".glb">
+
+  </div>
+
+
+  <div id="status">
+    Texture 1 selected
+  </div>
+
+
+  <!-- =====================================================
+       A-FRAME SCENE
+       ===================================================== -->
+  <a-scene
+    background="color: #8fc9e8"
+    renderer="colorManagement: true">
+
+    <a-camera
+      position="0 1.6 0"
+      look-controls="enabled: true">
+    </a-camera>
+
+    <a-light
+      type="ambient"
+      intensity="1.2">
+    </a-light>
+
+    <a-light
+      type="directional"
+      intensity="1.5"
+      position="2 5 4">
+    </a-light>
+
+    <a-plane
+      position="0 -1.2 0"
+      rotation="-90 0 0"
+      width="20"
+      height="20"
+      color="#666">
+    </a-plane>
+
+  </a-scene>
+
+</body>
+</html>
+
+
+<!--
 <html>
 
     <head>
