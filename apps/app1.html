@@ -8,23 +8,49 @@
 <style>
 html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
 #cadboxxMenus{position:fixed;left:10px;bottom:175px;z-index:100000}
-#menuSelectors{display:flex;flex-direction:column;gap:3px}
-#menuSelectors button{width:78px;height:45px;padding:0;border:1px solid rgba(255,255,255,.8);border-radius:4px;color:#fff;font:bold 12px Arial,sans-serif;cursor:pointer}
+#menuSelectors,.subMenu{display:flex;flex-direction:column;gap:3px}
+#subMenus .subMenu{display:none}
+#subMenus .subMenu button{background:var(--menu-color)}
+#menuSelectors button,.subMenu button{width:78px;height:45px;padding:0;border:1px solid rgba(255,255,255,.8);border-radius:4px;color:#fff;font:bold 12px Arial,sans-serif;cursor:pointer}
 #commandSets{position:fixed;left:0;right:0;top:10px;z-index:100000}
 .commandSet{display:none;gap:5px;padding:0 10px;width:100%;box-sizing:border-box}
 .commandSet button{flex:1;width:auto;height:42px;padding:0;border:1px solid rgba(255,255,255,.8);border-radius:4px;background:var(--menu-color);color:#fff;font:bold 12px Arial,sans-serif;cursor:pointer}
 .commandSet button.home{flex:0 0 42px;width:42px;height:30px;align-self:center;font-size:10px}
+
+#externalLinks{position:fixed;right:10px;top:75px;z-index:100000;display:flex;flex-direction:column;gap:3px}
+#externalLinks a{width:78px;height:45px;padding:0;border:1px solid rgba(255,255,255,.35);border-radius:4px;background:rgba(45,45,45,.72);color:#ddd;font:bold 12px Arial,sans-serif;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+#externalLinks a:hover{background:rgba(65,65,65,.82)}
 </style>
 </head>
 <body>
 <div id="cadboxxMenus">
   <div id="menuSelectors">
-    <button id="menuCreate" style="background:#d32f2f" onclick="showMenu('commandSetCreate')">CREATE</button>
-    <button id="menuEdit" style="background:#1976d2" onclick="showMenu('commandSetEdit')">EDIT</button>
-    <button id="menuConstrain" style="background:#388e3c" onclick="showMenu('commandSetConstrain')">CONSTRAIN</button>
-    <button id="menuAssembly" style="background:#7b1fa2" onclick="showMenu('commandSetAssembly')">ASSEMBLY</button>
-    <button id="menuView" style="background:#f57c00" onclick="showMenu('commandSetView')">VIEW</button>
-    <button id="menuSimulate" style="background:#00838f" onclick="showMenu('commandSetSimulate')">SIMULATE</button>
+    <button id="menuCreate" style="background:#d32f2f" onclick="showSubMenu('subCreate')">CREATE</button>
+    <button id="menuEdit" style="background:#1976d2" onclick="showSubMenu('subEdit')">EDIT</button>
+    <button id="menuConstrain" style="background:#388e3c" onclick="showSubMenu('subConstrain')">CONSTRAIN</button>
+    <button id="menuAssembly" style="background:#7b1fa2" onclick="showSubMenu('subAssembly')">ASSEMBLY</button>
+    <button id="menuView" style="background:#f57c00" onclick="showSubMenu('subView')">VIEW</button>
+    <button id="menuSimulate" style="background:#00838f" onclick="showSubMenu('subSimulate')">SIMULATE</button>
+  </div>
+  <div id="subMenus">
+    <div id="subCreate" class="subMenu" style="--menu-color:#d32f2f">
+      <button onclick="showCommandSet('commandSetCreate')">CREATE 1</button><button onclick="showCommandSet('commandSetEdit')">CREATE 2</button><button onclick="showCommandSet('commandSetConstrain')">CREATE 3</button><button onclick="showCommandSet('commandSetAssembly')">CREATE 4</button><button onclick="showCommandSet('commandSetView')">CREATE 5</button><button onclick="showCommandSet('commandSetSimulate')">CREATE 6</button>
+    </div>
+    <div id="subEdit" class="subMenu" style="--menu-color:#1976d2">
+      <button onclick="showCommandSet('commandSetCreate')">EDIT 1</button><button onclick="showCommandSet('commandSetEdit')">EDIT 2</button><button onclick="showCommandSet('commandSetConstrain')">EDIT 3</button><button onclick="showCommandSet('commandSetAssembly')">EDIT 4</button><button onclick="showCommandSet('commandSetView')">EDIT 5</button><button onclick="showCommandSet('commandSetSimulate')">EDIT 6</button>
+    </div>
+    <div id="subConstrain" class="subMenu" style="--menu-color:#388e3c">
+      <button onclick="showCommandSet('commandSetCreate')">CONSTRAIN 1</button><button onclick="showCommandSet('commandSetEdit')">CONSTRAIN 2</button><button onclick="showCommandSet('commandSetConstrain')">CONSTRAIN 3</button><button onclick="showCommandSet('commandSetAssembly')">CONSTRAIN 4</button><button onclick="showCommandSet('commandSetView')">CONSTRAIN 5</button><button onclick="showCommandSet('commandSetSimulate')">CONSTRAIN 6</button>
+    </div>
+    <div id="subAssembly" class="subMenu" style="--menu-color:#7b1fa2">
+      <button onclick="showCommandSet('commandSetCreate')">ASSEMBLY 1</button><button onclick="showCommandSet('commandSetEdit')">ASSEMBLY 2</button><button onclick="showCommandSet('commandSetConstrain')">ASSEMBLY 3</button><button onclick="showCommandSet('commandSetAssembly')">ASSEMBLY 4</button><button onclick="showCommandSet('commandSetView')">ASSEMBLY 5</button><button onclick="showCommandSet('commandSetSimulate')">ASSEMBLY 6</button>
+    </div>
+    <div id="subView" class="subMenu" style="--menu-color:#f57c00">
+      <button onclick="showCommandSet('commandSetCreate')">VIEW 1</button><button onclick="showCommandSet('commandSetEdit')">VIEW 2</button><button onclick="showCommandSet('commandSetConstrain')">VIEW 3</button><button onclick="showCommandSet('commandSetAssembly')">VIEW 4</button><button onclick="showCommandSet('commandSetView')">VIEW 5</button><button onclick="showCommandSet('commandSetSimulate')">VIEW 6</button>
+    </div>
+    <div id="subSimulate" class="subMenu" style="--menu-color:#00838f">
+      <button onclick="showCommandSet('commandSetCreate')">SIMULATE 1</button><button onclick="showCommandSet('commandSetEdit')">SIMULATE 2</button><button onclick="showCommandSet('commandSetConstrain')">SIMULATE 3</button><button onclick="showCommandSet('commandSetAssembly')">SIMULATE 4</button><button onclick="showCommandSet('commandSetView')">SIMULATE 5</button><button onclick="showCommandSet('commandSetSimulate')">SIMULATE 6</button>
+    </div>
   </div>
 </div>
 
@@ -83,121 +109,58 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
     <button id="simulateHome" class="home" onclick="showHome('simulateHome')">HOME</button>
   </div>
 </div>
+
+<div id="externalLinks">
+  <a id="externalLink1" href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
+  <a id="externalLink2" href="https://sketchfab.com/fasteng/" target="_blank" rel="noopener noreferrer">Sketchfab</a>
+  <a id="externalLink3" href="https://3dviewer.net" target="_blank" rel="noopener noreferrer">3DViewer</a>
+   <a id="externalLink4" href="https://coinbase.com" target="_blank" rel="noopener noreferrer">Coinbase</a>
+  
+</div>
 <a-scene debug="true" stats="true" loading-screen="enabled:false">
-	<a-entity id="planeboxxx" position="0 0 0" scale="1 1 1">
-                <a-entity id="planeboxx" position="0 0 0">
-                    <a-entity id="planebox" position="0 0 0">
-                        <a-plane side="double" color="green" position="0 -20 0" rotation="-90 0 0" height="40" width="40" material="" static-body></a-plane>
-                        <a-plane side="double" color="green" position="0 20 0" rotation="-90 0 0" height="40" width="40" material="" static-body></a-plane>
-                        <a-plane side="double" color="blue" position="0 0 20" rotation="0 0 0" height="40" width="40" material="" static-body> </a-plane>
-                        <a-plane side="double" color="blue" position="0 0 -20" rotation="0 0 0" height="40" width="40" material="" static-body></a-plane>
-                        <a-plane side="double" color="red" position="20 0 0" rotation="0 -90 0" height="40" width="40" material="" static-body></a-plane>
-                        <a-plane side="double" color="red" position="-20 0 0" rotation="0 90 0" height="40" width="40" material="" static-body></a-plane>
-                    </a-entity>
-                    <!--mesh overlay for walls-->
-                    <a-box position="0 -20 0" rotation="0 0 0" width="30" depth="30" height="0.2" color="yellow" opacity="" gridhelper="size: 25;divisions:5" static-body></a-box>
-                    <a-box position="0 20 0" rotation="0 0 0" width="30" depth="30" height="0.2" color="yellow" opacity="1" gridhelper="size: 25;divisions:5" static-body></a-box>
-                    <a-box position="0 0 -20" rotation="90 0 0" width="30" depth="30" height="0.2" color="yellow" opacity="" gridhelper="size: 25;divisions:5" static-body></a-box>
-                    <a-box position="0 0 20" rotation="90 0 0" width="30" depth="30" height="0.2" color="yellow" opacity="1" gridhelper="size: 25;divisions:5" static-body></a-box>
-                    <a-box position="-20 0 0" rotation="0 0 90" width="30" depth="30" height="0.2" color="yellow" opacity="1" gridhelper="size: 25;divisions:5" static-body></a-box>
-                    <a-box position="20 0 0" rotation="0 0 90" width="30" depth="30" height="0.2" color="yellow" opacity="1.0" gridhelper="size: 25;divisions:5" static-body></a-box>
-
-                    <a-box position="0 0 -20" rotation="0 0 0" width="40" depth="0.5" height="40" color="lightblue" opacity=".1" static-body>
-                        <a-entity id="cmnd1" mixin="trigger-box4" position="-10 0 0" rotation="0 0 0" onclick="cmm1()" static-body><a-sphere id="cmcdsph1" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                        <a-entity id="cmnd2" mixin="trigger-box4" position="-10 5 0" rotation="0 0 0" onclick="cmm2()" static-body><a-sphere id="cmcdsph2" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                        <a-entity id="cmnd3" mixin="trigger-box4" position="-10 -5 0" rotation="0 0 0" onclick="cmm3()" static-body><a-sphere id="cmcdsph3" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                        <a-entity id="cmnd4" mixin="trigger-box4" position="-5 0 0" rotation="0 0 0" onclick="cmm4()" static-body><a-sphere id="cmcdsph4" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                        <a-entity id="cmnd5" mixin="trigger-box4" position="-5 5 0" rotation="0 0 0" onclick="cmm5()" static-body><a-sphere id="cmcdsph5" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                        <a-entity id="cmnd6" mixin="trigger-box4" position="-5 -5 0" rotation="0 0 0" onclick="cmm6()" static-body><a-sphere id="cmcdsph6" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                        <a-entity id="cmnd7" mixin="trigger-box4" position="0 0 0" rotation="0 0 0" onclick="cmm7()" static-body><a-sphere id="cmcdsph7" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                        <a-entity id="cmnd8" mixin="trigger-box4" position="0 5 0" rotation="0 0 0" onclick="cmm8()" static-body><a-sphere id="cmcdsph8" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                        <a-entity id="cmnd9" mixin="trigger-box4" position="0 -5 0" rotation="0 0 0" onclick="cmm9()" static-body><a-sphere id="cmcdsph9" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                        <a-entity id="cmnd10" mixin="trigger-box4" position="5 0 0" rotation="0 0 0" onclick="cmm10()" static-body><a-sphere id="cmcdsph10" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                        <a-entity id="cmnd11" mixin="trigger-box4" position="5 5 0" rotation="0 0 0" onclick="cmm11()" static-body><a-sphere id="cmcdsph11" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                        <a-entity id="cmnd12" mixin="trigger-box4" position="5 -5 0" rotation="0 0 0" onclick="cmm12()" static-body><a-sphere id="cmcdsph12" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                        <a-entity id="cmnd13" mixin="trigger-box4" position="10 0 0" rotation="0 0 0" onclick="cmm13()" static-body><a-sphere id="cmcdsph13" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                        <a-entity id="cmnd14" mixin="trigger-box4" position="10 5 0" rotation="0 0 0" onclick="cmm14()" static-body><a-sphere id="cmcdsph14" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-                        <a-entity id="cmnd15" mixin="trigger-box4" position="10 -5 0" rotation="0 0 0" onclick="cmm15()" static-body><a-sphere id="cmcdsph15" radius=".1" material="color:black;wiremesh:true"></a-sphere></a-entity>
-
-                    </a-box>
-
-                    <a-box position="-20 0 0" rotation="0 90 0" width="40" depth="0.5" height="40" color="lightblue" opacity=".1" static-body>
-                        <a-entity id="cmnd21" mixin="trigger-box2" position="-10 0 0" rotation="0 90 0" onclick="cmm21()" static-body></a-entity>
-                        <a-entity id="cmnd22" mixin="trigger-box2" position="-10 5 0" rotation="0 90 0" onclick="cmm22()" static-body></a-entity>
-                        <a-entity id="cmnd23" mixin="trigger-box2" position="-10 -5 0" rotation="0 90 0" onclick="cmm23()" static-body></a-entity>
-                        <a-entity id="cmnd24" mixin="trigger-box2" position="-5 0 0" rotation="0 90 0" onclick="cmm24()" static-body></a-entity>
-                        <a-entity id="cmnd25" mixin="trigger-box2" position="-5 5 0" rotation="0 90 0" onclick="cmm25()" static-body></a-entity>
-                        <a-entity id="cmnd26" mixin="trigger-box2" position="-5 -5 0" rotation="0 90 0" onclick="cmm26()" static-body></a-entity>
-                        <a-entity id="cmnd27" mixin="trigger-box2" position="0 0 0" rotation="0 90 0" onclick="cmm27()" static-body></a-entity>
-                        <a-entity id="cmnd28" mixin="trigger-box2" position="0 5 0" rotation="0 90 0" onclick="cmm28()" static-body></a-entity>
-                        <a-entity id="cmnd29" mixin="trigger-box2" position="0 -5 0" rotation="0 90 0" onclick="cmm29()" static-body></a-entity>
-                        <a-entity id="cmnd210" mixin="trigger-box2" position="5 0 0" rotation="0 90 0" onclick="cmm210()" static-body></a-entity>
-                        <a-entity id="cmnd211" mixin="trigger-box2" position="5 5 0" rotation="0 90 0" onclick="cmm211()" static-body></a-entity>
-                        <a-entity id="cmnd212" mixin="trigger-box2" position="5 -5 0" rotation="0 90 0" onclick="cmm212()" static-body></a-entity>
-                        <a-entity id="cmnd213" mixin="trigger-box2" position="10 0 0" rotation="0 90 0" onclick="cmm213()" static-body></a-entity>
-                        <a-entity id="cmnd214" mixin="trigger-box2" position="10 5 0" rotation="0 90 0" onclick="cmm214()" static-body></a-entity>
-                        <a-entity id="cmnd215" mixin="trigger-box2" position="10 -5 0" rotation="0 90 0" onclick="cmm215()" static-body></a-entity>
-
-                    </a-box>
-                    <a-box position="0 -20 0" rotation="0 0 0" width="40" depth="40" height="0.5" color="lightblue" opacity=".1" static-body>
-                        <a-entity id="cmnd31" mixin="trigger-box3" position="-10 0 0" rotation="0 90 0" onclick="cmm21()" static-body></a-entity>
-                        <a-entity id="cmnd32" mixin="trigger-box3" position="-10 0 5" rotation="0 90 0" onclick="cmm22()" static-body></a-entity>
-                        <a-entity id="cmnd33" mixin="trigger-box3" position="-10 0 10" rotation="0 90 0" onclick="cmm23()" static-body></a-entity>
-                        <a-entity id="cmnd34" mixin="trigger-box3" position="-5 0 0" rotation="0 90 0" onclick="cmm24()" static-body></a-entity>
-                        <a-entity id="cmnd35" mixin="trigger-box3" position="-5 0 5" rotation="0 90 0" onclick="cmm25()" static-body></a-entity>
-                        <a-entity id="cmnd36" mixin="trigger-box3" position="-5 0 10" rotation="0 90 0" onclick="cmm26()" static-body></a-entity>
-                        <a-entity id="cmnd37" mixin="trigger-box3" position="0 0 0" rotation="0 90 0" onclick="cmm27()" static-body></a-entity>
-                        <a-entity id="cmnd38" mixin="trigger-box3" position="0 0 5" rotation="0 90 0" onclick="cmm28()" static-body></a-entity>
-                        <a-entity id="cmnd39" mixin="trigger-box3" position="0 0 10" rotation="0 90 0" onclick="cmm29()" static-body></a-entity>
-                        <a-entity id="cmnd310" mixin="trigger-box3" position="5 0 0" rotation="0 90 0" onclick="cmm210()" static-body></a-entity>
-                        <a-entity id="cmnd311" mixin="trigger-box3" position="5 0 5" rotation="0 90 0" onclick="cmm211()" static-body></a-entity>
-                        <a-entity id="cmnd312" mixin="trigger-box3" position="5 0 10" rotation="0 90 0" onclick="cmm212()" static-body></a-entity>
-                        <a-entity id="cmnd313" mixin="trigger-box3" position="10 0 0" rotation="0 90 0" onclick="cmm213()" static-body></a-entity>
-                        <a-entity id="cmnd314" mixin="trigger-box3" position="10 0 5" rotation="0 90 0" onclick="cmm214()" static-body></a-entity>
-                        <a-entity id="cmnd315" mixin="trigger-box3" position="10 0 10" rotation="0 90 0" onclick="cmm215()" static-body></a-entity>
-                        <a-entity id="cmnd316" mixin="trigger-box3" position="-10 0 0" rotation="0 90 0" onclick="cmm216()" static-body></a-entity>
-                        <a-entity id="cmnd317" mixin="trigger-box3" position="-10 0 -5" rotation="0 90 0" onclick="cmm217()" static-body></a-entity>
-                        <a-entity id="cmnd318" mixin="trigger-box3" position="-10 0 -10" rotation="0 90 0" onclick="cmm218()" static-body></a-entity>
-                        <a-entity id="cmnd319" mixin="trigger-box3" position="-5 0 0" rotation="0 90 0" onclick="cmm219()" static-body></a-entity>
-                        <a-entity id="cmnd320" mixin="trigger-box3" position="-5 0 -5" rotation="0 90 0" onclick="cmm220()" static-body></a-entity>
-                        <a-entity id="cmnd321" mixin="trigger-box3" position="-5 0 -10" rotation="0 90 0" onclick="cmm221()" static-body></a-entity>
-                        <a-entity id="cmnd322" mixin="trigger-box3" position="0 0 0" rotation="0 90 0" onclick="cmm222()" static-body></a-entity>
-                        <a-entity id="cmnd323" mixin="trigger-box3" position="0 0 -5" rotation="0 90 0" onclick="cmm223()" static-body></a-entity>
-                        <a-entity id="cmnd324" mixin="trigger-box3" position="0 0 -10" rotation="0 90 0" onclick="cmm224()" static-body></a-entity>
-                        <a-entity id="cmnd325" mixin="trigger-box3" position="5 0 0" rotation="0 90 0" onclick="cmm225()" static-body></a-entity>
-                        <a-entity id="cmnd326" mixin="trigger-box3" position="5 0 -5" rotation="0 90 0" onclick="cmm216()" static-body></a-entity>
-                        <a-entity id="cmnd327" mixin="trigger-box3" position="5 0 -10" rotation="0 90 0" onclick="cmm216()" static-body></a-entity>
-                        <a-entity id="cmnd328" mixin="trigger-box3" position="10 0 0" rotation="0 90 0" onclick="cmm216()" static-body></a-entity>
-                        <a-entity id="cmnd329" mixin="trigger-box3" position="10 0 -5" rotation="0 90 0" onclick="cmm216()" static-body></a-entity>
-                        <a-entity id="cmnd330" mixin="trigger-box3" position="10 0 -10" rotation="0 90 0" onclick="cmm216()" static-body></a-entity>
-
-                    </a-box>
-                </a-entity>
-            </a-entity>
-
-
-
-  <!--a-entity id="box1" geometry="primitive:box" material="color:#4cc3d9" position="-1 1 -4"></a-entity>
-  <a-entity id="box2" geometry="primitive:box" material="color:#ef2d5e" position="1 1 -4"></a-entity-->
+  <a-entity id="box1" geometry="primitive:box" material="color:#4cc3d9" position="-1 1 -4"></a-entity>
+  <a-entity id="box2" geometry="primitive:box" material="color:#ef2d5e" position="1 1 -4"></a-entity>
   <a-plane rotation="-90 0 0" width="20" height="20" color="#777"></a-plane>
   <a-sky color="#65a9e8"></a-sky>
 </a-scene>
 <script>
+function hideAllSubMenus(){
+  document.querySelectorAll('.subMenu').forEach(function(menu){ menu.style.display='none'; });
+}
+
+function showSubMenu(menuId){
+  hideAllCommandSets();
+  document.getElementById('menuSelectors').style.display='none';
+  hideAllSubMenus();
+  var menu=document.getElementById(menuId);
+  menu.style.display='flex';
+
+  // Carry the colour of the main button into the second level
+  // and into whichever command set is subsequently displayed.
+  var color=getComputedStyle(menu).getPropertyValue('--menu-color').trim();
+  document.getElementById('commandSets').style.setProperty('--active-menu-color',color);
+  document.querySelectorAll('.commandSet').forEach(function(set){
+    set.style.setProperty('--menu-color',color);
+  });
+}
+
 function hideAllCommandSets(){
   document.querySelectorAll('.commandSet').forEach(function(set){
     set.style.display='none';
   });
 }
 
-function showMenu(setId){
+function showCommandSet(setId){
   hideAllCommandSets();
   document.getElementById('menuSelectors').style.display='none';
+  hideAllSubMenus();
   document.getElementById(setId).style.display='flex';
 }
 
 function showHome(buttonId){
   hideAllCommandSets();
   document.getElementById('menuSelectors').style.display='flex';
+  hideAllSubMenus();
   console.log('HOME:', buttonId);
 }
 
@@ -205,6 +168,64 @@ function cadCommand(commandId){
   console.log('CADBOXX command:', commandId);
   // Add the CADBOXX action for this unique command ID here.
 }
+
+// =====================================================
+// CADBOXX COMMAND ACTIONS
+// Each command has its own function so you can edit it
+// directly. Replace the comments with your CADBOXX code.
+// =====================================================
+
+// CREATE
+function createAddPart() { /* ADD PART CODE HERE */ }
+function createImport() { /* IMPORT CODE HERE */ }
+function createDraw() { /* DRAW CODE HERE */ }
+function createExtrude() { /* EXTRUDE CODE HERE */ }
+function createFinish() { /* FINISH CODE HERE */ }
+
+// EDIT
+function editMove() { /* MOVE CODE HERE */ }
+function editRotate() { /* ROTATE CODE HERE */ }
+function editScale() { /* SCALE CODE HERE */ }
+function editDelete() { /* DELETE CODE HERE */ }
+function editProperties() { /* PROPERTIES CODE HERE */ }
+
+// CONSTRAIN
+function constrainAlign() { /* ALIGN CODE HERE */ }
+function constrainHinge() { /* HINGE CODE HERE */ }
+function constrainSlider() { /* SLIDER CODE HERE */ }
+function constrainFix() { /* FIX CODE HERE */ }
+function constrainDistance() { /* DISTANCE CODE HERE */ }
+
+// ASSEMBLY
+function assemblyInsert() { /* INSERT CODE HERE */ }
+function assemblyMate() { /* MATE CODE HERE */ }
+function assemblyPattern() { /* PATTERN CODE HERE */ }
+function assemblyReplace() { /* REPLACE CODE HERE */ }
+function assemblyExplode() { /* EXPLODE CODE HERE */ }
+
+// VIEW
+function viewFront() { /* FRONT CODE HERE */ }
+function viewTop() { /* TOP CODE HERE */ }
+function viewSide() { /* SIDE CODE HERE */ }
+function viewFit() { /* FIT CODE HERE */ }
+function viewSection() { /* SECTION CODE HERE */ }
+
+// SIMULATE
+function simulateGravity() { /* GRAVITY CODE HERE */ }
+function simulatePhysics() { /* PHYSICS CODE HERE */ }
+function simulateAnimate() { /* ANIMATE CODE HERE */ }
+function simulateRecord() { /* RECORD CODE HERE */ }
+function simulateStop() { /* STOP CODE HERE */ }
+
+
 </script>
+
+<!--
+
+we need some entity selectors here
+-->
+
+
+
 </body>
 </html>
