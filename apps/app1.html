@@ -56,56 +56,65 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
 
 <div id="commandSets">
   <div id="commandSetCreate" class="commandSet" style="--menu-color:#d32f2f">
-    <button id="createAddPart" onclick="cadCommand('createAddPart')">ADD PART</button>
-    <button id="createImport" onclick="cadCommand('createImport')">IMPORT</button>
-    <button id="createDraw" onclick="cadCommand('createDraw')">DRAW</button>
-    <button id="createExtrude" onclick="cadCommand('createExtrude')">EXTRUDE</button>
-    <button id="createFinish" onclick="cadCommand('createFinish')">FINISH</button>
+    <button id="createAddPart" onclick="createAddPart()">ADD PART</button>
+    <button id="createImport" onclick="createImport()">IMPORT</button>
+    <button id="createDraw" onclick="createDraw()">DRAW</button>
+    <button id="createExtrude" onclick="createExtrude()">EXTRUDE</button>
+    <button id="createFinish" onclick="createFinish()">FINISH</button>
     <button id="createHome" class="home" onclick="showHome('createHome')">HOME</button>
+  </div>
+  
+  <div id="commandSetscene" class="commandSet" style="--menu-color:yellow">
+    <button id="editMove" onclick="editMove()">MOVE</button>
+    <button id="editRotate" onclick="editRotate()">ROTATE</button>
+    <button id="editScale" onclick="editScale()">SCALE</button>
+    <button id="editDelete" onclick="editDelete()">DELETE</button>
+    <button id="editProperties" onclick="editProperties()">PROPERTIES</button>
+    <button id="editHome" class="home" onclick="showHome('editHome')">HOME</button>
   </div>
 
   <div id="commandSetEdit" class="commandSet" style="--menu-color:#1976d2">
-    <button id="editMove" onclick="cadCommand('editMove')">MOVE</button>
-    <button id="editRotate" onclick="cadCommand('editRotate')">ROTATE</button>
-    <button id="editScale" onclick="cadCommand('editScale')">SCALE</button>
-    <button id="editDelete" onclick="cadCommand('editDelete')">DELETE</button>
-    <button id="editProperties" onclick="cadCommand('editProperties')">PROPERTIES</button>
+    <button id="editMove" onclick="editMove()">MOVE</button>
+    <button id="editRotate" onclick="editRotate()">ROTATE</button>
+    <button id="editScale" onclick="editScale()">SCALE</button>
+    <button id="editDelete" onclick="editDelete()">DELETE</button>
+    <button id="editProperties" onclick="editProperties()">PROPERTIES</button>
     <button id="editHome" class="home" onclick="showHome('editHome')">HOME</button>
   </div>
 
   <div id="commandSetConstrain" class="commandSet" style="--menu-color:#388e3c">
-    <button id="constrainAlign" onclick="cadCommand('constrainAlign')">ALIGN</button>
-    <button id="constrainHinge" onclick="cadCommand('constrainHinge')">HINGE</button>
-    <button id="constrainSlider" onclick="cadCommand('constrainSlider')">SLIDER</button>
-    <button id="constrainFix" onclick="cadCommand('constrainFix')">FIX</button>
-    <button id="constrainDistance" onclick="cadCommand('constrainDistance')">DISTANCE</button>
+    <button id="constrainAlign" onclick="constrainAlign()">ALIGN</button>
+    <button id="constrainHinge" onclick="constrainHinge()">HINGE</button>
+    <button id="constrainSlider" onclick="constrainSlider()">SLIDER</button>
+    <button id="constrainFix" onclick="constrainFix()">FIX</button>
+    <button id="constrainDistance" onclick="constrainDistance()">DISTANCE</button>
     <button id="constrainHome" class="home" onclick="showHome('constrainHome')">HOME</button>
   </div>
 
   <div id="commandSetAssembly" class="commandSet" style="--menu-color:#7b1fa2">
-    <button id="assemblyInsert" onclick="cadCommand('assemblyInsert')">INSERT</button>
-    <button id="assemblyMate" onclick="cadCommand('assemblyMate')">MATE</button>
-    <button id="assemblyPattern" onclick="cadCommand('assemblyPattern')">PATTERN</button>
-    <button id="assemblyReplace" onclick="cadCommand('assemblyReplace')">REPLACE</button>
-    <button id="assemblyExplode" onclick="cadCommand('assemblyExplode')">EXPLODE</button>
+    <button id="assemblyInsert" onclick="assemblyInsert()">INSERT</button>
+    <button id="assemblyMate" onclick="assemblyMate()">MATE</button>
+    <button id="assemblyPattern" onclick="assemblyPattern()">PATTERN</button>
+    <button id="assemblyReplace" onclick="assemblyReplace()">REPLACE</button>
+    <button id="assemblyExplode" onclick="assemblyExplode()">EXPLODE</button>
     <button id="assemblyHome" class="home" onclick="showHome('assemblyHome')">HOME</button>
   </div>
 
   <div id="commandSetView" class="commandSet" style="--menu-color:#f57c00">
-    <button id="viewFront" onclick="cadCommand('viewFront')">FRONT</button>
-    <button id="viewTop" onclick="cadCommand('viewTop')">TOP</button>
-    <button id="viewSide" onclick="cadCommand('viewSide')">SIDE</button>
-    <button id="viewFit" onclick="cadCommand('viewFit')">FIT</button>
-    <button id="viewSection" onclick="cadCommand('viewSection')">SECTION</button>
+    <button id="cam1" onclick="viewcam1()">CAM!1</button>
+    <button id="cam2" onclick="viewcam2()">CAM2</button>
+    <button id="cam3" onclick="viewcam3()">CAM3</button>
+    <button id="takeScreenshot" onclick="screenshot_now()">SCREENSHOT</button>
+    <button id="takeVideo" onclick="video_now()">VIDEO</button>
     <button id="viewHome" class="home" onclick="showHome('viewHome')">HOME</button>
   </div>
 
   <div id="commandSetSimulate" class="commandSet" style="--menu-color:#00838f">
-    <button id="simulateGravity" onclick="cadCommand('simulateGravity')">GRAVITY</button>
-    <button id="simulatePhysics" onclick="cadCommand('simulatePhysics')">PHYSICS</button>
-    <button id="simulateAnimate" onclick="cadCommand('simulateAnimate')">ANIMATE</button>
-    <button id="simulateRecord" onclick="cadCommand('simulateRecord')">RECORD</button>
-    <button id="simulateStop" onclick="cadCommand('simulateStop')">STOP</button>
+    <button id="simulateGravity" onclick="simulateGravity()">GRAVITY</button>
+    <button id="simulatePhysics" onclick="simulatePhysics()">PHYSICS</button>
+    <button id="simulateAnimate" onclick="simulateAnimate()">ANIMATE</button>
+    <button id="simulateRecord" onclick="simulateRecord()">RECORD</button>
+    <button id="simulateStop" onclick="simulateStop()">STOP</button>
     <button id="simulateHome" class="home" onclick="showHome('simulateHome')">HOME</button>
   </div>
 </div>
@@ -114,26 +123,17 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
   <a id="externalLink1" href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
   <a id="externalLink2" href="https://sketchfab.com/fasteng/" target="_blank" rel="noopener noreferrer">Sketchfab</a>
   <a id="externalLink3" href="https://3dviewer.net" target="_blank" rel="noopener noreferrer">3DViewer</a>
-   <a id="externalLink4" href="https://coinbase.com" target="_blank" rel="noopener noreferrer">Coinbase</a>
-  
+  <a id="externalLink4" href="https://coinbase.com" target="_blank" rel="noopener noreferrer">Coinbase</a>
+
 </div>
-<a-scene debug="true" stats="false" loading-screen="enabled:false">
-  <a-assets>
-    <a-asset-item id="boxx" src="models/cadboxx.glb"  ></a-asset-item>
-    <a-asset-item id="floor" src="models/colored-floor.glb"  ></a-asset-item>
-     <a-asset-item id="meshfloor" src="models/ground-plane_with_mesh.glb"  ></a-asset-item>
+<a-scene debug="true" stats="true" loading-screen="enabled:false" physics="gravity:-10; restitution:0.5;friction:0.1">
 
-  </a-assets>
 
+  <a-entity id="box1" geometry="primitive:box" material="color:#4cc3d9" position="-1 1 -4"></a-entity>
+  <a-entity id="box2" geometry="primitive:box" material="color:#ef2d5e" position="1 1 -4"></a-entity>
   
-  <!--a-entity id="box1" geometry="primitive:box" material="color:#4cc3d9" position="-1 1 -4"></a-entity>
-  <a-entity id="box2" geometry="primitive:box" material="color:#ef2d5e" position="1 1 -4"></a-entity-->
-  <!--a-plane rotation="-90 0 0" width="20" height="20" color="#777"></a-plane>
-    <a-gltf-model src="#boxx" position="0 0 0" rotation="0 0 0" scale="1 1 1" static-body ></a-gltf-model-->
-<a-gltf-model src="#floor" position="0 0 0" rotation="0 0 0" scale="1 1 1" static-body ></a-gltf-model>
-<a-entity gltf-model="models/ground-plane_with_mesh.glb" position="0 0 0" rotation="0 0 0" scale="1 1 1" static-body ></a-entity>
-
   
+  <a-plane rotation="-90 0 0" width="20" height="20" color="#777"></a-plane>
   <a-sky color="#65a9e8"></a-sky>
 </a-scene>
 <script>
@@ -177,10 +177,8 @@ function showHome(buttonId){
   console.log('HOME:', buttonId);
 }
 
-function cadCommand(commandId){
-  console.log('CADBOXX command:', commandId);
-  // Add the CADBOXX action for this unique command ID here.
-}
+
+
 
 // =====================================================
 // CADBOXX COMMAND ACTIONS
@@ -230,15 +228,6 @@ function simulateAnimate() { /* ANIMATE CODE HERE */ }
 function simulateRecord() { /* RECORD CODE HERE */ }
 function simulateStop() { /* STOP CODE HERE */ }
 
-
 </script>
-
-<!--
-
-we need some entity selectors here
--->
-
-
-
 </body>
 </html>
