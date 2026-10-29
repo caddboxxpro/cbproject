@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
 <script src="https://unpkg.com/aframe-touch-inspector@1.1.2/dist/aframe-inspector.min.js"></script>
+
+
+	
 <style>
 html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
 #cadboxxMenus{position:fixed;left:10px;bottom:175px;z-index:100000}
@@ -21,8 +24,12 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
 #externalLinks a{width:78px;height:45px;padding:0;border:1px solid rgba(255,255,255,.35);border-radius:4px;background:rgba(45,45,45,.72);color:#ddd;font:bold 12px Arial,sans-serif;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.25)}
 #externalLinks a:hover{background:rgba(65,65,65,.82)}
 </style>
+
+	
 </head>
 <body>
+
+	
 <div id="cadboxxMenus">
   <div id="menuSelectors">
     <button id="menuCreate" style="background:#d32f2f" onclick="showSubMenu('subCreate')">CREATE</button>
@@ -34,9 +41,10 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
   </div>
   <div id="subMenus">
     <div id="subCreate" class="subMenu" style="--menu-color:#d32f2f">
-      <button onclick="showCommandSet('commandSetCreate')">CREATE 1</button><button onclick="showCommandSet('commandSetEdit')">CREATE 2</button><button onclick="showCommandSet('commandSetConstrain')">CREATE 3</button><button onclick="showCommandSet('commandSetAssembly')">CREATE 4</button><button onclick="showCommandSet('commandSetView')">CREATE 5</button><button onclick="showCommandSet('commandSetSimulate')">CREATE 6</button>
+      <button onclick="showCommandSet('commandSetCreate')">GLB GEOMETRY</button><button onclick="showCommandSet('commandSetEdit')">GLB STATIC</button><button onclick="showCommandSet('commandSetConstrain')">NEW GEOMETRY</button><button onclick="showCommandSet('commandSetAssembly')">BBBBBBBBBBB</button><button onclick="showCommandSet('commandSetView')">NNNNNNNNN</button><button onclick="showCommandSet('commandSetSimulate')">MMMMMMMMMMMM</button>
     </div>
-    <div id="subEdit" class="subMenu" style="--menu-color:#1976d2">
+	  
+    <!--div id="subEdit" class="subMenu" style="--menu-color:#1976d2">
       <button onclick="showCommandSet('commandSetCreate')">EDIT 1</button><button onclick="showCommandSet('commandSetEdit')">EDIT 2</button><button onclick="showCommandSet('commandSetConstrain')">EDIT 3</button><button onclick="showCommandSet('commandSetAssembly')">EDIT 4</button><button onclick="showCommandSet('commandSetView')">EDIT 5</button><button onclick="showCommandSet('commandSetSimulate')">EDIT 6</button>
     </div>
     <div id="subConstrain" class="subMenu" style="--menu-color:#388e3c">
@@ -50,7 +58,7 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
     </div>
     <div id="subSimulate" class="subMenu" style="--menu-color:#00838f">
       <button onclick="showCommandSet('commandSetCreate')">SIMULATE 1</button><button onclick="showCommandSet('commandSetEdit')">SIMULATE 2</button><button onclick="showCommandSet('commandSetConstrain')">SIMULATE 3</button><button onclick="showCommandSet('commandSetAssembly')">SIMULATE 4</button><button onclick="showCommandSet('commandSetView')">SIMULATE 5</button><button onclick="showCommandSet('commandSetSimulate')">SIMULATE 6</button>
-    </div>
+  </div-->
   </div>
 </div>
 
