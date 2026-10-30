@@ -40,10 +40,24 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
     <button id="menuSimulate" style="background:#00838f" onclick="showSubMenu('subSimulate')">SIMULATE</button>
   </div>
   <div id="subMenus">
-    <div id="subCreate" class="subMenu" style="--menu-color:#d32f2f">
-      <button onclick="showCommandSet('commandSetCreate1')">GLB GEOMETRY</button><button onclick="showCommandSet('commandSetCreate2')">GLB STATIC</button><button onclick="showCommandSet('commandSetCreate3')">NEW GEOMETRY</button><button onclick="showCommandSet('commandSetCreate4')">cmd set 4</button><button onclick="showCommandSet('commandSetCreate5')">cmd set 5</button><button onclick="showCommandSet('commandSetCreate6')">cmd set 6</button>
+    <div id="subCreate1" class="subMenu" style="--menu-color:#d32f2f">
+      <button onclick="showCommandSet('commandSetCreate1')">1 GEOMETRY</button><button onclick="showCommandSet('commandSetCreate2')">GLB STATIC</button><button onclick="showCommandSet('commandSetCreate3')">NEW GEOMETRY</button><button onclick="showCommandSet('commandSetCreate4')">cmd set 4</button><button onclick="showCommandSet('commandSetCreate5')">cmd set 5</button><button onclick="showCommandSet('commandSetCreate6')">cmd set 6</button>
     </div>
-	  
+	  <div id="subCreate2" class="subMenu" style="--menu-color:#d32f2f">
+      <button onclick="showCommandSet('commandSetCreate2')">2 GEOMETRY</button><button onclick="showCommandSet('commandSetCreate2')">GLB STATIC</button><button onclick="showCommandSet('commandSetCreate3')">NEW GEOMETRY</button><button onclick="showCommandSet('commandSetCreate4')">cmd set 4</button><button onclick="showCommandSet('commandSetCreate5')">cmd set 5</button><button onclick="showCommandSet('commandSetCreate6')">cmd set 6</button>
+    </div>
+	<div id="subCreate3" class="subMenu" style="--menu-color:#d32f2f">
+      <button onclick="showCommandSet('commandSetCreate3')">3 GEOMETRY</button><button onclick="showCommandSet('commandSetCreate3')">GLB STATIC</button><button onclick="showCommandSet('commandSetCreate3')">NEW GEOMETRY</button><button onclick="showCommandSet('commandSetCreate4')">cmd set 4</button><button onclick="showCommandSet('commandSetCreate5')">cmd set 5</button><button onclick="showCommandSet('commandSetCreate6')">cmd set 6</button>
+    </div>
+	  <div id="subCreate4" class="subMenu" style="--menu-color:#d32f2f">
+      <button onclick="showCommandSet('commandSetCreate4')">4 GEOMETRY</button><button onclick="showCommandSet('commandSetCreate4')">GLB STATIC</button><button onclick="showCommandSet('commandSetCreate3')">NEW GEOMETRY</button><button onclick="showCommandSet('commandSetCreate4')">cmd set 4</button><button onclick="showCommandSet('commandSetCreate5')">cmd set 5</button><button onclick="showCommandSet('commandSetCreate6')">cmd set 6</button>
+    </div>
+	<div id="subCreate5" class="subMenu" style="--menu-color:#d32f2f">
+      <button onclick="showCommandSet('commandSetCreate5')">5 GEOMETRY</button><button onclick="showCommandSet('commandSetCreate5')">GLB STATIC</button><button onclick="showCommandSet('commandSetCreate3')">NEW GEOMETRY</button><button onclick="showCommandSet('commandSetCreate4')">cmd set 4</button><button onclick="showCommandSet('commandSetCreate5')">cmd set 5</button><button onclick="showCommandSet('commandSetCreate6')">cmd set 6</button>
+    </div>
+	  <div id="subCreate6" class="subMenu" style="--menu-color:#d32f2f">
+      <button onclick="showCommandSet('commandSetCreate6')">6 GEOMETRY</button><button onclick="showCommandSet('commandSetCreate6')">GLB STATIC</button><button onclick="showCommandSet('commandSetCreate3')">NEW GEOMETRY</button><button onclick="showCommandSet('commandSetCreate4')">cmd set 4</button><button onclick="showCommandSet('commandSetCreate5')">cmd set 5</button><button onclick="showCommandSet('commandSetCreate6')">cmd set 6</button>
+    </div>
     <!--div id="subEdit" class="subMenu" style="--menu-color:#1976d2">
       <button onclick="showCommandSet('commandSetCreate')">EDIT 1</button><button onclick="showCommandSet('commandSetEdit')">EDIT 2</button><button onclick="showCommandSet('commandSetConstrain')">EDIT 3</button><button onclick="showCommandSet('commandSetAssembly')">EDIT 4</button><button onclick="showCommandSet('commandSetView')">EDIT 5</button><button onclick="showCommandSet('commandSetSimulate')">EDIT 6</button>
     </div>
@@ -168,7 +182,8 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
 </div>
 <a-scene debug="true" stats="true" loading-screen="enabled:false">
 
-	<a-gltf-model id="ground" src="https://cdn.glitch.global/2a3af8bb-e7b2-4e50-8ce2-68e3e8cf4538/coloredfloor.glb?v=1683611162825" static-body></a-gltf-model>
+	<a-gltf-model id="ground" src="models/floor.glb" position static-body></a-gltf-model>
+	<a-gltf-model id="colored-ground" src="models/floor.glb" position static-body></a-gltf-model>
 
         <a-entity id="planeboxxx" position="0 0 0" scale="1 1 1">
             <a-entity id="planeboxx" position="0 0 0">
