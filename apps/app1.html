@@ -41,7 +41,7 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
   </div>
   <div id="subMenus">
     <div id="subCreate" class="subMenu" style="--menu-color:#d32f2f">
-      <button onclick="showCommandSet('commandSetCreate')">GLB GEOMETRY</button><button onclick="showCommandSet('commandSetEdit')">GLB STATIC</button><button onclick="showCommandSet('commandSetConstrain')">NEW GEOMETRY</button><button onclick="showCommandSet('commandSetAssembly')">BBBBBBBBBBB</button><button onclick="showCommandSet('commandSetView')">NNNNNNNNN</button><button onclick="showCommandSet('commandSetSimulate')">MMMMMMMMMMMM</button>
+      <button onclick="showCommandSet('commandSetCreate1')">GLB GEOMETRY</button><button onclick="showCommandSet('commandSetEdit')">GLB STATIC</button><button onclick="showCommandSet('commandSetConstrain')">NEW GEOMETRY</button><button onclick="showCommandSet('commandSetAssembly')">BBBBBBBBBBB</button><button onclick="showCommandSet('commandSetView')">NNNNNNNNN</button><button onclick="showCommandSet('commandSetSimulate')">MMMMMMMMMMMM</button>
     </div>
 	  
     <!--div id="subEdit" class="subMenu" style="--menu-color:#1976d2">
@@ -64,11 +64,11 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
 
 <div id="commandSets">
   <div id="commandSetCreate1" class="commandSet" style="--menu-color:#d32f2f">
-    <button id="createAddPart" onclick="cadCommand('createAddPart')">ADD PART</button>
-    <button id="createImport" onclick="cadCommand('createImport')">IMPORT</button>
-    <button id="createDraw" onclick="cadCommand('createDraw')">DRAW</button>
-    <button id="createExtrude" onclick="cadCommand('createExtrude')">EXTRUDE</button>
-    <button id="createFinish" onclick="cadCommand('createFinish')">FINISH</button>
+    <button id="createAddglbcube" onclick="cadCommand('createAddglbcube')">Cube GLB</button>
+    <button id="createAddglbsphere" onclick="cadCommand('createAddglbsphere')">Sphere GLB</button>
+    <button id="createAddglbcylinder" onclick="cadCommand('createAddglbcylinder')">Cyl GLB</button>
+    <button id="createAddglbcone" onclick="cadCommand('createAddglbcone')">Cone GLB</button>
+    <button id="createAddglbshape" onclick="cadCommand('createAddglbshape')">Shape GLB</button>
     <button id="createHome" class="home" onclick="showHome('createHome')">HOME</button>
   </div>
 
